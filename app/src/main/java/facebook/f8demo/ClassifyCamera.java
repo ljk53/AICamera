@@ -1,57 +1,37 @@
 package facebook.f8demo;
 
 import android.Manifest;
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.ImageFormat;
-import android.graphics.PixelFormat;
 import android.graphics.SurfaceTexture;
-import android.hardware.camera2.CameraAccessException;
-import android.hardware.camera2.CameraCaptureSession;
-import android.hardware.camera2.CameraCharacteristics;
-import android.hardware.camera2.CameraDevice;
-import android.hardware.camera2.CameraManager;
-import android.hardware.camera2.CameraMetadata;
-import android.hardware.camera2.CaptureRequest;
-import android.hardware.camera2.TotalCaptureResult;
+import android.hardware.camera2.*;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Handler;
-import android.os.HandlerThread;
+import android.os.*;
 import android.support.annotation.NonNull;
-import android.util.Size;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.Surface;
-import android.view.TextureView;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.util.Size;
+import android.view.*;
 import android.widget.TextView;
 import android.widget.Toast;
+import facebook.f8demo.R;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static android.view.View.SYSTEM_UI_FLAG_IMMERSIVE;
 
 public class ClassifyCamera extends AppCompatActivity {
-    private static final String TAG = "F8DEMO";
+    private static final String TAG = "ClassifyCamera";
     private static final int REQUEST_CAMERA_PERMISSION = 200;
+
+    private static final int IMAGE_WIDTH = 448;
+    private static final int IMAGE_HEIGHT = 448;
 
     private TextureView textureView;
     private String cameraId;
@@ -68,19 +48,22 @@ public class ClassifyCamera extends AppCompatActivity {
     private Image image = null;
     private boolean run_HWC = false;
 
-
     static {
         System.loadLibrary("native-lib");
     }
 
-    public native String classificationFromCaffe2(int h, int w, byte[] Y, byte[] U, byte[] V,
-                                                  int rowStride, int pixelStride, boolean r_hwc);
-    public native void initCaffe2(AssetManager mgr);
+    public native void initModel(AssetManager mgr);
+    public native void setDebugDirectory(String directory);
+    public native String classification(int h, int w, byte[] Y, byte[] U, byte[] V, int rowStride, int pixelStride, boolean r_hwc);
+
     private class SetUpNeuralNetwork extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void[] v) {
             try {
-                initCaffe2(mgr);
+                String directory = Environment.getExternalStorageDirectory().getAbsolutePath();
+                Log.d(TAG, "Debug directory: " + directory);
+                setDebugDirectory(directory);
+                initModel(mgr);
                 predictedClass = "Neural net loaded! Inferring...";
             } catch (Exception e) {
                 Log.d(TAG, "Couldn't load neural network.");
@@ -199,9 +182,7 @@ public class ClassifyCamera extends AppCompatActivity {
             assert texture != null;
             texture.setDefaultBufferSize(imageDimension.getWidth(), imageDimension.getHeight());
             Surface surface = new Surface(texture);
-            int width = 227;
-            int height = 227;
-            ImageReader reader = ImageReader.newInstance(width, height, ImageFormat.YUV_420_888, 4);
+            ImageReader reader = ImageReader.newInstance(IMAGE_WIDTH, IMAGE_HEIGHT, ImageFormat.YUV_420_888, 4);
             ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
                 @Override
                 public void onImageAvailable(ImageReader reader) {
@@ -228,8 +209,7 @@ public class ClassifyCamera extends AppCompatActivity {
                         Ubuffer.get(U);
                         Vbuffer.get(V);
 
-                        predictedClass = classificationFromCaffe2(h, w, Y, U, V,
-                                rowStride, pixelStride, run_HWC);
+                        predictedClass = classification(h, w, Y, U, V, rowStride, pixelStride, run_HWC);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -237,7 +217,11 @@ public class ClassifyCamera extends AppCompatActivity {
                                 processing = false;
                             }
                         });
-
+                        Log.d(TAG, "Debug: height: " + h + " width: " + w
+                                + " rstride: " + image.getPlanes()[0].getRowStride() + " pstride: " + image.getPlanes()[0].getPixelStride()
+                                + " rstride: " + image.getPlanes()[1].getRowStride() + " pstride: " + image.getPlanes()[1].getPixelStride()
+                                + " rstride: " + image.getPlanes()[2].getRowStride() + " pstride: " + image.getPlanes()[2].getPixelStride()
+                        );
                     } finally {
                         if (image != null) {
                             image.close();
