@@ -9,4 +9,9 @@
 /* #undef C10_USE_GFLAGS */
 #define C10_DISABLE_NUMA
 
+// Used by libtorch mobile build to enable features that are not enabled by
+// caffe2 mobile build. Should only use it when necessary as we are committed
+// to converging libtorch and caffe2 mobile builds and removing it eventually.
+#define FEATURE_TORCH_MOBILE
+
 #endif // C10_MACROS_CMAKE_MACROS_H_

@@ -1,11 +1,11 @@
 #pragma once
 #include <torch/csrc/jit/script/error_report.h>
 #include <torch/csrc/jit/script/tree.h>
+#include <torch/csrc/jit/script/strtod.h>
+#include <c10/util/string_utils.h>
 
 #include <functional>
 #include <string>
-#include <c10/util/C++17.h>
-#include <c10/util/string_utils.h>
 
 namespace torch {
 namespace jit {
@@ -24,6 +24,7 @@ namespace script {
 //
 // Decl  = Decl(List<Param> params, Maybe<Expr> return_type)            TK_DECL
 // Def   = Def(Ident name, Decl decl, List<Stmt> body)                  TK_DEF
+// ClassDef = ClassDef(Ident name, List<Def> body)                      TK_CLASS_DEF
 //
 // Stmt  = If(Expr cond, List<Stmt> true_body, List<Stmt> false_body)   TK_IF
 //       | For(List<Expr> targets, List<Expr> iters, List<Stmt> body)   TK_FOR
@@ -109,6 +110,9 @@ struct TreeView {
   }
   int kind() const {
     return tree_->kind();
+  }
+  void dump() const {
+    std::cout << tree_;
   }
 
  protected:
@@ -292,6 +296,8 @@ struct Expr : public TreeView {
       case '&':
       case '^':
       case '|':
+      case TK_LIST_COMP:
+      case TK_DOTS:
         return;
       default:
         throw ErrorReport(tree)
@@ -402,6 +408,28 @@ struct Def : public TreeView {
   }
 };
 
+struct ClassDef : public TreeView {
+  explicit ClassDef(const TreeRef& tree) : TreeView(tree) {
+    tree->match(TK_CLASS_DEF);
+  }
+  ClassDef withName(std::string new_name) const {
+    auto new_ident = Ident::create(name().range(), std::move(new_name));
+    return create(range(), new_ident, defs());
+  }
+  Ident name() const {
+    return Ident(subtree(0));
+  }
+  List<Def> defs() const {
+    return List<Def>(subtree(1));
+  }
+  static ClassDef create(
+      const SourceRange& range,
+      const Ident& name,
+      const List<Def>& defs) {
+    return ClassDef(Compound::create(TK_CLASS_DEF, range, {name, defs}));
+  }
+};
+
 ////////////////////////////////////////////////////////////////////////////////
 // Statements
 ////////////////////////////////////////////////////////////////////////////////
@@ -471,6 +499,30 @@ struct For : public Stmt {
       const List<Expr>& itrs,
       const List<Stmt>& body) {
     return For(Compound::create(TK_FOR, range, {targets, itrs, body}));
+  }
+};
+
+// TODO: supports only single comprehension for now
+struct ListComp : public Expr {
+  explicit ListComp(const TreeRef& tree) : Expr(tree) {
+    tree->match(TK_LIST_COMP);
+  }
+  Expr elt() const {
+    return Expr(subtree(0));
+  }
+  Expr target() const {
+    return Expr(subtree(1));
+  }
+  Expr iter() const {
+    return Expr(subtree(2));
+  }
+  // TODO: no ifs for now
+  static ListComp create(
+      const SourceRange& range,
+      const Expr& elt,
+      const Expr& target,
+      const Expr& iter) {
+    return ListComp(Compound::create(TK_LIST_COMP, range, {elt, target, iter}));
   }
 };
 
@@ -593,6 +645,15 @@ struct Pass : public Stmt {
   }
 };
 
+struct Dots : public Expr {
+  explicit Dots(const TreeRef& tree) : Expr(tree) {
+    tree_->match(TK_DOTS);
+  }
+  static Dots create(const SourceRange& range) {
+    return Dots(Compound::create(TK_DOTS, range, {}));
+  }
+};
+
 struct ExprStmt : public Stmt {
   explicit ExprStmt(const TreeRef& tree) : Stmt(tree) {
     tree_->match(TK_EXPR_STMT);
@@ -690,8 +751,9 @@ struct Const : public Expr {
     return c10::stoll(subtree(0)->stringValue());
   }
   double asFloatingPoint() const {
-    return SharedParserData::strtod_c(
-        subtree(0)->stringValue().c_str(), nullptr);
+    char* dummy;
+    return torch::jit::script::strtod_c(
+        subtree(0)->stringValue().c_str(), &dummy);
   }
   const std::string& text() const {
     return subtree(0)->stringValue();
@@ -784,7 +846,7 @@ struct SliceExpr : public Expr {
 
  private:
   Expr createInt(int value) const {
-    return Expr(Const::create(range(), c10::to_string(value)));
+    return Expr(Const::create(range(), std::to_string(value)));
   }
 };
 

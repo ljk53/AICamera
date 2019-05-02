@@ -45,7 +45,7 @@ static_assert(
 /* #undef CAFFE2_USE_TRT */
 
 #ifndef USE_NUMPY
-/* #undef USE_NUMPY */
+#define USE_NUMPY
 #endif
 
 #ifndef EIGEN_MPL2_ONLY
@@ -54,16 +54,16 @@ static_assert(
 
 // Useful build settings that are recorded in the compiled binary
 #define CAFFE2_BUILD_STRINGS { \
-  {"CXX_FLAGS", "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mfpu=vfpv3-d16 -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security -stdlib=libc++ -frtti -fexceptions  -Wno-deprecated -fvisibility-inlines-hidden -O2 -fPIC -Wno-narrowing -Wall -Wextra -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -Wno-invalid-partial-specialization -Wno-typedef-redefinition -Wno-unknown-warning-option -Wno-unused-private-field -Wno-inconsistent-missing-override -Wno-aligned-allocation-unavailable -Wno-c++14-extensions -Wno-constexpr-not-const -Wno-missing-braces -Qunused-arguments -Wno-unused-but-set-variable -Wno-maybe-uninitialized"}, \
+  {"CXX_FLAGS", "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mfpu=vfpv3-d16 -fno-addrsig -march=armv7-a -mthumb -mfpu=neon -Wa,--noexecstack -Wformat -Werror=format-security -stdlib=libc++ -frtti -fexceptions  -Wno-deprecated -fvisibility-inlines-hidden -O2 -fPIC -Wno-narrowing -Wall -Wextra -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -Wno-invalid-partial-specialization -Wno-typedef-redefinition -Wno-unknown-warning-option -Wno-unused-private-field -Wno-inconsistent-missing-override -Wno-aligned-allocation-unavailable -Wno-c++14-extensions -Wno-constexpr-not-const -Wno-missing-braces -Qunused-arguments -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math"}, \
   {"BUILD_TYPE", "Release"}, \
   {"BLAS", "Eigen"}, \
-  {"USE_CUDA", "False"}, \
+  {"USE_CUDA", "OFF"}, \
   {"USE_NCCL", "OFF"}, \
   {"USE_MPI", "OFF"}, \
   {"USE_GFLAGS", "OFF"}, \
   {"USE_GLOG", "OFF"}, \
   {"USE_GLOO", ""}, \
-  {"USE_NNPACK", "OFF"}, \
+  {"USE_NNPACK", "ON"}, \
   {"USE_OPENMP", "OFF"}, \
   {"FORCE_FALLBACK_CUDA_MPI", ""}, \
   {"HAS_MKL_DNN", ""}, \
@@ -76,7 +76,7 @@ static_assert(
   {"USE_EIGEN_FOR_BLAS", "ON"}, \
   {"USE_LITE_PROTO", ""}, \
   {"USE_MKL", ""}, \
-  {"USE_MKLDNN", "OFF"}, \
+  {"USE_MKLDNN", ""}, \
   {"USE_NVTX", ""}, \
   {"USE_TRT", ""}, \
   {"DISABLE_NUMA", "1"},   \

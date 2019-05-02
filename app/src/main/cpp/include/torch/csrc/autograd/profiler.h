@@ -17,6 +17,7 @@
 #include <ctime>
 #endif
 
+#include <torch/csrc/autograd/record_function.h>
 #include <torch/csrc/jit/code_template.h>
 
 typedef struct CUevent_st* CUDAEventStub;
@@ -90,20 +91,31 @@ inline int64_t getTime() {
 #endif
 }
 
-enum class EventKind : uint16_t {
+// Old GCC versions generate warnings incorrectly
+// see https://stackoverflow.com/questions/2463113/g-c0x-enum-class-compiler-warnings
+#ifndef _MSC_VER
+#  pragma GCC diagnostic push
+#  pragma GCC diagnostic ignored "-Wattributes"
+#endif
+enum class TORCH_API ProfilerState {
+    Disabled,
+    CPU, // CPU-only profiling
+    CUDA, // CPU + CUDA events
+    NVTX,  // only emit NVTX markers
+};
+
+enum class TORCH_API EventKind : uint16_t {
   Mark,
   PushRange,
   PopRange
 };
+#ifndef _MSC_VER
+#  pragma GCC diagnostic pop
+#endif
 
 struct TORCH_API Event final {
-  Event(EventKind kind, std::string name, uint16_t thread_id, bool record_cuda)
-  : owned_name_(new std::string(std::move(name)))
-  , name_ptr_(owned_name_->c_str())
-  , kind_(kind)
-  , thread_id_(thread_id) { record(record_cuda); }
-  Event(EventKind kind, const char* name, uint16_t thread_id, bool record_cuda)
-  : name_ptr_(name)
+  Event(EventKind kind, StringView name, uint16_t thread_id, bool record_cuda)
+  : name_(std::move(name))
   , kind_(kind)
   , thread_id_(thread_id) { record(record_cuda); }
 
@@ -117,7 +129,7 @@ struct TORCH_API Event final {
     throw std::runtime_error("unknown EventKind");
   }
   const char* name() const {
-    return name_ptr_;
+    return name_.str();
   }
   uint16_t thread_id() const {
     return thread_id_;
@@ -134,11 +146,7 @@ struct TORCH_API Event final {
   }
 private:
   int64_t cpu_ns_ = 0; // signed to allow for negative intervals, initialized for safety.
-  // std::string is a very large object (usually around 32B),
-  // and this field is used only for user-created ranges, so
-  // it's better to save on size of Events.
-  std::unique_ptr<std::string> owned_name_;
-  const char * name_ptr_;
+  StringView name_;
   EventKind kind_;
   uint16_t thread_id_;
   int device_ = -1;
@@ -191,31 +199,10 @@ struct RangeEventList {
   std::forward_list<block_type> blocks;
 };
 
-enum class ProfilerState {
-    Disabled,
-    CPU, // CPU-only profiling
-    CUDA, // CPU + CUDA events
-    NVTX,  // only emit NVTX markers
-};
-
 TORCH_API RangeEventList& getEventList();
 TORCH_API void mark(std::string name, bool include_cuda = true);
 TORCH_API void pushRange(std::string name);
 TORCH_API void popRange();
-
-struct TORCH_API RecordFunction {
-  explicit RecordFunction(Function* fn);
-
-  explicit RecordFunction(std::string name);
-
-  explicit RecordFunction(const char* name);
-
-  explicit RecordFunction(const char* name, int64_t current_sequence_nr);
-
-  ~RecordFunction() {
-    popRange();
-  }
-};
 
 using thread_event_lists = std::vector<std::vector<Event>>;
 // NOTE: changing profiler modes is **NOT THREAD SAFE**. You should ensure that

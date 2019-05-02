@@ -7,8 +7,9 @@
 #include "caffe2/core/logging.h"
 #include "caffe2/core/operator.h"
 #include "caffe2/utils/math.h"
+#include "caffe2/core/c10_operator.h"
 
-C10_DECLARE_CAFFE2_OPERATOR(BBoxTransformOp)
+C10_DECLARE_CAFFE2_OPERATOR(BBoxTransform)
 
 namespace caffe2 {
 

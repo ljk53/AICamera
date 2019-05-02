@@ -3,7 +3,6 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include <c10/util/C++17.h>
 
 namespace torch {
 namespace jit {
@@ -30,7 +29,7 @@ struct TemplateEnv {
   // Add a number 'v' to the map at key 'k'
   template <typename T>
   void d(const std::string& k, const T& v) {
-    strings_[k] = c10::to_string(v);
+    strings_[k] = std::to_string(v);
     lists_.erase(k);
   }
 
@@ -98,7 +97,7 @@ struct TemplateEnv {
 struct CodeTemplate {
   /* implicit */ CodeTemplate(std::string t) : template_text(std::move(t)) {}
 
-  std::string format(const TemplateEnv& env) {
+  std::string format(const TemplateEnv& env) const {
     std::stringstream out;
     size_t pos = 0;
     size_t indent = 0;
@@ -142,7 +141,7 @@ struct CodeTemplate {
 
  private:
   using string_list = std::vector<std::string>;
-  char charAt(size_t p) {
+  char charAt(size_t p) const {
     if (p >= template_text.size())
       throw std::logic_error("EOS found in key");
     return template_text[p];
@@ -151,7 +150,7 @@ struct CodeTemplate {
       size_t pos,
       std::ostream& k,
       bool& comma_before,
-      bool& comma_after) {
+      bool& comma_after) const {
     comma_before = false;
     comma_after = false;
     pos++;
@@ -174,7 +173,7 @@ struct CodeTemplate {
       return parseIdent(pos, k);
     }
   }
-  size_t parseIdent(size_t pos, std::ostream& k) {
+  size_t parseIdent(size_t pos, std::ostream& k) const {
     while (pos < template_text.size() &&
            (isalnum(template_text[pos]) || template_text[pos] == '_')) {
       k << template_text[pos];
@@ -186,7 +185,7 @@ struct CodeTemplate {
       std::ostream& out,
       const string_list& strings,
       bool comma_before,
-      bool comma_after) {
+      bool comma_after) const {
     if (comma_before && strings.size() > 0)
       out << ", ";
     for (size_t i = 0; i < strings.size(); ++i) {
@@ -201,7 +200,7 @@ struct CodeTemplate {
   // leading or trailing newlines when the input string does not have leading
   // or trailing newlines. It's the responsibility of the calling function
   // to indent correctly in the context.
-  void emitIndent(std::ostream& out, size_t indent) {
+  void emitIndent(std::ostream& out, size_t indent) const {
     for (size_t i = 0; i < indent; ++i) {
       out << " ";
     }
@@ -209,7 +208,7 @@ struct CodeTemplate {
   void emitStringWithIndents(
       std::ostream& out,
       size_t indent,
-      const std::string& str) {
+      const std::string& str) const {
     for (auto c : str) {
       out << c;
       if (c == '\n') {
@@ -220,7 +219,7 @@ struct CodeTemplate {
   void emitLinesIndented(
       std::stringstream& out,
       size_t indent,
-      const string_list& strings) {
+      const string_list& strings) const {
     for (size_t i = 0; i < strings.size(); ++i) {
       if (i > 0)
         emitIndent(out, indent);

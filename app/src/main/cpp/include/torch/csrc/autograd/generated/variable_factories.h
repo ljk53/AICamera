@@ -1,9 +1,10 @@
 #pragma once
-#if 0
+
 // @generated from tools/autograd/templates/variable_factories.h
 
 #include <ATen/ATen.h>
 #include <c10/util/ArrayRef.h>
+#include <c10/util/qint8.h>
 #include <torch/csrc/autograd/variable.h>
 #include <torch/csrc/jit/tracer.h>
 
@@ -124,7 +125,7 @@ inline at::Tensor _cudnn_init_dropout_state(double dropout, bool train, int64_t 
   }
   at::Tensor tensor = at::_cudnn_init_dropout_state(dropout, train, dropout_seed, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -148,7 +149,7 @@ inline at::Tensor arange(at::Scalar end, const at::TensorOptions & options = {})
   }
   at::Tensor tensor = at::arange(end, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -173,7 +174,7 @@ inline at::Tensor arange(at::Scalar start, at::Scalar end, const at::TensorOptio
   }
   at::Tensor tensor = at::arange(start, end, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -199,7 +200,7 @@ inline at::Tensor arange(at::Scalar start, at::Scalar end, at::Scalar step, cons
   }
   at::Tensor tensor = at::arange(start, end, step, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -223,7 +224,7 @@ inline at::Tensor bartlett_window(int64_t window_length, const at::TensorOptions
   }
   at::Tensor tensor = at::bartlett_window(window_length, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -248,7 +249,7 @@ inline at::Tensor bartlett_window(int64_t window_length, bool periodic, const at
   }
   at::Tensor tensor = at::bartlett_window(window_length, periodic, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -272,7 +273,7 @@ inline at::Tensor blackman_window(int64_t window_length, const at::TensorOptions
   }
   at::Tensor tensor = at::blackman_window(window_length, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -297,7 +298,7 @@ inline at::Tensor blackman_window(int64_t window_length, bool periodic, const at
   }
   at::Tensor tensor = at::blackman_window(window_length, periodic, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -321,7 +322,33 @@ inline at::Tensor empty(at::IntArrayRef size, const at::TensorOptions & options 
   }
   at::Tensor tensor = at::empty(size, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
+  if (tracer_state) {
+    jit::tracer::setTracingState(std::move(tracer_state));
+    jit::tracer::addOutput(node, result);
+  }
+  return result;
+}
+inline at::Tensor _empty_affine_quantized(at::IntArrayRef size, const at::TensorOptions & options = {}, double scale = 1, int64_t zero_point = 0) {
+  torch::jit::Node* node = nullptr;
+  std::shared_ptr<jit::tracer::TracingState> tracer_state;
+  if (jit::tracer::isTracing()) {
+    tracer_state = jit::tracer::getTracingState();
+    at::Symbol op_name;
+    op_name = jit::Symbol::fromQualString("aten::_empty_affine_quantized");
+    node = tracer_state->graph->create(op_name, /*num_outputs=*/0);
+    jit::tracer::recordSourceLocation(node);
+    jit::tracer::addInputs(node, "size", size);
+    jit::tracer::addInputs(node, "options", options);
+    jit::tracer::addInputs(node, "scale", scale);
+    jit::tracer::addInputs(node, "zero_point", zero_point);
+    tracer_state->graph->insertNode(node);
+  
+    jit::tracer::setTracingState(nullptr);
+  }
+  at::Tensor tensor = at::_empty_affine_quantized(size, at::TensorOptions(options).is_variable(false), scale, zero_point);
+  at::Tensor result =
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -344,7 +371,7 @@ inline at::Tensor empty_like(const at::Tensor & self) {
   }
   at::Tensor tensor = at::empty_like(self, self.options().is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/false);
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/false);
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -368,7 +395,7 @@ inline at::Tensor empty_like(const at::Tensor & self, const at::TensorOptions & 
   }
   at::Tensor tensor = at::empty_like(self, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -393,7 +420,7 @@ inline at::Tensor empty_strided(at::IntArrayRef size, at::IntArrayRef stride, co
   }
   at::Tensor tensor = at::empty_strided(size, stride, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -417,7 +444,7 @@ inline at::Tensor eye(int64_t n, const at::TensorOptions & options = {}) {
   }
   at::Tensor tensor = at::eye(n, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -442,7 +469,7 @@ inline at::Tensor eye(int64_t n, int64_t m, const at::TensorOptions & options = 
   }
   at::Tensor tensor = at::eye(n, m, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -467,7 +494,7 @@ inline at::Tensor full(at::IntArrayRef size, at::Scalar fill_value, const at::Te
   }
   at::Tensor tensor = at::full(size, fill_value, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -491,7 +518,7 @@ inline at::Tensor full_like(const at::Tensor & self, at::Scalar fill_value) {
   }
   at::Tensor tensor = at::full_like(self, fill_value, self.options().is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/false);
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/false);
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -516,7 +543,33 @@ inline at::Tensor full_like(const at::Tensor & self, at::Scalar fill_value, cons
   }
   at::Tensor tensor = at::full_like(self, fill_value, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
+  if (tracer_state) {
+    jit::tracer::setTracingState(std::move(tracer_state));
+    jit::tracer::addOutput(node, result);
+  }
+  return result;
+}
+inline at::Tensor from_file(std::string filename, c10::optional<bool> shared = c10::nullopt, c10::optional<int64_t> size = 0, const at::TensorOptions & options = {}) {
+  torch::jit::Node* node = nullptr;
+  std::shared_ptr<jit::tracer::TracingState> tracer_state;
+  if (jit::tracer::isTracing()) {
+    tracer_state = jit::tracer::getTracingState();
+    at::Symbol op_name;
+    op_name = jit::Symbol::fromQualString("aten::from_file");
+    node = tracer_state->graph->create(op_name, /*num_outputs=*/0);
+    jit::tracer::recordSourceLocation(node);
+    jit::tracer::addInputs(node, "filename", filename);
+    jit::tracer::addInputs(node, "shared", shared);
+    jit::tracer::addInputs(node, "size", size);
+    jit::tracer::addInputs(node, "options", options);
+    tracer_state->graph->insertNode(node);
+  
+    jit::tracer::setTracingState(nullptr);
+  }
+  at::Tensor tensor = at::from_file(filename, shared, size, at::TensorOptions(options).is_variable(false));
+  at::Tensor result =
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -540,7 +593,7 @@ inline at::Tensor hann_window(int64_t window_length, const at::TensorOptions & o
   }
   at::Tensor tensor = at::hann_window(window_length, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -565,7 +618,7 @@ inline at::Tensor hann_window(int64_t window_length, bool periodic, const at::Te
   }
   at::Tensor tensor = at::hann_window(window_length, periodic, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -589,7 +642,7 @@ inline at::Tensor hamming_window(int64_t window_length, const at::TensorOptions 
   }
   at::Tensor tensor = at::hamming_window(window_length, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -614,7 +667,7 @@ inline at::Tensor hamming_window(int64_t window_length, bool periodic, const at:
   }
   at::Tensor tensor = at::hamming_window(window_length, periodic, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -640,7 +693,7 @@ inline at::Tensor hamming_window(int64_t window_length, bool periodic, double al
   }
   at::Tensor tensor = at::hamming_window(window_length, periodic, alpha, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -667,7 +720,7 @@ inline at::Tensor hamming_window(int64_t window_length, bool periodic, double al
   }
   at::Tensor tensor = at::hamming_window(window_length, periodic, alpha, beta, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -693,14 +746,14 @@ inline at::Tensor linspace(at::Scalar start, at::Scalar end, int64_t steps = 100
   }
   at::Tensor tensor = at::linspace(start, end, steps, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
   }
   return result;
 }
-inline at::Tensor logspace(at::Scalar start, at::Scalar end, int64_t steps = 100, const at::TensorOptions & options = {}) {
+inline at::Tensor logspace(at::Scalar start, at::Scalar end, int64_t steps = 100, double base = 10.0, const at::TensorOptions & options = {}) {
   torch::jit::Node* node = nullptr;
   std::shared_ptr<jit::tracer::TracingState> tracer_state;
   if (jit::tracer::isTracing()) {
@@ -712,14 +765,15 @@ inline at::Tensor logspace(at::Scalar start, at::Scalar end, int64_t steps = 100
     jit::tracer::addInputs(node, "start", start);
     jit::tracer::addInputs(node, "end", end);
     jit::tracer::addInputs(node, "steps", steps);
+    jit::tracer::addInputs(node, "base", base);
     jit::tracer::addInputs(node, "options", options);
     tracer_state->graph->insertNode(node);
   
     jit::tracer::setTracingState(nullptr);
   }
-  at::Tensor tensor = at::logspace(start, end, steps, at::TensorOptions(options).is_variable(false));
+  at::Tensor tensor = at::logspace(start, end, steps, base, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -743,7 +797,7 @@ inline at::Tensor ones(at::IntArrayRef size, const at::TensorOptions & options =
   }
   at::Tensor tensor = at::ones(size, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -766,7 +820,7 @@ inline at::Tensor ones_like(const at::Tensor & self) {
   }
   at::Tensor tensor = at::ones_like(self, self.options().is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/false);
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/false);
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -790,7 +844,7 @@ inline at::Tensor ones_like(const at::Tensor & self, const at::TensorOptions & o
   }
   at::Tensor tensor = at::ones_like(self, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -814,7 +868,7 @@ inline at::Tensor scalar_tensor(at::Scalar s, const at::TensorOptions & options 
   }
   at::Tensor tensor = at::scalar_tensor(s, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -838,7 +892,7 @@ inline at::Tensor rand(at::IntArrayRef size, const at::TensorOptions & options =
   }
   at::Tensor tensor = at::rand(size, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -863,7 +917,7 @@ inline at::Tensor rand(at::IntArrayRef size, at::Generator * generator, const at
   }
   at::Tensor tensor = at::rand(size, generator, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -886,7 +940,7 @@ inline at::Tensor rand_like(const at::Tensor & self) {
   }
   at::Tensor tensor = at::rand_like(self, self.options().is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/false);
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/false);
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -910,7 +964,7 @@ inline at::Tensor rand_like(const at::Tensor & self, const at::TensorOptions & o
   }
   at::Tensor tensor = at::rand_like(self, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -935,7 +989,7 @@ inline at::Tensor randint(int64_t high, at::IntArrayRef size, const at::TensorOp
   }
   at::Tensor tensor = at::randint(high, size, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -961,7 +1015,7 @@ inline at::Tensor randint(int64_t high, at::IntArrayRef size, at::Generator * ge
   }
   at::Tensor tensor = at::randint(high, size, generator, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -987,7 +1041,7 @@ inline at::Tensor randint(int64_t low, int64_t high, at::IntArrayRef size, const
   }
   at::Tensor tensor = at::randint(low, high, size, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1014,7 +1068,7 @@ inline at::Tensor randint(int64_t low, int64_t high, at::IntArrayRef size, at::G
   }
   at::Tensor tensor = at::randint(low, high, size, generator, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1038,7 +1092,7 @@ inline at::Tensor randint_like(const at::Tensor & self, int64_t high) {
   }
   at::Tensor tensor = at::randint_like(self, high, self.options().is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/false);
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/false);
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1063,7 +1117,7 @@ inline at::Tensor randint_like(const at::Tensor & self, int64_t low, int64_t hig
   }
   at::Tensor tensor = at::randint_like(self, low, high, self.options().is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/false);
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/false);
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1088,7 +1142,7 @@ inline at::Tensor randint_like(const at::Tensor & self, int64_t high, const at::
   }
   at::Tensor tensor = at::randint_like(self, high, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1114,7 +1168,7 @@ inline at::Tensor randint_like(const at::Tensor & self, int64_t low, int64_t hig
   }
   at::Tensor tensor = at::randint_like(self, low, high, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1138,7 +1192,7 @@ inline at::Tensor randn(at::IntArrayRef size, const at::TensorOptions & options 
   }
   at::Tensor tensor = at::randn(size, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1163,7 +1217,7 @@ inline at::Tensor randn(at::IntArrayRef size, at::Generator * generator, const a
   }
   at::Tensor tensor = at::randn(size, generator, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1186,7 +1240,7 @@ inline at::Tensor randn_like(const at::Tensor & self) {
   }
   at::Tensor tensor = at::randn_like(self, self.options().is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/false);
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/false);
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1210,7 +1264,7 @@ inline at::Tensor randn_like(const at::Tensor & self, const at::TensorOptions & 
   }
   at::Tensor tensor = at::randn_like(self, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1234,7 +1288,7 @@ inline at::Tensor randperm(int64_t n, const at::TensorOptions & options = {}) {
   }
   at::Tensor tensor = at::randperm(n, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1259,7 +1313,7 @@ inline at::Tensor randperm(int64_t n, at::Generator * generator, const at::Tenso
   }
   at::Tensor tensor = at::randperm(n, generator, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1285,7 +1339,7 @@ inline at::Tensor range(at::Scalar start, at::Scalar end, at::Scalar step = 1, c
   }
   at::Tensor tensor = at::range(start, end, step, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1310,7 +1364,7 @@ inline at::Tensor range(at::Scalar start, at::Scalar end, const at::TensorOption
   }
   at::Tensor tensor = at::range(start, end, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1334,7 +1388,7 @@ inline at::Tensor zeros(at::IntArrayRef size, const at::TensorOptions & options 
   }
   at::Tensor tensor = at::zeros(size, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1357,7 +1411,7 @@ inline at::Tensor zeros_like(const at::Tensor & self) {
   }
   at::Tensor tensor = at::zeros_like(self, self.options().is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/false);
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/false);
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1381,7 +1435,7 @@ inline at::Tensor zeros_like(const at::Tensor & self, const at::TensorOptions & 
   }
   at::Tensor tensor = at::zeros_like(self, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1405,7 +1459,7 @@ inline at::Tensor sparse_coo_tensor(at::IntArrayRef size, const at::TensorOption
   }
   at::Tensor tensor = at::sparse_coo_tensor(size, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1430,7 +1484,7 @@ inline at::Tensor sparse_coo_tensor(const at::Tensor & indices, const at::Tensor
   }
   at::Tensor tensor = at::sparse_coo_tensor(indices, values, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1456,7 +1510,7 @@ inline at::Tensor sparse_coo_tensor(const at::Tensor & indices, const at::Tensor
   }
   at::Tensor tensor = at::sparse_coo_tensor(indices, values, size, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1482,7 +1536,7 @@ inline at::Tensor _sparse_coo_tensor_unsafe(const at::Tensor & indices, const at
   }
   at::Tensor tensor = at::_sparse_coo_tensor_unsafe(indices, values, size, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1508,7 +1562,7 @@ inline at::Tensor _sparse_coo_tensor_with_dims(int64_t sparse_dim, int64_t dense
   }
   at::Tensor tensor = at::_sparse_coo_tensor_with_dims(sparse_dim, dense_dim, size, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1536,7 +1590,7 @@ inline at::Tensor _sparse_coo_tensor_with_dims_and_tensors(int64_t sparse_dim, i
   }
   at::Tensor tensor = at::_sparse_coo_tensor_with_dims_and_tensors(sparse_dim, dense_dim, size, indices, values, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1562,7 +1616,7 @@ inline at::Tensor tril_indices(int64_t row, int64_t col, int64_t offset = 0, con
   }
   at::Tensor tensor = at::tril_indices(row, col, offset, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1588,7 +1642,7 @@ inline at::Tensor triu_indices(int64_t row, int64_t col, int64_t offset = 0, con
   }
   at::Tensor tensor = at::triu_indices(row, col, offset, at::TensorOptions(options).is_variable(false));
   at::Tensor result =
-    autograd::make_variable(tensor, /*requires_grad=*/options.requires_grad());
+    autograd::make_variable_consuming(std::move(tensor), /*requires_grad=*/options.requires_grad());
   if (tracer_state) {
     jit::tracer::setTracingState(std::move(tracer_state));
     jit::tracer::addOutput(node, result);
@@ -1597,4 +1651,3 @@ inline at::Tensor triu_indices(int64_t row, int64_t col, int64_t offset = 0, con
 }
 
 } // namespace torch
-#endif

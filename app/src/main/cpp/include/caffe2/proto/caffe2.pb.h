@@ -1696,6 +1696,18 @@ class CAFFE2_API Argument : public ::google::protobuf::Message /* @@protoc_inser
   const ::google::protobuf::RepeatedPtrField< ::caffe2::TensorProto >&
       tensors() const;
 
+  // repeated .caffe2.QTensorProto qtensors = 12;
+  int qtensors_size() const;
+  void clear_qtensors();
+  static const int kQtensorsFieldNumber = 12;
+  ::caffe2::QTensorProto* mutable_qtensors(int index);
+  ::google::protobuf::RepeatedPtrField< ::caffe2::QTensorProto >*
+      mutable_qtensors();
+  const ::caffe2::QTensorProto& qtensors(int index) const;
+  ::caffe2::QTensorProto* add_qtensors();
+  const ::google::protobuf::RepeatedPtrField< ::caffe2::QTensorProto >&
+      qtensors() const;
+
   // optional string name = 1;
   bool has_name() const;
   void clear_name();
@@ -1787,6 +1799,7 @@ class CAFFE2_API Argument : public ::google::protobuf::Message /* @@protoc_inser
   ::google::protobuf::RepeatedPtrField< ::std::string> strings_;
   ::google::protobuf::RepeatedPtrField< ::caffe2::NetDef > nets_;
   ::google::protobuf::RepeatedPtrField< ::caffe2::TensorProto > tensors_;
+  ::google::protobuf::RepeatedPtrField< ::caffe2::QTensorProto > qtensors_;
   ::google::protobuf::internal::ArenaStringPtr name_;
   ::google::protobuf::internal::ArenaStringPtr s_;
   ::caffe2::NetDef* n_;
@@ -5204,6 +5217,36 @@ inline const ::google::protobuf::RepeatedPtrField< ::caffe2::NetDef >&
 Argument::nets() const {
   // @@protoc_insertion_point(field_list:caffe2.Argument.nets)
   return nets_;
+}
+
+// repeated .caffe2.QTensorProto qtensors = 12;
+inline int Argument::qtensors_size() const {
+  return qtensors_.size();
+}
+inline void Argument::clear_qtensors() {
+  qtensors_.Clear();
+}
+inline ::caffe2::QTensorProto* Argument::mutable_qtensors(int index) {
+  // @@protoc_insertion_point(field_mutable:caffe2.Argument.qtensors)
+  return qtensors_.Mutable(index);
+}
+inline ::google::protobuf::RepeatedPtrField< ::caffe2::QTensorProto >*
+Argument::mutable_qtensors() {
+  // @@protoc_insertion_point(field_mutable_list:caffe2.Argument.qtensors)
+  return &qtensors_;
+}
+inline const ::caffe2::QTensorProto& Argument::qtensors(int index) const {
+  // @@protoc_insertion_point(field_get:caffe2.Argument.qtensors)
+  return qtensors_.Get(index);
+}
+inline ::caffe2::QTensorProto* Argument::add_qtensors() {
+  // @@protoc_insertion_point(field_add:caffe2.Argument.qtensors)
+  return qtensors_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::caffe2::QTensorProto >&
+Argument::qtensors() const {
+  // @@protoc_insertion_point(field_list:caffe2.Argument.qtensors)
+  return qtensors_;
 }
 
 // -------------------------------------------------------------------

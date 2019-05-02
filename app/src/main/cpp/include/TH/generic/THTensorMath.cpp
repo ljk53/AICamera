@@ -21,12 +21,13 @@
 // sense (rather than just having cut the file down the middle, which is
 // what I did when I split these up originally).
 
+#if !defined(TH_REAL_IS_BOOL) /* non bool only part */
 
 // Should wrap if the value (a) has a different sign than the divisor (b), but is not 0.
 static inline bool modulo_wrap(scalar_t a, scalar_t b) {
   return (a != 0) && (a < 0) != (b < 0);
 }
-#if 0
+
 void THTensor_(bitor)(THTensor *r_, THTensor *t, scalar_t value)
 {
 #if defined(TH_REAL_IS_FLOAT) || defined(TH_REAL_IS_DOUBLE) || defined(TH_REAL_IS_HALF)
@@ -208,6 +209,26 @@ void THTensor_(cmul)(THTensor *r_, THTensor *t, THTensor *src)
   if (serial_path) {
     TH_TENSOR_APPLY3(scalar_t, r_, scalar_t, t, scalar_t, src, *r__data = *t_data * *src_data;);
   }
+}
+
+scalar_t THTensor_(powOne)(scalar_t x, scalar_t y) {
+#if defined(TH_REAL_IS_FLOAT) || defined(TH_REAL_IS_HALF)
+  return powf(x, y);
+#elif defined(TH_REAL_IS_DOUBLE)
+  return pow(x, y);
+#else
+  THArgCheck(y >= 0, 1,
+      "Integers to negative integer powers are not allowed");
+  scalar_t result = 1;
+  while (y) {
+    if (y & 1) {
+       result *= x;
+    }
+    y /= 2;
+    x *= x;
+  }
+  return result;
+#endif
 }
 
 void THTensor_(pow)(THTensor *r_, THTensor *t, scalar_t value)
@@ -505,7 +526,7 @@ void THTensor_(cfmod)(THTensor *r_, THTensor *t, THTensor *src)
 #endif
   }
 }
-#endif
+
 void THTensor_(cremainder)(THTensor *r_, THTensor *t, THTensor *src)
 {
   THTensor_(resizeAs)(r_, t);
@@ -563,7 +584,7 @@ void THTensor_(cremainder)(THTensor *r_, THTensor *t, THTensor *src)
 
   }
 }
-#if 0
+
 void THTensor_(cbitand)(THTensor *r_, THTensor *t, THTensor *src)
 {
 #if defined(TH_REAL_IS_FLOAT) || defined(TH_REAL_IS_DOUBLE) || defined(TH_REAL_IS_HALF)
@@ -923,7 +944,7 @@ void THTensor_(match)(THTensor *r_, THTensor *m1, THTensor *m2, scalar_t gain)
   c10::raw::intrusive_ptr::decref(m1);
   c10::raw::intrusive_ptr::decref(m2);
 }
-#endif
+
 void THTensor_(addmm)(THTensor *r_, scalar_t beta, THTensor *t, scalar_t alpha, THTensor *m1, THTensor *m2)
 {
   char transpose_r, transpose_m1, transpose_m2;
@@ -1066,7 +1087,7 @@ void THTensor_(addmm)(THTensor *r_, scalar_t beta, THTensor *t, scalar_t alpha, 
   if(r__ != r_)
     THTensor_(freeCopyTo)(r__, r_);
 }
-#if 0
+
 void THTensor_(addr)(THTensor *r_, scalar_t beta, THTensor *t, scalar_t alpha, THTensor *vec1, THTensor *vec2)
 {
   if( (THTensor_nDimensionLegacyNoScalars(vec1) != 1) || (THTensor_nDimensionLegacyNoScalars(vec2) != 1) )
@@ -1176,6 +1197,7 @@ void THTensor_(addbmm)(THTensor *result, scalar_t beta, THTensor *t, scalar_t al
   c10::raw::intrusive_ptr::decref(matrix1);
   c10::raw::intrusive_ptr::decref(matrix2);
 }
-#endif
+
+#endif /* !defined(TH_REAL_IS_BOOL) */
 
 #endif /* TH_GENERIC_FILE */

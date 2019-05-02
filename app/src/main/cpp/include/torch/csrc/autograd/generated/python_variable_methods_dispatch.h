@@ -374,6 +374,16 @@ inline Tensor dispatch_any(Tensor & self, int64_t dim, bool keepdim) {
   AutoNoGIL no_gil;
   return self.any(dim, keepdim);
 }
+inline Tensor dispatch_argmax(Tensor & self, c10::optional<int64_t> dim, bool keepdim) {
+
+  AutoNoGIL no_gil;
+  return self.argmax(dim, keepdim);
+}
+inline Tensor dispatch_argmin(Tensor & self, c10::optional<int64_t> dim, bool keepdim) {
+
+  AutoNoGIL no_gil;
+  return self.argmin(dim, keepdim);
+}
 inline Tensor dispatch_argsort(Tensor & self, int64_t dim, bool descending) {
 
   AutoNoGIL no_gil;
@@ -479,21 +489,6 @@ inline Tensor dispatch_bmm(Tensor & self, const Tensor & mat2) {
   AutoNoGIL no_gil;
   return self.bmm(mat2);
 }
-inline std::tuple<Tensor,Tensor> dispatch_btrifact(Tensor & self, bool pivot) {
-
-  AutoNoGIL no_gil;
-  return self.btrifact(pivot);
-}
-inline std::tuple<Tensor,Tensor,Tensor> dispatch_btrifact_with_info(Tensor & self, bool pivot) {
-
-  AutoNoGIL no_gil;
-  return self.btrifact_with_info(pivot);
-}
-inline Tensor dispatch_btrisolve(Tensor & self, const Tensor & LU_data, const Tensor & LU_pivots) {
-
-  AutoNoGIL no_gil;
-  return self.btrisolve(LU_data, LU_pivots);
-}
 inline Tensor dispatch_cauchy_(Tensor & self, double median, double sigma, Generator * generator) {
 
   AutoNoGIL no_gil;
@@ -513,6 +508,11 @@ inline Tensor dispatch_cholesky(Tensor & self, bool upper) {
 
   AutoNoGIL no_gil;
   return self.cholesky(upper);
+}
+inline Tensor dispatch_cholesky_inverse(Tensor & self, bool upper) {
+
+  AutoNoGIL no_gil;
+  return self.cholesky_inverse(upper);
 }
 inline Tensor dispatch_cholesky_solve(Tensor & self, const Tensor & input2, bool upper) {
 
@@ -584,7 +584,7 @@ inline Tensor dispatch_cosh_(Tensor & self) {
   AutoNoGIL no_gil;
   return self.cosh_();
 }
-inline Tensor dispatch_cross(Tensor & self, const Tensor & other, int64_t dim) {
+inline Tensor dispatch_cross(Tensor & self, const Tensor & other, c10::optional<int64_t> dim) {
 
   AutoNoGIL no_gil;
   return self.cross(other, dim);
@@ -618,6 +618,11 @@ inline int64_t dispatch_dense_dim(Tensor & self) {
 
   AutoNoGIL no_gil;
   return self.dense_dim();
+}
+inline Tensor dispatch_dequantize(Tensor & self) {
+
+  AutoNoGIL no_gil;
+  return self.dequantize();
 }
 inline Tensor dispatch_det(Tensor & self) {
 
@@ -844,10 +849,10 @@ inline Tensor dispatch_frac_(Tensor & self) {
   AutoNoGIL no_gil;
   return self.frac_();
 }
-inline Tensor dispatch_gather(Tensor & self, int64_t dim, const Tensor & index) {
+inline Tensor dispatch_gather(Tensor & self, int64_t dim, const Tensor & index, bool sparse_grad) {
 
   AutoNoGIL no_gil;
-  return self.gather(dim, index);
+  return self.gather(dim, index, sparse_grad);
 }
 inline Tensor dispatch_ge(Tensor & self, const Tensor & other) {
 
@@ -888,11 +893,6 @@ inline Tensor dispatch_ger(Tensor & self, const Tensor & vec2) {
 
   AutoNoGIL no_gil;
   return self.ger(vec2);
-}
-inline std::tuple<Tensor,Tensor> dispatch_gesv(Tensor & self, const Tensor & A) {
-
-  AutoNoGIL no_gil;
-  return self.gesv(A);
 }
 inline Tensor dispatch_gt(Tensor & self, const Tensor & other) {
 
@@ -989,6 +989,11 @@ inline Tensor dispatch_indices(Tensor & self) {
   AutoNoGIL no_gil;
   return self.indices();
 }
+inline Tensor dispatch_int_repr(Tensor & self) {
+
+  AutoNoGIL no_gil;
+  return self.int_repr();
+}
 inline Tensor dispatch_inverse(Tensor & self) {
 
   AutoNoGIL no_gil;
@@ -1069,10 +1074,20 @@ inline Tensor dispatch_le_(Tensor & self, Scalar other) {
   AutoNoGIL no_gil;
   return self.le_(other);
 }
+inline Tensor dispatch_lerp(Tensor & self, const Tensor & end, const Tensor & weight) {
+
+  AutoNoGIL no_gil;
+  return self.lerp(end, weight);
+}
 inline Tensor dispatch_lerp(Tensor & self, const Tensor & end, Scalar weight) {
 
   AutoNoGIL no_gil;
   return self.lerp(end, weight);
+}
+inline Tensor dispatch_lerp_(Tensor & self, const Tensor & end, const Tensor & weight) {
+
+  AutoNoGIL no_gil;
+  return self.lerp_(end, weight);
 }
 inline Tensor dispatch_lerp_(Tensor & self, const Tensor & end, Scalar weight) {
 
@@ -1173,6 +1188,11 @@ inline Tensor dispatch_lt_(Tensor & self, Scalar other) {
 
   AutoNoGIL no_gil;
   return self.lt_(other);
+}
+inline Tensor dispatch_lu_solve(Tensor & self, const Tensor & LU_data, const Tensor & LU_pivots) {
+
+  AutoNoGIL no_gil;
+  return self.lu_solve(LU_data, LU_pivots);
 }
 inline Tensor dispatch_masked_fill(Tensor & self, const Tensor & mask, const Tensor & value) {
 
@@ -1434,11 +1454,6 @@ inline Tensor dispatch_polygamma_(Tensor & self, int64_t n) {
   AutoNoGIL no_gil;
   return self.polygamma_(n);
 }
-inline Tensor dispatch_potri(Tensor & self, bool upper) {
-
-  AutoNoGIL no_gil;
-  return self.potri(upper);
-}
 inline Tensor dispatch_pow(Tensor & self, const Tensor & exponent) {
 
   AutoNoGIL no_gil;
@@ -1499,10 +1514,25 @@ inline Tensor dispatch_put_(Tensor & self, const Tensor & index, const Tensor & 
   AutoNoGIL no_gil;
   return self.put_(index, source, accumulate);
 }
+inline Scalar dispatch_q_scale(Tensor & self) {
+
+  AutoNoGIL no_gil;
+  return self.q_scale();
+}
+inline Scalar dispatch_q_zero_point(Tensor & self) {
+
+  AutoNoGIL no_gil;
+  return self.q_zero_point();
+}
 inline std::tuple<Tensor,Tensor> dispatch_qr(Tensor & self) {
 
   AutoNoGIL no_gil;
   return self.qr();
+}
+inline Tensor dispatch_quantize_linear(Tensor & self, double scale, int64_t zero_point) {
+
+  AutoNoGIL no_gil;
+  return self.quantize_linear(scale, zero_point);
 }
 inline Tensor dispatch_random_(Tensor & self, Generator * generator) {
 
@@ -1573,6 +1603,16 @@ inline Tensor dispatch_repeat(Tensor & self, IntArrayRef repeats) {
 
   AutoNoGIL no_gil;
   return self.repeat(repeats);
+}
+inline Tensor dispatch_repeat_interleave(Tensor & self, const Tensor & repeats, c10::optional<int64_t> dim) {
+
+  AutoNoGIL no_gil;
+  return self.repeat_interleave(repeats, dim);
+}
+inline Tensor dispatch_repeat_interleave(Tensor & self, int64_t repeats, c10::optional<int64_t> dim) {
+
+  AutoNoGIL no_gil;
+  return self.repeat_interleave(repeats, dim);
 }
 inline Tensor dispatch_reshape(Tensor & self, IntArrayRef shape) {
 
@@ -1743,6 +1783,11 @@ inline Tensor dispatch_softmax(Tensor & self, int64_t dim, ScalarType dtype) {
 
   AutoNoGIL no_gil;
   return self.softmax(dim, dtype);
+}
+inline std::tuple<Tensor,Tensor> dispatch_solve(Tensor & self, const Tensor & A) {
+
+  AutoNoGIL no_gil;
+  return self.solve(A);
 }
 inline std::tuple<Tensor,Tensor> dispatch_sort(Tensor & self, int64_t dim, bool descending) {
 
@@ -1939,6 +1984,11 @@ inline Tensor dispatch_to_dense(Tensor & self) {
   AutoNoGIL no_gil;
   return self.to_dense();
 }
+inline Tensor dispatch_to_mkldnn(Tensor & self) {
+
+  AutoNoGIL no_gil;
+  return self.to_mkldnn();
+}
 inline Tensor dispatch_to_sparse(Tensor & self) {
 
   AutoNoGIL no_gil;
@@ -1969,6 +2019,11 @@ inline Tensor dispatch_transpose_(Tensor & self, int64_t dim0, int64_t dim1) {
   AutoNoGIL no_gil;
   return self.transpose_(dim0, dim1);
 }
+inline std::tuple<Tensor,Tensor> dispatch_triangular_solve(Tensor & self, const Tensor & A, bool upper, bool transpose, bool unitriangular) {
+
+  AutoNoGIL no_gil;
+  return self.triangular_solve(A, upper, transpose, unitriangular);
+}
 inline Tensor dispatch_tril(Tensor & self, int64_t diagonal) {
 
   AutoNoGIL no_gil;
@@ -1988,11 +2043,6 @@ inline Tensor dispatch_triu_(Tensor & self, int64_t diagonal) {
 
   AutoNoGIL no_gil;
   return self.triu_(diagonal);
-}
-inline std::tuple<Tensor,Tensor> dispatch_trtrs(Tensor & self, const Tensor & A, bool upper, bool transpose, bool unitriangular) {
-
-  AutoNoGIL no_gil;
-  return self.trtrs(A, upper, transpose, unitriangular);
 }
 inline Tensor dispatch_trunc(Tensor & self) {
 

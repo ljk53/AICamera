@@ -41,7 +41,7 @@ struct ErrorReport : public std::exception {
 
 template <typename T>
 const ErrorReport& operator<<(const ErrorReport& e, const T& t) {
-  e.ss << "error!"; //t;
+  e.ss << t;
   return e;
 }
 
