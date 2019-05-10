@@ -16,8 +16,8 @@
 
 #include "classes.h"
 
-#define IMG_H 224
-#define IMG_W 224
+#define IMG_H 227
+#define IMG_W 227
 #define IMG_C 3
 #define MAX_DATA_SIZE IMG_H * IMG_W * IMG_C
 
@@ -67,7 +67,7 @@ Java_facebook_f8demo_ClassifyCamera_initModel(
     module = torch::jit::load(input);
 
     std::vector<torch::jit::IValue> inputs;
-    inputs.push_back(torch::ones({1, 3, 224, 224}));
+    inputs.push_back(torch::ones({1, IMG_C, IMG_H, IMG_W}));
     at::Tensor output = module->forward(inputs).toTensor();
 
     std::ostringstream out;
@@ -76,7 +76,7 @@ Java_facebook_f8demo_ClassifyCamera_initModel(
 
     return env->NewStringUTF(out.str().c_str());
 #endif
-    std::ifstream input(storage_dir + "/res18.pb");
+    std::ifstream input(storage_dir + "/squeeze.model");
     module = torch::jit::load(input);
 }
 
