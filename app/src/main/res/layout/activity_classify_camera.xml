@@ -12,15 +12,16 @@
 
     <TextView
         android:id="@+id/sample_text"
-        android:layout_gravity="center"
+        android:layout_gravity="top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="top"
         android:background="#AA000000"
         android:text="Loading..."
         android:textAllCaps="true"
         android:textColor="@android:color/white"
         android:textStyle="bold"
+        android:textSize="11pt"
     />
 
 </FrameLayout>
