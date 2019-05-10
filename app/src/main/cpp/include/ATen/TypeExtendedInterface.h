@@ -6,6 +6,7 @@ namespace at {
 struct CAFFE2_API TypeExtendedInterface : public Type {
   explicit TypeExtendedInterface(TensorTypeId type_id, bool is_variable, bool is_undefined)
       : Type(type_id, is_variable, is_undefined) {}
+#if 0
   virtual Tensor & _th_set_(Tensor & self, Storage source) const = 0;
   virtual Tensor & _th_set_(Tensor & self, Storage source, int64_t storage_offset, IntArrayRef size, IntArrayRef stride) const = 0;
   virtual Tensor & _th_set_(Tensor & self, const Tensor & source) const = 0;
@@ -1303,6 +1304,7 @@ struct CAFFE2_API TypeExtendedInterface : public Type {
   virtual Tensor thnn_col2im_backward(const Tensor & grad_output, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride) const = 0;
   virtual Tensor thnn_im2col(const Tensor & self, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride) const = 0;
   virtual Tensor thnn_im2col_backward(const Tensor & grad_output, IntArrayRef input_size, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride) const = 0;
+#endif
 };
 
 } // namespace at

@@ -40,7 +40,7 @@ struct CAFFE2_API TypeDefault : public TypeExtendedInterface {
 
   Storage unsafeStorageFromTH(void * th_pointer, bool retain) const override;
   Tensor unsafeTensorFromTH(void * th_pointer, bool retain) const override;
-
+#if 0
   // example
   // virtual Tensor * add(Tensor & a, Tensor & b) = 0;
   Tensor & _th_set_(Tensor & self, Storage source) const override;
@@ -1756,6 +1756,7 @@ struct CAFFE2_API TypeDefault : public TypeExtendedInterface {
   Tensor thnn_col2im_backward(const Tensor & grad_output, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride) const override;
   Tensor thnn_im2col(const Tensor & self, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride) const override;
   Tensor thnn_im2col_backward(const Tensor & grad_output, IntArrayRef input_size, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride) const override;
+#endif
 };
 
 } // namespace at
