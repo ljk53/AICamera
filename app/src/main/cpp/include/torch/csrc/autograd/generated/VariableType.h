@@ -33,6 +33,7 @@ using c10::optional;
 
 struct TORCH_API VariableType final : public at::TypeDefault {
   VariableType(Context* context, at::TypeExtendedInterface* baseType);
+
   at::Backend backend() const override;
   at::Allocator* allocator() const override;
   at::Device getDeviceFromPtr(void * data) const override;
@@ -55,7 +56,7 @@ struct TORCH_API VariableType final : public at::TypeDefault {
       bool keep_graph,
       bool create_graph) const override;
   void set_data(Tensor & self, Tensor new_data) const override;
-
+#if 0
   Tensor __and__(const Tensor & self, Scalar other) const override;
   Tensor __and__(const Tensor & self, const Tensor & other) const override;
   Tensor & __iand__(Tensor & self, Scalar other) const override;
@@ -1698,6 +1699,13 @@ struct TORCH_API VariableType final : public at::TypeDefault {
   Tensor zeros_like(const Tensor & self) const override;
   Tensor zeros_like(const Tensor & self, const TensorOptions & options) const override;
   Tensor & zeros_out(Tensor & out, IntArrayRef size) const override;
+#endif
+
+  Tensor & copy_(Tensor & self, const Tensor & src, bool non_blocking) const override;
+  Tensor & resize_(Tensor & self, IntArrayRef size) const override;
+  Tensor & resize_as_(Tensor & self, const Tensor & the_template) const override;
+  Tensor detach(const Tensor & self) const override;
+  Tensor & detach_(Tensor & self) const override;
 
 private:
   // checks that t is actually a Variable
@@ -1712,6 +1720,7 @@ private:
   at::TypeExtendedInterface* baseType;
   std::string str;
   size_t id_;
+
 };
 
 }} // namespace torch::autograd

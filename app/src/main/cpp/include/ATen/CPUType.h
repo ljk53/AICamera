@@ -21,7 +21,7 @@ struct CPUType final : public CPUTypeDefault {
   virtual Backend backend() const override;
   virtual const char * toString() const override;
   virtual TypeID ID() const override;
-
+#if 0
   // example
   // virtual Tensor * add(Tensor & a, Tensor & b) override;
   Tensor & _th_set_(Tensor & self, Storage source) const override;
@@ -690,7 +690,7 @@ struct CPUType final : public CPUTypeDefault {
   Tensor upsample_nearest3d(const Tensor & self, IntArrayRef output_size) const override;
   Tensor & upsample_nearest3d_backward_out(Tensor & grad_input, const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size) const override;
   Tensor upsample_nearest3d_backward(const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size) const override;
-
+#endif
  private:
   ScalarType infer_scalar_type(const Tensor & t) const {
     return t.scalar_type();
