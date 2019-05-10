@@ -9,6 +9,7 @@
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
 #include <android/log.h>
+#include <chrono>
 #include "torch/script.h"
 
 #define PROTOBUF_USE_DLLS 1
@@ -145,12 +146,11 @@ Java_facebook_f8demo_ClassifyCamera_classification(
     std::vector<torch::jit::IValue> inputs;
     inputs.push_back(input);
 
-    time_t start, end;
-    time(&start);
+    auto start = std::chrono::system_clock::now();
     at::Tensor output = module->forward(inputs).toTensor();
-    time(&end);
+    auto end = std::chrono::system_clock::now();
 
-    float fps = 1 / difftime(end, start);
+    float fps = 1000 / std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
     total_fps += fps;
     avg_fps = total_fps / iters_fps;
     total_fps -= avg_fps;
@@ -176,10 +176,10 @@ Java_facebook_f8demo_ClassifyCamera_classification(
 
     std::ostringstream stringStream;
     stringStream << avg_fps << " FPS\n";
-    stringStream << output.slice(/*dim=*/1, /*start=*/0, /*end=*/5) << "\n";
+    //stringStream << output.slice(/*dim=*/1, /*start=*/0, /*end=*/5) << "\n";
 
     for (auto j = 0; j < k; ++j) {
-        stringStream << j << ": " << imagenet_classes[max_index[j]] << " - " << max[j] << "\n";
+        stringStream << /*j << ": " <<*/ imagenet_classes[max_index[j]]/* << " - " << max[j]*/ << "\n";
     }
 
     return env->NewStringUTF(stringStream.str().c_str());
