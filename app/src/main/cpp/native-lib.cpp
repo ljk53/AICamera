@@ -10,7 +10,7 @@
 #include <android/asset_manager_jni.h>
 #include <android/log.h>
 #include <chrono>
-#include "torch/script.h"
+#include <torch/csrc/jit/lite/mobile.h>
 
 #define PROTOBUF_USE_DLLS 1
 #define CAFFE2_USE_LITE_PROTO 1
@@ -28,9 +28,11 @@
 
 static std::string storage_dir;
 static std::string debug_file_prefix;
+#if 0
 static float input_data[MAX_DATA_SIZE];
 static std::shared_ptr<torch::jit::script::Module> module;
 static at::Tensor input{torch::zeros({1, IMG_C, IMG_H, IMG_W})};
+#endif
 static int debug_counter;
 
 extern "C" JNIEXPORT void JNICALL
@@ -78,7 +80,9 @@ Java_facebook_f8demo_ClassifyCamera_initModel(
     return env->NewStringUTF(out.str().c_str());
 #endif
     std::ifstream input(storage_dir + "/squeeze.model");
-    module = torch::jit::load(input);
+    //module = torch::jit::load(input);
+    load_model(input);
+    allocate_input_buffer(IMG_C, IMG_H, IMG_W);
 }
 
 float avg_fps = 0.0;
@@ -93,9 +97,10 @@ Java_facebook_f8demo_ClassifyCamera_classification(
         jint h, jint w, jbyteArray Y, jbyteArray U, jbyteArray V,
         jint rowStride, jint pixelStride,
         jboolean infer_HWC) {
-    if (!module) {
+    if (!is_model_loaded() /*!module*/) {
         return env->NewStringUTF("Loading...");
     }
+    float* input_data = input_buffer();
     jbyte * Y_data = env->GetByteArrayElements(Y, 0);
     jbyte * U_data = env->GetByteArrayElements(U, 0);
     jbyte * V_data = env->GetByteArrayElements(V, 0);
@@ -125,7 +130,7 @@ Java_facebook_f8demo_ClassifyCamera_classification(
         }
     }
 
-    memcpy(input.data<float>(), input_data, IMG_H * IMG_W * IMG_C * sizeof(float));
+    //memcpy(input.data<float>(), input_data, IMG_H * IMG_W * IMG_C * sizeof(float));
 
 #if 0
     {
@@ -143,11 +148,12 @@ Java_facebook_f8demo_ClassifyCamera_classification(
     }
 #endif
 
-    std::vector<torch::jit::IValue> inputs;
-    inputs.push_back(input);
+    //std::vector<torch::jit::IValue> inputs;
+    //inputs.push_back(input);
 
     auto start = std::chrono::system_clock::now();
-    at::Tensor output = module->forward(inputs).toTensor();
+    //at::Tensor output = module->forward(inputs).toTensor();
+    run_model();
     auto end = std::chrono::system_clock::now();
 
     float fps = 1000 / std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
@@ -159,7 +165,8 @@ Java_facebook_f8demo_ClassifyCamera_classification(
     float max[k] = {0};
     int max_index[k] = {0};
     // Find the top-k results manually.
-    auto data = output.data<float>();
+    //auto data = output.data<float>();
+    float* data = output_buffer();
     for (auto i = 0; i < 1000; ++i) {
         for (auto j = 0; j < k; ++j) {
             if (data[i] > max[j]) {
@@ -177,9 +184,10 @@ Java_facebook_f8demo_ClassifyCamera_classification(
     std::ostringstream stringStream;
     stringStream << avg_fps << " FPS\n";
     //stringStream << output.slice(/*dim=*/1, /*start=*/0, /*end=*/5) << "\n";
+    stringStream << data[0] << " " << data[1] << " " << data[2] << "\n";
 
     for (auto j = 0; j < k; ++j) {
-        stringStream << /*j << ": " <<*/ imagenet_classes[max_index[j]]/* << " - " << max[j]*/ << "\n";
+        stringStream << j << ": " << imagenet_classes[max_index[j]] << " - " << max[j] << "\n";
     }
 
     return env->NewStringUTF(stringStream.str().c_str());
