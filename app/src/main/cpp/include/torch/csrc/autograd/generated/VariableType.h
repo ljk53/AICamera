@@ -33,7 +33,6 @@ using c10::optional;
 
 struct TORCH_API VariableType final : public at::TypeDefault {
   VariableType(Context* context, at::TypeExtendedInterface* baseType);
-
   at::Backend backend() const override;
   at::Allocator* allocator() const override;
   at::Device getDeviceFromPtr(void * data) const override;
@@ -1720,7 +1719,6 @@ private:
   at::TypeExtendedInterface* baseType;
   std::string str;
   size_t id_;
-
 };
 
 }} // namespace torch::autograd
