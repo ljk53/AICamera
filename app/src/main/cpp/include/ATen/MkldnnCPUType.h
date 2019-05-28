@@ -33,9 +33,12 @@ struct MkldnnCPUType final : public CPUTypeDefault {
   Tensor mkldnn_reshape(const Tensor & self, IntArrayRef shape) const override;
   Tensor relu(const Tensor & self) const override;
   Tensor & relu_(Tensor & self) const override;
+  Tensor sigmoid(const Tensor & self) const override;
+  Tensor & sigmoid_(Tensor & self) const override;
   Tensor clone(const Tensor & self) const override;
   Tensor to_dense(const Tensor & self) const override;
   Tensor mkldnn_reorder_conv2d_weight(const Tensor & self, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups) const override;
+  Tensor view(const Tensor & self, IntArrayRef size) const override;
   Tensor & adaptive_avg_pool2d_out(Tensor & out, const Tensor & self, IntArrayRef output_size) const override;
   Tensor mkldnn_adaptive_avg_pool2d(const Tensor & self, IntArrayRef output_size) const override;
   Tensor & avg_pool2d_out(Tensor & out, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad) const override;
@@ -46,7 +49,7 @@ struct MkldnnCPUType final : public CPUTypeDefault {
     return t.scalar_type();
   }
   ScalarType infer_scalar_type(const TensorList & tl) const {
-    AT_CHECK(tl.size() > 0, "expected a non-empty list of Tensors");
+    TORCH_CHECK(tl.size() > 0, "expected a non-empty list of Tensors");
     return tl[0].scalar_type();
   }
 };

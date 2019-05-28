@@ -10,6 +10,7 @@
 #include <ATen/cuda/ATenCUDAGeneral.h>
 #include <ATen/cuda/CUDADevice.h>
 #include <ATen/cuda/CUDATypeDefault.h>
+#include <ATen/cuda/CUDAContext.h>
 
 #ifdef _MSC_VER
 #ifdef Type
@@ -33,6 +34,8 @@ struct SparseCUDAType final : public CUDATypeDefault {
   Tensor empty(IntArrayRef size, const TensorOptions & options) const override;
   Tensor & log1p_(Tensor & self) const override;
   Tensor & log1p_out(Tensor & out, const Tensor & self) const override;
+  Tensor mm(const Tensor & self, const Tensor & mat2) const override;
+  Tensor & mm_out(Tensor & out, const Tensor & self, const Tensor & mat2) const override;
   Tensor narrow_copy(const Tensor & self, int64_t dim, int64_t start, int64_t length) const override;
   Tensor & _sparse_add_out(Tensor & out, const Tensor & self, const Tensor & other, Scalar alpha) const override;
   Tensor & _sparse_div_zerodim_out(Tensor & out, const Tensor & self, const Tensor & other) const override;
@@ -72,7 +75,7 @@ struct SparseCUDAType final : public CUDATypeDefault {
     return t.scalar_type();
   }
   ScalarType infer_scalar_type(const TensorList & tl) const {
-    AT_CHECK(tl.size() > 0, "expected a non-empty list of Tensors");
+    TORCH_CHECK(tl.size() > 0, "expected a non-empty list of Tensors");
     return tl[0].scalar_type();
   }
 };

@@ -84,7 +84,7 @@ template<> CAFFE2_API ::torch::TensorDef* Arena::CreateMaybeMessage<::torch::Ten
 namespace torch {
 
 enum ProtoVersion {
-  PROTO_VERSION_NEWEST = 3
+  PROTO_VERSION_NEWEST = 5
 };
 CAFFE2_API bool ProtoVersion_IsValid(int value);
 const ProtoVersion ProtoVersion_MIN = PROTO_VERSION_NEWEST;
@@ -906,6 +906,13 @@ class CAFFE2_API ModuleDef : public ::google::protobuf::Message /* @@protoc_inse
   ::torch::RecordRef* mutable_cpp_arena();
   void set_allocated_cpp_arena(::torch::RecordRef* cpp_arena);
 
+  // optional int64 get_state_attribute_id = 10;
+  bool has_get_state_attribute_id() const;
+  void clear_get_state_attribute_id();
+  static const int kGetStateAttributeIdFieldNumber = 10;
+  ::google::protobuf::int64 get_state_attribute_id() const;
+  void set_get_state_attribute_id(::google::protobuf::int64 value);
+
   // optional bool optimize = 8;
   bool has_optimize() const;
   void clear_optimize();
@@ -925,6 +932,8 @@ class CAFFE2_API ModuleDef : public ::google::protobuf::Message /* @@protoc_inse
   void clear_has_name();
   void set_has_optimize();
   void clear_has_optimize();
+  void set_has_get_state_attribute_id();
+  void clear_has_get_state_attribute_id();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
@@ -937,6 +946,7 @@ class CAFFE2_API ModuleDef : public ::google::protobuf::Message /* @@protoc_inse
   ::torch::RecordRef* torchscript_arena_;
   ::torch::RecordRef* pickle_arena_;
   ::torch::RecordRef* cpp_arena_;
+  ::google::protobuf::int64 get_state_attribute_id_;
   bool optimize_;
   friend struct ::protobuf_caffe2_2fproto_2ftorch_2eproto::TableStruct;
 };
@@ -2186,13 +2196,13 @@ inline void ModuleDef::set_allocated_name(::std::string* name) {
 
 // optional bool optimize = 8;
 inline bool ModuleDef::has_optimize() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
+  return (_has_bits_[0] & 0x00000020u) != 0;
 }
 inline void ModuleDef::set_has_optimize() {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000020u;
 }
 inline void ModuleDef::clear_has_optimize() {
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline void ModuleDef::clear_optimize() {
   optimize_ = false;
@@ -2236,6 +2246,30 @@ inline const ::google::protobuf::RepeatedPtrField< ::torch::AttributeDef >&
 ModuleDef::attributes() const {
   // @@protoc_insertion_point(field_list:torch.ModuleDef.attributes)
   return attributes_;
+}
+
+// optional int64 get_state_attribute_id = 10;
+inline bool ModuleDef::has_get_state_attribute_id() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void ModuleDef::set_has_get_state_attribute_id() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void ModuleDef::clear_has_get_state_attribute_id() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void ModuleDef::clear_get_state_attribute_id() {
+  get_state_attribute_id_ = GOOGLE_LONGLONG(0);
+  clear_has_get_state_attribute_id();
+}
+inline ::google::protobuf::int64 ModuleDef::get_state_attribute_id() const {
+  // @@protoc_insertion_point(field_get:torch.ModuleDef.get_state_attribute_id)
+  return get_state_attribute_id_;
+}
+inline void ModuleDef::set_get_state_attribute_id(::google::protobuf::int64 value) {
+  set_has_get_state_attribute_id();
+  get_state_attribute_id_ = value;
+  // @@protoc_insertion_point(field_set:torch.ModuleDef.get_state_attribute_id)
 }
 
 // -------------------------------------------------------------------

@@ -48,7 +48,7 @@ add_library(
 set_target_properties(
     torch
     PROPERTIES IMPORTED_LOCATION
-    ${CMAKE_CURRENT_LIST_DIR}/src/main/jniLibs/${ANDROID_ABI}/libtorch.so
+    ${CMAKE_CURRENT_LIST_DIR}/src/main/jniLibs/${ANDROID_ABI}/libcaffe2.a
     )
 
 include_directories( src/main/cpp/include )

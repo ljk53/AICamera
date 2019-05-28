@@ -1529,10 +1529,10 @@ inline std::tuple<Tensor,Tensor> dispatch_qr(Tensor & self) {
   AutoNoGIL no_gil;
   return self.qr();
 }
-inline Tensor dispatch_quantize_linear(Tensor & self, double scale, int64_t zero_point) {
+inline Tensor dispatch_quantize_linear(Tensor & self, double scale, int64_t zero_point, ScalarType dtype) {
 
   AutoNoGIL no_gil;
-  return self.quantize_linear(scale, zero_point);
+  return self.quantize_linear(scale, zero_point, dtype);
 }
 inline Tensor dispatch_random_(Tensor & self, Generator * generator) {
 

@@ -20,508 +20,6 @@ namespace at {
 
 using native::tensor;
 
-static inline Tensor & _th_set_(Tensor & self, Storage source);
-static inline Tensor & _th_set_(Tensor & self, Storage source, int64_t storage_offset, IntArrayRef size, IntArrayRef stride={});
-static inline Tensor & _th_set_(Tensor & self, const Tensor & source);
-static inline Tensor & _th_set_(Tensor & self);
-static inline Tensor & _th_fill_(Tensor & self, Scalar value);
-static inline Tensor & _th_fill_(Tensor & self, const Tensor & value);
-static inline bool _th_is_set_to(const Tensor & self, const Tensor & tensor);
-static inline Tensor & _th_masked_fill_(Tensor & self, const Tensor & mask, Scalar value);
-static inline Tensor & _th_masked_fill_(Tensor & self, const Tensor & mask, const Tensor & value);
-static inline Tensor & _th_masked_fill_bool_(Tensor & self, const Tensor & mask, Scalar value);
-static inline Tensor & _th_masked_fill_bool_(Tensor & self, const Tensor & mask, const Tensor & value);
-static inline Tensor & _th_masked_scatter_(Tensor & self, const Tensor & mask, const Tensor & source);
-static inline Tensor & _th_masked_scatter_bool_(Tensor & self, const Tensor & mask, const Tensor & source);
-static inline Tensor & _th_masked_select_out(Tensor & result, const Tensor & self, const Tensor & mask);
-static inline Tensor _th_masked_select(const Tensor & self, const Tensor & mask);
-static inline Tensor & _th_masked_select_bool_out(Tensor & result, const Tensor & self, const Tensor & mask);
-static inline Tensor _th_masked_select_bool(const Tensor & self, const Tensor & mask);
-static inline Tensor & _th_nonzero_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_nonzero(const Tensor & self);
-static inline Tensor _th_clone(const Tensor & self);
-static inline Tensor _th_view(const Tensor & self, IntArrayRef size);
-static inline Tensor & _th_resize_as_(Tensor & self, const Tensor & the_template);
-static inline Tensor & _th_index_select_out(Tensor & result, const Tensor & self, int64_t dim, const Tensor & index);
-static inline Tensor _th_index_select(const Tensor & self, int64_t dim, const Tensor & index);
-static inline Tensor & _th_index_copy_(Tensor & self, int64_t dim, const Tensor & index, const Tensor & source);
-static inline Tensor & _th_take_out(Tensor & result, const Tensor & self, const Tensor & index);
-static inline Tensor _th_take(const Tensor & self, const Tensor & index);
-static inline Tensor & _th_put_(Tensor & self, const Tensor & index, const Tensor & source, bool accumulate=false);
-static inline Tensor & _th_index_add_(Tensor & self, int64_t dim, const Tensor & index, const Tensor & source);
-static inline Tensor & _th_index_fill_(Tensor & self, int64_t dim, const Tensor & index, Scalar value);
-static inline Tensor & _th_index_fill_(Tensor & self, int64_t dim, const Tensor & index, const Tensor & value);
-static inline Tensor & _th_unfold_out(Tensor & result, const Tensor & self, int64_t dimension, int64_t size, int64_t step);
-static inline Tensor _th_unfold(const Tensor & self, int64_t dimension, int64_t size, int64_t step);
-static inline Tensor & _th_scatter_(Tensor & self, int64_t dim, const Tensor & index, const Tensor & src);
-static inline Tensor & _th_scatter_(Tensor & self, int64_t dim, const Tensor & index, Scalar value);
-static inline Tensor & _th_scatter_add_(Tensor & self, int64_t dim, const Tensor & index, const Tensor & src);
-static inline Tensor & _th_gather_out(Tensor & result, const Tensor & self, int64_t dim, const Tensor & index);
-static inline Tensor _th_gather(const Tensor & self, int64_t dim, const Tensor & index);
-static inline bool _th_equal(const Tensor & self, const Tensor & other);
-static inline Tensor & _th_and_out(Tensor & result, const Tensor & self, Scalar other);
-static inline Tensor _th_and(const Tensor & self, Scalar other);
-static inline Tensor & _th_and_out(Tensor & result, const Tensor & self, const Tensor & other);
-static inline Tensor _th_and(const Tensor & self, const Tensor & other);
-static inline Tensor & _th_iand_(Tensor & self, Scalar other);
-static inline Tensor & _th_iand_(Tensor & self, const Tensor & other);
-static inline Tensor & _th_or_out(Tensor & result, const Tensor & self, Scalar other);
-static inline Tensor _th_or(const Tensor & self, Scalar other);
-static inline Tensor & _th_or_out(Tensor & result, const Tensor & self, const Tensor & other);
-static inline Tensor _th_or(const Tensor & self, const Tensor & other);
-static inline Tensor & _th_ior_(Tensor & self, Scalar other);
-static inline Tensor & _th_ior_(Tensor & self, const Tensor & other);
-static inline Tensor & _th_xor_out(Tensor & result, const Tensor & self, Scalar other);
-static inline Tensor _th_xor(const Tensor & self, Scalar other);
-static inline Tensor & _th_xor_out(Tensor & result, const Tensor & self, const Tensor & other);
-static inline Tensor _th_xor(const Tensor & self, const Tensor & other);
-static inline Tensor & _th_ixor_(Tensor & self, Scalar other);
-static inline Tensor & _th_ixor_(Tensor & self, const Tensor & other);
-static inline Tensor & _th_lshift_out(Tensor & result, const Tensor & self, Scalar other);
-static inline Tensor _th_lshift(const Tensor & self, Scalar other);
-static inline Tensor & _th_lshift_out(Tensor & result, const Tensor & self, const Tensor & other);
-static inline Tensor _th_lshift(const Tensor & self, const Tensor & other);
-static inline Tensor & _th_ilshift_(Tensor & self, Scalar other);
-static inline Tensor & _th_ilshift_(Tensor & self, const Tensor & other);
-static inline Tensor & _th_rshift_out(Tensor & result, const Tensor & self, Scalar other);
-static inline Tensor _th_rshift(const Tensor & self, Scalar other);
-static inline Tensor & _th_rshift_out(Tensor & result, const Tensor & self, const Tensor & other);
-static inline Tensor _th_rshift(const Tensor & self, const Tensor & other);
-static inline Tensor & _th_irshift_(Tensor & self, Scalar other);
-static inline Tensor & _th_irshift_(Tensor & self, const Tensor & other);
-static inline Tensor & _th_lt_out(Tensor & result, const Tensor & self, Scalar other);
-static inline Tensor _th_lt(const Tensor & self, Scalar other);
-static inline Tensor & _th_lt_out(Tensor & result, const Tensor & self, const Tensor & other);
-static inline Tensor _th_lt(const Tensor & self, const Tensor & other);
-static inline Tensor & _th_lt_(Tensor & self, Scalar other);
-static inline Tensor & _th_lt_(Tensor & self, const Tensor & other);
-static inline Tensor & _th_gt_out(Tensor & result, const Tensor & self, Scalar other);
-static inline Tensor _th_gt(const Tensor & self, Scalar other);
-static inline Tensor & _th_gt_out(Tensor & result, const Tensor & self, const Tensor & other);
-static inline Tensor _th_gt(const Tensor & self, const Tensor & other);
-static inline Tensor & _th_gt_(Tensor & self, Scalar other);
-static inline Tensor & _th_gt_(Tensor & self, const Tensor & other);
-static inline Tensor & _th_le_out(Tensor & result, const Tensor & self, Scalar other);
-static inline Tensor _th_le(const Tensor & self, Scalar other);
-static inline Tensor & _th_le_out(Tensor & result, const Tensor & self, const Tensor & other);
-static inline Tensor _th_le(const Tensor & self, const Tensor & other);
-static inline Tensor & _th_le_(Tensor & self, Scalar other);
-static inline Tensor & _th_le_(Tensor & self, const Tensor & other);
-static inline Tensor & _th_ge_out(Tensor & result, const Tensor & self, Scalar other);
-static inline Tensor _th_ge(const Tensor & self, Scalar other);
-static inline Tensor & _th_ge_out(Tensor & result, const Tensor & self, const Tensor & other);
-static inline Tensor _th_ge(const Tensor & self, const Tensor & other);
-static inline Tensor & _th_ge_(Tensor & self, Scalar other);
-static inline Tensor & _th_ge_(Tensor & self, const Tensor & other);
-static inline Tensor & _th_eq_out(Tensor & result, const Tensor & self, Scalar other);
-static inline Tensor _th_eq(const Tensor & self, Scalar other);
-static inline Tensor & _th_eq_out(Tensor & result, const Tensor & self, const Tensor & other);
-static inline Tensor _th_eq(const Tensor & self, const Tensor & other);
-static inline Tensor & _th_eq_(Tensor & self, Scalar other);
-static inline Tensor & _th_eq_(Tensor & self, const Tensor & other);
-static inline Tensor & _th_ne_out(Tensor & result, const Tensor & self, Scalar other);
-static inline Tensor _th_ne(const Tensor & self, Scalar other);
-static inline Tensor & _th_ne_out(Tensor & result, const Tensor & self, const Tensor & other);
-static inline Tensor _th_ne(const Tensor & self, const Tensor & other);
-static inline Tensor & _th_ne_(Tensor & self, Scalar other);
-static inline Tensor & _th_ne_(Tensor & self, const Tensor & other);
-static inline Tensor & _th_min_out(Tensor & result, const Tensor & self, const Tensor & other);
-static inline Tensor _th_min(const Tensor & self, const Tensor & other);
-static inline Tensor _th_min(const Tensor & self);
-static inline std::tuple<Tensor &,Tensor &> _th_min_out(Tensor & min, Tensor & min_indices, const Tensor & self, int64_t dim, bool keepdim=false);
-static inline std::tuple<Tensor,Tensor> _th_min(const Tensor & self, int64_t dim, bool keepdim=false);
-static inline Tensor & _th_max_out(Tensor & result, const Tensor & self, const Tensor & other);
-static inline Tensor _th_max(const Tensor & self, const Tensor & other);
-static inline Tensor _th_max(const Tensor & self);
-static inline std::tuple<Tensor &,Tensor &> _th_max_out(Tensor & max, Tensor & max_indices, const Tensor & self, int64_t dim, bool keepdim=false);
-static inline std::tuple<Tensor,Tensor> _th_max(const Tensor & self, int64_t dim, bool keepdim=false);
-static inline std::tuple<Tensor &,Tensor &> _th_mode_out(Tensor & values, Tensor & indices, const Tensor & self, int64_t dim=-1, bool keepdim=false);
-static inline std::tuple<Tensor,Tensor> _th_mode(const Tensor & self, int64_t dim=-1, bool keepdim=false);
-static inline std::tuple<Tensor &,Tensor &> _th_sort_out(Tensor & values, Tensor & indices, const Tensor & self, int64_t dim=-1, bool descending=false);
-static inline std::tuple<Tensor,Tensor> _th_sort(const Tensor & self, int64_t dim=-1, bool descending=false);
-static inline std::tuple<Tensor &,Tensor &> _th_topk_out(Tensor & values, Tensor & indices, const Tensor & self, int64_t k, int64_t dim=-1, bool largest=true, bool sorted=true);
-static inline std::tuple<Tensor,Tensor> _th_topk(const Tensor & self, int64_t k, int64_t dim=-1, bool largest=true, bool sorted=true);
-static inline Tensor & _th_abs_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_abs(const Tensor & self);
-static inline Tensor & _th_sigmoid_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_sigmoid(const Tensor & self);
-static inline Tensor & _th_log_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_log(const Tensor & self);
-static inline Tensor & _th_log10_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_log10(const Tensor & self);
-static inline Tensor & _th_log1p_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_log1p(const Tensor & self);
-static inline Tensor & _th_log2_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_log2(const Tensor & self);
-static inline Tensor & _th_lgamma_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_lgamma(const Tensor & self);
-static inline Tensor & _th_lgamma_(Tensor & self);
-static inline Tensor & _th_digamma_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_digamma(const Tensor & self);
-static inline Tensor & _th_digamma_(Tensor & self);
-static inline Tensor & _th_polygamma_out(Tensor & result, int64_t n, const Tensor & self);
-static inline Tensor _th_polygamma(int64_t n, const Tensor & self);
-static inline Tensor & _th_polygamma_(Tensor & self, int64_t n);
-static inline Tensor & _th_exp_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_exp(const Tensor & self);
-static inline Tensor & _th_expm1_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_expm1(const Tensor & self);
-static inline Tensor & _th_cos_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_cos(const Tensor & self);
-static inline Tensor & _th_acos_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_acos(const Tensor & self);
-static inline Tensor & _th_cosh_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_cosh(const Tensor & self);
-static inline Tensor & _th_sin_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_sin(const Tensor & self);
-static inline Tensor & _th_asin_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_asin(const Tensor & self);
-static inline Tensor & _th_sinh_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_sinh(const Tensor & self);
-static inline Tensor & _th_tan_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_tan(const Tensor & self);
-static inline Tensor & _th_atan_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_atan(const Tensor & self);
-static inline Tensor & _th_tanh_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_tanh(const Tensor & self);
-static inline Tensor & _th_erf_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_erf(const Tensor & self);
-static inline Tensor & _th_erfc_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_erfc(const Tensor & self);
-static inline Tensor & _th_erfinv_(Tensor & self);
-static inline Tensor & _th_erfinv_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_erfinv(const Tensor & self);
-static inline Tensor & _th_sqrt_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_sqrt(const Tensor & self);
-static inline Tensor & _th_rsqrt_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_rsqrt(const Tensor & self);
-static inline Tensor & _th_ceil_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_ceil(const Tensor & self);
-static inline Tensor & _th_floor_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_floor(const Tensor & self);
-static inline Tensor & _th_round_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_round(const Tensor & self);
-static inline Tensor & _th_trunc_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_trunc(const Tensor & self);
-static inline Tensor & _th_frac_(Tensor & self);
-static inline Tensor & _th_frac_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_frac(const Tensor & self);
-static inline Tensor & _th_var_out(Tensor & result, const Tensor & self, int64_t dim, bool unbiased=true, bool keepdim=false);
-static inline Tensor _th_var(const Tensor & self, int64_t dim, bool unbiased=true, bool keepdim=false);
-static inline Tensor _th_var(const Tensor & self, bool unbiased=true);
-static inline Tensor & _th_std_out(Tensor & result, const Tensor & self, int64_t dim, bool unbiased=true, bool keepdim=false);
-static inline Tensor _th_std(const Tensor & self, int64_t dim, bool unbiased=true, bool keepdim=false);
-static inline Tensor _th_std(const Tensor & self, bool unbiased=true);
-static inline Tensor & _th_renorm_out(Tensor & result, const Tensor & self, Scalar p, int64_t dim, Scalar maxnorm);
-static inline Tensor _th_renorm(const Tensor & self, Scalar p, int64_t dim, Scalar maxnorm);
-static inline Tensor & _th_renorm_(Tensor & self, Scalar p, int64_t dim, Scalar maxnorm);
-static inline Tensor _th_dist(const Tensor & self, const Tensor & other, Scalar p=2);
-static inline Tensor & _th_reciprocal_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_reciprocal(const Tensor & self);
-static inline Tensor & _th_reciprocal_(Tensor & self);
-static inline Tensor & _th_neg_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_neg(const Tensor & self);
-static inline Tensor & _th_neg_(Tensor & self);
-static inline Tensor & _th_atan2_out(Tensor & result, const Tensor & self, const Tensor & other);
-static inline Tensor _th_atan2(const Tensor & self, const Tensor & other);
-static inline Tensor & _th_atan2_(Tensor & self, const Tensor & other);
-static inline Tensor & _th_pow_out(Tensor & result, const Tensor & self, Scalar exponent);
-static inline Tensor _th_pow(const Tensor & self, Scalar exponent);
-static inline Tensor & _th_pow_out(Tensor & result, const Tensor & self, const Tensor & exponent);
-static inline Tensor _th_pow(const Tensor & self, const Tensor & exponent);
-static inline Tensor & _th_pow_out(Tensor & result, Scalar self, const Tensor & exponent);
-static inline Tensor _th_pow(Scalar self, const Tensor & exponent);
-static inline Tensor & _th_pow_(Tensor & self, Scalar exponent);
-static inline Tensor & _th_pow_(Tensor & self, const Tensor & exponent);
-static inline Tensor & _th_histc_out(Tensor & result, const Tensor & self, int64_t bins=100, Scalar min=0, Scalar max=0);
-static inline Tensor _th_histc(const Tensor & self, int64_t bins=100, Scalar min=0, Scalar max=0);
-static inline Tensor & _th_zero_(Tensor & self);
-static inline Tensor & _th_cumsum_out(Tensor & result, const Tensor & self, int64_t dim);
-static inline Tensor _th_cumsum(const Tensor & self, int64_t dim);
-static inline Tensor & _th_cumprod_out(Tensor & result, const Tensor & self, int64_t dim);
-static inline Tensor _th_cumprod(const Tensor & self, int64_t dim);
-static inline Tensor & _th_sign_out(Tensor & result, const Tensor & self);
-static inline Tensor _th_sign(const Tensor & self);
-static inline Tensor & _th_sign_(Tensor & self);
-static inline Tensor _th_trace(const Tensor & self);
-static inline Tensor & _th_fmod_out(Tensor & result, const Tensor & self, Scalar other);
-static inline Tensor _th_fmod(const Tensor & self, Scalar other);
-static inline Tensor & _th_fmod_out(Tensor & result, const Tensor & self, const Tensor & other);
-static inline Tensor _th_fmod(const Tensor & self, const Tensor & other);
-static inline Tensor & _th_fmod_(Tensor & self, Scalar other);
-static inline Tensor & _th_fmod_(Tensor & self, const Tensor & other);
-static inline Tensor & _th_remainder_out(Tensor & result, const Tensor & self, Scalar other);
-static inline Tensor _th_remainder(const Tensor & self, Scalar other);
-static inline Tensor & _th_remainder_out(Tensor & result, const Tensor & self, const Tensor & other);
-static inline Tensor _th_remainder(const Tensor & self, const Tensor & other);
-static inline Tensor & _th_remainder_(Tensor & self, Scalar other);
-static inline Tensor & _th_remainder_(Tensor & self, const Tensor & other);
-static inline Tensor & _th_clamp_out(Tensor & result, const Tensor & self, Scalar min, Scalar max);
-static inline Tensor _th_clamp(const Tensor & self, Scalar min, Scalar max);
-static inline Tensor & _th_clamp_min_out(Tensor & result, const Tensor & self, Scalar min);
-static inline Tensor _th_clamp_min(const Tensor & self, Scalar min);
-static inline Tensor & _th_clamp_max_out(Tensor & result, const Tensor & self, Scalar max);
-static inline Tensor _th_clamp_max(const Tensor & self, Scalar max);
-static inline Tensor _th_dot(const Tensor & self, const Tensor & tensor);
-static inline Tensor & _th_cross_kernel_out(Tensor & result, const Tensor & self, const Tensor & other, int64_t dim);
-static inline Tensor _th_cross_kernel(const Tensor & self, const Tensor & other, int64_t dim);
-static inline Tensor & _th_diag_out(Tensor & result, const Tensor & self, int64_t diagonal=0);
-static inline Tensor _th_diag(const Tensor & self, int64_t diagonal=0);
-static inline Tensor & _th_addmm_out(Tensor & result, const Tensor & self, const Tensor & mat1, const Tensor & mat2, Scalar beta=1, Scalar alpha=1);
-static inline Tensor _th_addmm(const Tensor & self, const Tensor & mat1, const Tensor & mat2, Scalar beta=1, Scalar alpha=1);
-static inline Tensor & _th_addmm_(Tensor & self, const Tensor & mat1, const Tensor & mat2, Scalar beta=1, Scalar alpha=1);
-static inline Tensor & _th_addmv_out(Tensor & result, const Tensor & self, const Tensor & mat, const Tensor & vec, Scalar beta=1, Scalar alpha=1);
-static inline Tensor _th_addmv(const Tensor & self, const Tensor & mat, const Tensor & vec, Scalar beta=1, Scalar alpha=1);
-static inline Tensor & _th_addmv_(Tensor & self, const Tensor & mat, const Tensor & vec, Scalar beta=1, Scalar alpha=1);
-static inline Tensor & _th_addr_out(Tensor & result, const Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta=1, Scalar alpha=1);
-static inline Tensor _th_addr(const Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta=1, Scalar alpha=1);
-static inline Tensor & _th_addr_(Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta=1, Scalar alpha=1);
-static inline Tensor & _th_ger_out(Tensor & result, const Tensor & self, const Tensor & vec2);
-static inline Tensor _th_ger(const Tensor & self, const Tensor & vec2);
-static inline Tensor & _th_mv_out(Tensor & result, const Tensor & self, const Tensor & vec);
-static inline Tensor _th_mv(const Tensor & self, const Tensor & vec);
-static inline Tensor & _th_mm_out(Tensor & result, const Tensor & self, const Tensor & mat2);
-static inline Tensor _th_mm(const Tensor & self, const Tensor & mat2);
-static inline Tensor & _th_bmm_out(Tensor & result, const Tensor & self, const Tensor & mat2);
-static inline Tensor _th_bmm(const Tensor & self, const Tensor & mat2);
-static inline Tensor & _th_addbmm_out(Tensor & result, const Tensor & self, const Tensor & batch1, const Tensor & batch2, Scalar beta=1, Scalar alpha=1);
-static inline Tensor _th_addbmm(const Tensor & self, const Tensor & batch1, const Tensor & batch2, Scalar beta=1, Scalar alpha=1);
-static inline Tensor & _th_addbmm_(Tensor & self, const Tensor & batch1, const Tensor & batch2, Scalar beta=1, Scalar alpha=1);
-static inline Tensor & _th_baddbmm_out(Tensor & result, const Tensor & self, const Tensor & batch1, const Tensor & batch2, Scalar beta=1, Scalar alpha=1);
-static inline Tensor _th_baddbmm(const Tensor & self, const Tensor & batch1, const Tensor & batch2, Scalar beta=1, Scalar alpha=1);
-static inline Tensor & _th_addcmul_out(Tensor & result, const Tensor & self, const Tensor & tensor1, const Tensor & tensor2, Scalar value=1);
-static inline Tensor _th_addcmul(const Tensor & self, const Tensor & tensor1, const Tensor & tensor2, Scalar value=1);
-static inline Tensor & _th_addcmul_(Tensor & self, const Tensor & tensor1, const Tensor & tensor2, Scalar value=1);
-static inline Tensor & _th_addcdiv_out(Tensor & result, const Tensor & self, const Tensor & tensor1, const Tensor & tensor2, Scalar value=1);
-static inline Tensor _th_addcdiv(const Tensor & self, const Tensor & tensor1, const Tensor & tensor2, Scalar value=1);
-static inline Tensor & _th_addcdiv_(Tensor & self, const Tensor & tensor1, const Tensor & tensor2, Scalar value=1);
-static inline std::tuple<Tensor &,Tensor &> _th_gels_out(Tensor & res1, Tensor & res2, const Tensor & self, const Tensor & A);
-static inline std::tuple<Tensor,Tensor> _th_gels(const Tensor & self, const Tensor & A);
-static inline std::tuple<Tensor &,Tensor &> _th_symeig_out(Tensor & res1, Tensor & res2, const Tensor & self, bool eigenvectors=false, bool upper=true);
-static inline std::tuple<Tensor,Tensor> _th_symeig(const Tensor & self, bool eigenvectors=false, bool upper=true);
-static inline std::tuple<Tensor &,Tensor &> _th_eig_out(Tensor & res1, Tensor & res2, const Tensor & self, bool eigenvectors=false);
-static inline std::tuple<Tensor,Tensor> _th_eig(const Tensor & self, bool eigenvectors=false);
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _th_svd_out(Tensor & res1, Tensor & res2, Tensor & res3, const Tensor & self, bool some=true, bool compute_uv=true);
-static inline std::tuple<Tensor,Tensor,Tensor> _th_svd(const Tensor & self, bool some=true, bool compute_uv=true);
-static inline Tensor & _th_getri_single_out(Tensor & output, const Tensor & self);
-static inline Tensor _th_getri_single(const Tensor & self);
-static inline Tensor & _th_potri_out(Tensor & output, const Tensor & self, bool upper=true);
-static inline Tensor _th_potri(const Tensor & self, bool upper=true);
-static inline std::tuple<Tensor &,Tensor &> _th_pstrf_out(Tensor & res1, Tensor & res2, const Tensor & self, bool upper=true, Scalar tol=-1);
-static inline std::tuple<Tensor,Tensor> _th_pstrf(const Tensor & self, bool upper=true, Scalar tol=-1);
-static inline std::tuple<Tensor &,Tensor &> _th_qr_out(Tensor & res1, Tensor & res2, const Tensor & self);
-static inline std::tuple<Tensor,Tensor> _th_qr(const Tensor & self);
-static inline std::tuple<Tensor &,Tensor &> _th_geqrf_out(Tensor & res1, Tensor & res2, const Tensor & self);
-static inline std::tuple<Tensor,Tensor> _th_geqrf(const Tensor & self);
-static inline Tensor & _th_orgqr_out(Tensor & result, const Tensor & self, const Tensor & input2);
-static inline Tensor _th_orgqr(const Tensor & self, const Tensor & input2);
-static inline Tensor & _th_ormqr_out(Tensor & result, const Tensor & self, const Tensor & input2, const Tensor & input3, bool left=true, bool transpose=false);
-static inline Tensor _th_ormqr(const Tensor & self, const Tensor & input2, const Tensor & input3, bool left=true, bool transpose=false);
-static inline Tensor & _th_btrisolve_out(Tensor & result, const Tensor & self, const Tensor & LU_data, const Tensor & LU_pivots);
-static inline Tensor _th_btrisolve(const Tensor & self, const Tensor & LU_data, const Tensor & LU_pivots);
-static inline Tensor & _th_random_(Tensor & self, int64_t from, int64_t to, Generator * generator=nullptr);
-static inline Tensor & _th_random_(Tensor & self, int64_t to, Generator * generator=nullptr);
-static inline Tensor & _th_random_(Tensor & self, Generator * generator=nullptr);
-static inline std::tuple<Tensor &,Tensor &> _th_multinomial_alias_setup_out(Tensor & J, Tensor & q, const Tensor & probs);
-static inline std::tuple<Tensor,Tensor> _th_multinomial_alias_setup(const Tensor & probs);
-static inline Tensor & _th_multinomial_alias_draw_out(Tensor & result, const Tensor & q, const Tensor & J, int64_t num_samples, Generator * generator=nullptr);
-static inline Tensor _th_multinomial_alias_draw(const Tensor & q, const Tensor & J, int64_t num_samples, Generator * generator=nullptr);
-static inline Tensor & _th_multinomial_out(Tensor & result, const Tensor & self, int64_t num_samples, bool replacement=false, Generator * generator=nullptr);
-static inline Tensor _th_multinomial(const Tensor & self, int64_t num_samples, bool replacement=false, Generator * generator=nullptr);
-static inline Tensor & _th_uniform_(Tensor & self, double from=0, double to=1, Generator * generator=nullptr);
-static inline Tensor & _th_normal_out(Tensor & output, const Tensor & mean, double std=1, Generator * generator=nullptr);
-static inline Tensor _th_normal(const Tensor & mean, double std=1, Generator * generator=nullptr);
-static inline Tensor & _th_normal_out(Tensor & output, double mean, const Tensor & std, Generator * generator=nullptr);
-static inline Tensor _th_normal(double mean, const Tensor & std, Generator * generator=nullptr);
-static inline Tensor & _th_normal_out(Tensor & output, const Tensor & mean, const Tensor & std, Generator * generator=nullptr);
-static inline Tensor _th_normal(const Tensor & mean, const Tensor & std, Generator * generator=nullptr);
-static inline Tensor & _th_normal_(Tensor & self, double mean=0, double std=1, Generator * generator=nullptr);
-static inline Tensor & _th_cauchy_(Tensor & self, double median=0, double sigma=1, Generator * generator=nullptr);
-static inline Tensor & _th_log_normal_(Tensor & self, double mean=1, double std=2, Generator * generator=nullptr);
-static inline Tensor & _th_exponential_(Tensor & self, double lambd=1, Generator * generator=nullptr);
-static inline Tensor & _th_geometric_(Tensor & self, double p, Generator * generator=nullptr);
-static inline Tensor & _th_dirichlet_grad_out(Tensor & output, const Tensor & x, const Tensor & alpha, const Tensor & total);
-static inline Tensor _th_dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total);
-static inline Tensor _th_alias(const Tensor & self);
-static inline Tensor & _th_copy_ignoring_overlaps_(Tensor & self, const Tensor & src);
-static inline Tensor & _th_cat_out(Tensor & self, TensorList tensors, int64_t dim=0);
-static inline Tensor _th_cat(TensorList tensors, int64_t dim=0);
-static inline Tensor & _thnn_binary_cross_entropy_forward_out(Tensor & output, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction);
-static inline Tensor _thnn_binary_cross_entropy_forward(const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction);
-static inline Tensor & _thnn_binary_cross_entropy_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction);
-static inline Tensor _thnn_binary_cross_entropy_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction);
-static inline Tensor & _thnn_l1_loss_forward_out(Tensor & output, const Tensor & self, const Tensor & target, int64_t reduction);
-static inline Tensor _thnn_l1_loss_forward(const Tensor & self, const Tensor & target, int64_t reduction);
-static inline Tensor & _thnn_l1_loss_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction);
-static inline Tensor _thnn_l1_loss_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction);
-static inline Tensor & _thnn_mse_loss_forward_out(Tensor & output, const Tensor & self, const Tensor & target, int64_t reduction);
-static inline Tensor _thnn_mse_loss_forward(const Tensor & self, const Tensor & target, int64_t reduction);
-static inline Tensor & _thnn_mse_loss_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction);
-static inline Tensor _thnn_mse_loss_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction);
-static inline Tensor & _thnn_multi_margin_loss_forward_out(Tensor & output, const Tensor & self, const Tensor & target, Scalar p, Scalar margin, const Tensor & weight, int64_t reduction);
-static inline Tensor _thnn_multi_margin_loss_forward(const Tensor & self, const Tensor & target, Scalar p, Scalar margin, const Tensor & weight, int64_t reduction);
-static inline Tensor & _thnn_multi_margin_loss_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, Scalar p, Scalar margin, const Tensor & weight, int64_t reduction);
-static inline Tensor _thnn_multi_margin_loss_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, Scalar p, Scalar margin, const Tensor & weight, int64_t reduction);
-static inline std::tuple<Tensor &,Tensor &> _thnn_multilabel_margin_loss_forward_out(Tensor & output, Tensor & is_target, const Tensor & self, const Tensor & target, int64_t reduction);
-static inline std::tuple<Tensor,Tensor> _thnn_multilabel_margin_loss_forward(const Tensor & self, const Tensor & target, int64_t reduction);
-static inline Tensor & _thnn_multilabel_margin_loss_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction, const Tensor & is_target);
-static inline Tensor _thnn_multilabel_margin_loss_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction, const Tensor & is_target);
-static inline std::tuple<Tensor &,Tensor &> _thnn_nll_loss_forward_out(Tensor & output, Tensor & total_weight, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction, int64_t ignore_index);
-static inline std::tuple<Tensor,Tensor> _thnn_nll_loss_forward(const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction, int64_t ignore_index);
-static inline Tensor & _thnn_nll_loss_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction, int64_t ignore_index, const Tensor & total_weight);
-static inline Tensor _thnn_nll_loss_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction, int64_t ignore_index, const Tensor & total_weight);
-static inline std::tuple<Tensor &,Tensor &> _thnn_nll_loss2d_forward_out(Tensor & output, Tensor & total_weight, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction, int64_t ignore_index);
-static inline std::tuple<Tensor,Tensor> _thnn_nll_loss2d_forward(const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction, int64_t ignore_index);
-static inline Tensor & _thnn_nll_loss2d_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction, int64_t ignore_index, const Tensor & total_weight);
-static inline Tensor _thnn_nll_loss2d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction, int64_t ignore_index, const Tensor & total_weight);
-static inline Tensor & _thnn_smooth_l1_loss_forward_out(Tensor & output, const Tensor & self, const Tensor & target, int64_t reduction);
-static inline Tensor _thnn_smooth_l1_loss_forward(const Tensor & self, const Tensor & target, int64_t reduction);
-static inline Tensor & _thnn_smooth_l1_loss_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction);
-static inline Tensor _thnn_smooth_l1_loss_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction);
-static inline Tensor & _thnn_soft_margin_loss_forward_out(Tensor & output, const Tensor & self, const Tensor & target, int64_t reduction);
-static inline Tensor _thnn_soft_margin_loss_forward(const Tensor & self, const Tensor & target, int64_t reduction);
-static inline Tensor & _thnn_soft_margin_loss_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction);
-static inline Tensor _thnn_soft_margin_loss_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction);
-static inline Tensor & _thnn_elu_forward_out(Tensor & output, const Tensor & self, Scalar alpha, Scalar scale, Scalar input_scale);
-static inline Tensor _thnn_elu_forward(const Tensor & self, Scalar alpha, Scalar scale, Scalar input_scale);
-static inline Tensor & _thnn_elu_backward_out(Tensor & grad_input, const Tensor & grad_output, Scalar alpha, Scalar scale, Scalar input_scale, const Tensor & output);
-static inline Tensor _thnn_elu_backward(const Tensor & grad_output, Scalar alpha, Scalar scale, Scalar input_scale, const Tensor & output);
-static inline Tensor & _thnn_elu_(Tensor & self, Scalar alpha=1, Scalar scale=1, Scalar input_scale=1);
-static inline Tensor & _thnn_elu_forward_(Tensor & self, Scalar alpha, Scalar scale, Scalar input_scale);
-static inline Tensor & _thnn_glu_forward_out(Tensor & output, const Tensor & self, int64_t dim);
-static inline Tensor _thnn_glu_forward(const Tensor & self, int64_t dim);
-static inline Tensor & _thnn_glu_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, int64_t dim);
-static inline Tensor _thnn_glu_backward(const Tensor & grad_output, const Tensor & self, int64_t dim);
-static inline Tensor & _thnn_hardtanh_forward_out(Tensor & output, const Tensor & self, Scalar min_val, Scalar max_val);
-static inline Tensor _thnn_hardtanh_forward(const Tensor & self, Scalar min_val, Scalar max_val);
-static inline Tensor & _thnn_hardtanh_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, Scalar min_val, Scalar max_val);
-static inline Tensor _thnn_hardtanh_backward(const Tensor & grad_output, const Tensor & self, Scalar min_val, Scalar max_val);
-static inline Tensor & _thnn_hardtanh_(Tensor & self, Scalar min_val=-1, Scalar max_val=1);
-static inline Tensor & _thnn_hardtanh_forward_(Tensor & self, Scalar min_val, Scalar max_val);
-static inline Tensor & _thnn_leaky_relu_forward_out(Tensor & output, const Tensor & self, Scalar negative_slope);
-static inline Tensor _thnn_leaky_relu_forward(const Tensor & self, Scalar negative_slope);
-static inline Tensor & _thnn_leaky_relu_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, Scalar negative_slope);
-static inline Tensor _thnn_leaky_relu_backward(const Tensor & grad_output, const Tensor & self, Scalar negative_slope);
-static inline Tensor & _thnn_leaky_relu_(Tensor & self, Scalar negative_slope=0.01);
-static inline Tensor & _thnn_leaky_relu_forward_(Tensor & self, Scalar negative_slope);
-static inline std::tuple<Tensor &,Tensor &> _thnn_log_sigmoid_forward_out(Tensor & output, Tensor & buffer, const Tensor & self);
-static inline std::tuple<Tensor,Tensor> _thnn_log_sigmoid_forward(const Tensor & self);
-static inline Tensor & _thnn_log_sigmoid_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & buffer);
-static inline Tensor _thnn_log_sigmoid_backward(const Tensor & grad_output, const Tensor & self, const Tensor & buffer);
-static inline Tensor & _thnn_rrelu_with_noise_forward_out(Tensor & output, const Tensor & self, const Tensor & noise, Scalar lower, Scalar upper, bool training, Generator * generator);
-static inline Tensor _thnn_rrelu_with_noise_forward(const Tensor & self, const Tensor & noise, Scalar lower, Scalar upper, bool training, Generator * generator);
-static inline Tensor & _thnn_rrelu_with_noise_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & noise, Scalar lower, Scalar upper, bool training);
-static inline Tensor _thnn_rrelu_with_noise_backward(const Tensor & grad_output, const Tensor & self, const Tensor & noise, Scalar lower, Scalar upper, bool training);
-static inline Tensor & _thnn_rrelu_with_noise_(Tensor & self, const Tensor & noise, Scalar lower=0.125, Scalar upper=0.3333333333333333, bool training=false, Generator * generator=nullptr);
-static inline Tensor & _thnn_rrelu_with_noise_forward_(Tensor & self, const Tensor & noise, Scalar lower, Scalar upper, bool training, Generator * generator);
-static inline Tensor & _thnn_softplus_forward_out(Tensor & output, const Tensor & self, Scalar beta, Scalar threshold);
-static inline Tensor _thnn_softplus_forward(const Tensor & self, Scalar beta, Scalar threshold);
-static inline Tensor & _thnn_softplus_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, Scalar beta, Scalar threshold, const Tensor & output);
-static inline Tensor _thnn_softplus_backward(const Tensor & grad_output, const Tensor & self, Scalar beta, Scalar threshold, const Tensor & output);
-static inline Tensor & _thnn_softshrink_forward_out(Tensor & output, const Tensor & self, Scalar lambd);
-static inline Tensor _thnn_softshrink_forward(const Tensor & self, Scalar lambd);
-static inline Tensor & _thnn_softshrink_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, Scalar lambd);
-static inline Tensor _thnn_softshrink_backward(const Tensor & grad_output, const Tensor & self, Scalar lambd);
-static inline Tensor & _thnn_adaptive_avg_pool3d_forward_out(Tensor & output, const Tensor & self, IntArrayRef output_size);
-static inline Tensor _thnn_adaptive_avg_pool3d_forward(const Tensor & self, IntArrayRef output_size);
-static inline Tensor & _thnn_adaptive_avg_pool3d_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self);
-static inline Tensor _thnn_adaptive_avg_pool3d_backward(const Tensor & grad_output, const Tensor & self);
-static inline Tensor & _thnn_avg_pool2d_forward_out(Tensor & output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad);
-static inline Tensor _thnn_avg_pool2d_forward(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad);
-static inline Tensor & _thnn_avg_pool2d_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad);
-static inline Tensor _thnn_avg_pool2d_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad);
-static inline Tensor & _thnn_avg_pool3d_forward_out(Tensor & output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad);
-static inline Tensor _thnn_avg_pool3d_forward(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad);
-static inline Tensor & _thnn_avg_pool3d_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad);
-static inline Tensor _thnn_avg_pool3d_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad);
-static inline std::tuple<Tensor &,Tensor &> _thnn_max_pool2d_with_indices_forward_out(Tensor & output, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode);
-static inline std::tuple<Tensor,Tensor> _thnn_max_pool2d_with_indices_forward(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode);
-static inline Tensor & _thnn_max_pool2d_with_indices_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices);
-static inline Tensor _thnn_max_pool2d_with_indices_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices);
-static inline std::tuple<Tensor &,Tensor &> _thnn_max_pool3d_with_indices_forward_out(Tensor & output, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode);
-static inline std::tuple<Tensor,Tensor> _thnn_max_pool3d_with_indices_forward(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode);
-static inline Tensor & _thnn_max_pool3d_with_indices_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices);
-static inline Tensor _thnn_max_pool3d_with_indices_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices);
-static inline Tensor & _thnn_max_unpool2d_forward_out(Tensor & output, const Tensor & self, const Tensor & indices, IntArrayRef output_size);
-static inline Tensor _thnn_max_unpool2d_forward(const Tensor & self, const Tensor & indices, IntArrayRef output_size);
-static inline Tensor & _thnn_max_unpool2d_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & indices, IntArrayRef output_size);
-static inline Tensor _thnn_max_unpool2d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & indices, IntArrayRef output_size);
-static inline Tensor & _thnn_max_unpool3d_forward_out(Tensor & output, const Tensor & self, const Tensor & indices, IntArrayRef output_size, IntArrayRef stride, IntArrayRef padding);
-static inline Tensor _thnn_max_unpool3d_forward(const Tensor & self, const Tensor & indices, IntArrayRef output_size, IntArrayRef stride, IntArrayRef padding);
-static inline Tensor & _thnn_max_unpool3d_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & indices, IntArrayRef output_size, IntArrayRef stride, IntArrayRef padding);
-static inline Tensor _thnn_max_unpool3d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & indices, IntArrayRef output_size, IntArrayRef stride, IntArrayRef padding);
-static inline Tensor & _thnn_upsample_linear1d_forward_out(Tensor & output, const Tensor & self, IntArrayRef output_size, bool align_corners);
-static inline Tensor _thnn_upsample_linear1d_forward(const Tensor & self, IntArrayRef output_size, bool align_corners);
-static inline Tensor & _thnn_upsample_linear1d_backward_out(Tensor & grad_input, const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size, bool align_corners);
-static inline Tensor _thnn_upsample_linear1d_backward(const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size, bool align_corners);
-static inline Tensor & _thnn_upsample_bilinear2d_forward_out(Tensor & output, const Tensor & self, IntArrayRef output_size, bool align_corners);
-static inline Tensor _thnn_upsample_bilinear2d_forward(const Tensor & self, IntArrayRef output_size, bool align_corners);
-static inline Tensor & _thnn_upsample_bilinear2d_backward_out(Tensor & grad_input, const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size, bool align_corners);
-static inline Tensor _thnn_upsample_bilinear2d_backward(const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size, bool align_corners);
-static inline Tensor & _thnn_upsample_bicubic2d_forward_out(Tensor & output, const Tensor & self, IntArrayRef output_size, bool align_corners);
-static inline Tensor _thnn_upsample_bicubic2d_forward(const Tensor & self, IntArrayRef output_size, bool align_corners);
-static inline Tensor & _thnn_upsample_bicubic2d_backward_out(Tensor & grad_input, const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size, bool align_corners);
-static inline Tensor _thnn_upsample_bicubic2d_backward(const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size, bool align_corners);
-static inline Tensor & _thnn_upsample_trilinear3d_forward_out(Tensor & output, const Tensor & self, IntArrayRef output_size, bool align_corners);
-static inline Tensor _thnn_upsample_trilinear3d_forward(const Tensor & self, IntArrayRef output_size, bool align_corners);
-static inline Tensor & _thnn_upsample_trilinear3d_backward_out(Tensor & grad_input, const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size, bool align_corners);
-static inline Tensor _thnn_upsample_trilinear3d_backward(const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size, bool align_corners);
-static inline Tensor & _thnn_upsample_nearest1d_forward_out(Tensor & output, const Tensor & self, IntArrayRef output_size);
-static inline Tensor _thnn_upsample_nearest1d_forward(const Tensor & self, IntArrayRef output_size);
-static inline Tensor & _thnn_upsample_nearest1d_backward_out(Tensor & grad_input, const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size);
-static inline Tensor _thnn_upsample_nearest1d_backward(const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size);
-static inline Tensor & _thnn_upsample_nearest2d_forward_out(Tensor & output, const Tensor & self, IntArrayRef output_size);
-static inline Tensor _thnn_upsample_nearest2d_forward(const Tensor & self, IntArrayRef output_size);
-static inline Tensor & _thnn_upsample_nearest2d_backward_out(Tensor & grad_input, const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size);
-static inline Tensor _thnn_upsample_nearest2d_backward(const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size);
-static inline Tensor & _thnn_upsample_nearest3d_forward_out(Tensor & output, const Tensor & self, IntArrayRef output_size);
-static inline Tensor _thnn_upsample_nearest3d_forward(const Tensor & self, IntArrayRef output_size);
-static inline Tensor & _thnn_upsample_nearest3d_backward_out(Tensor & grad_input, const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size);
-static inline Tensor _thnn_upsample_nearest3d_backward(const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size);
-static inline Tensor & _thnn_sigmoid_forward_out(Tensor & output, const Tensor & self);
-static inline Tensor _thnn_sigmoid_forward(const Tensor & self);
-static inline Tensor & _thnn_sigmoid_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & output);
-static inline Tensor _thnn_sigmoid_backward(const Tensor & grad_output, const Tensor & output);
-static inline Tensor & _thnn_tanh_forward_out(Tensor & output, const Tensor & self);
-static inline Tensor _thnn_tanh_forward(const Tensor & self);
-static inline Tensor & _thnn_tanh_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & output);
-static inline Tensor _thnn_tanh_backward(const Tensor & grad_output, const Tensor & output);
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv_transpose2d_forward_out(Tensor & output, Tensor & columns, Tensor & ones, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation);
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv_transpose2d_forward(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation);
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv_transpose2d_backward_out(Tensor & grad_input, Tensor & grad_weight, Tensor & grad_bias, const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation, const Tensor & columns, const Tensor & ones);
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv_transpose2d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation, const Tensor & columns, const Tensor & ones, std::array<bool,3> output_mask={{true, true, true}});
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv_transpose3d_forward_out(Tensor & output, Tensor & finput, Tensor & fgrad_input, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation);
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv_transpose3d_forward(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation);
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv_transpose3d_backward_out(Tensor & grad_input, Tensor & grad_weight, Tensor & grad_bias, const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation, const Tensor & finput, const Tensor & fgrad_input);
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv_transpose3d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation, const Tensor & finput, const Tensor & fgrad_input, std::array<bool,3> output_mask={{true, true, true}});
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv2d_forward_out(Tensor & output, Tensor & finput, Tensor & fgrad_input, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding);
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv2d_forward(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding);
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv2d_backward_out(Tensor & grad_input, Tensor & grad_weight, Tensor & grad_bias, const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, const Tensor & finput, const Tensor & fgrad_input);
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv2d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, const Tensor & finput, const Tensor & fgrad_input, std::array<bool,3> output_mask={{true, true, true}});
-static inline Tensor & _thnn_conv_depthwise2d_forward_out(Tensor & output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation);
-static inline Tensor _thnn_conv_depthwise2d_forward(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation);
-static inline std::tuple<Tensor &,Tensor &> _thnn_conv_depthwise2d_backward_out(Tensor & grad_input, Tensor & grad_weight, const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation);
-static inline std::tuple<Tensor,Tensor> _thnn_conv_depthwise2d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, std::array<bool,2> output_mask={{true, true}});
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv3d_forward_out(Tensor & output, Tensor & finput, Tensor & fgrad_input, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding);
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv3d_forward(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding);
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv3d_backward_out(Tensor & grad_input, Tensor & grad_weight, Tensor & grad_bias, const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, const Tensor & finput, const Tensor & fgrad_input);
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv3d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, const Tensor & finput, const Tensor & fgrad_input, std::array<bool,3> output_mask={{true, true, true}});
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv_dilated2d_forward_out(Tensor & output, Tensor & columns, Tensor & ones, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation);
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv_dilated2d_forward(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation);
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv_dilated2d_backward_out(Tensor & grad_input, Tensor & grad_weight, Tensor & grad_bias, const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, const Tensor & columns, const Tensor & ones);
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv_dilated2d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, const Tensor & columns, const Tensor & ones, std::array<bool,3> output_mask={{true, true, true}});
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv_dilated3d_forward_out(Tensor & output, Tensor & columns, Tensor & ones, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation);
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv_dilated3d_forward(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation);
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv_dilated3d_backward_out(Tensor & grad_input, Tensor & grad_weight, Tensor & grad_bias, const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, const Tensor & columns, const Tensor & ones);
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv_dilated3d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, const Tensor & columns, const Tensor & ones, std::array<bool,3> output_mask={{true, true, true}});
-static inline Tensor & _thnn_col2im_forward_out(Tensor & output, const Tensor & self, IntArrayRef output_size, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride);
-static inline Tensor _thnn_col2im_forward(const Tensor & self, IntArrayRef output_size, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride);
-static inline Tensor & _thnn_col2im_backward_out(Tensor & grad_input, const Tensor & grad_output, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride);
-static inline Tensor _thnn_col2im_backward(const Tensor & grad_output, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride);
-static inline Tensor & _thnn_im2col_forward_out(Tensor & output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride);
-static inline Tensor _thnn_im2col_forward(const Tensor & self, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride);
-static inline Tensor & _thnn_im2col_backward_out(Tensor & grad_input, const Tensor & grad_output, IntArrayRef input_size, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride);
-static inline Tensor _thnn_im2col_backward(const Tensor & grad_output, IntArrayRef input_size, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride);
 static inline Tensor _cast_Byte(const Tensor & self, bool non_blocking=false);
 static inline Tensor _cast_Char(const Tensor & self, bool non_blocking=false);
 static inline Tensor _cast_Double(const Tensor & self, bool non_blocking=false);
@@ -642,9 +140,7 @@ static inline std::tuple<Tensor,Tensor,Tensor> conv_tbc_backward(const Tensor & 
 static inline Tensor conv_transpose1d(const Tensor & input, const Tensor & weight, const Tensor & bias={}, IntArrayRef stride=1, IntArrayRef padding=0, IntArrayRef output_padding=0, int64_t groups=1, IntArrayRef dilation=1);
 static inline Tensor conv_transpose2d(const Tensor & input, const Tensor & weight, const Tensor & bias={}, IntArrayRef stride=1, IntArrayRef padding=0, IntArrayRef output_padding=0, int64_t groups=1, IntArrayRef dilation=1);
 static inline Tensor conv_transpose3d(const Tensor & input, const Tensor & weight, const Tensor & bias={}, IntArrayRef stride=1, IntArrayRef padding=0, IntArrayRef output_padding=0, int64_t groups=1, IntArrayRef dilation=1);
-static inline Tensor & s_copy_(Tensor & self, const Tensor & src, bool non_blocking=false);
-static inline Tensor _s_copy_from(const Tensor & self, const Tensor & dst, bool non_blocking=false);
-static inline void _copy_same_type_(Tensor & self, const Tensor & src);
+static inline Tensor _copy_from(const Tensor & self, const Tensor & dst, bool non_blocking=false);
 static inline Tensor cos(const Tensor & self);
 static inline Tensor & cos_(Tensor & self);
 static inline Tensor & cos_out(Tensor & out, const Tensor & self);
@@ -896,6 +392,7 @@ static inline Tensor cosine_similarity(const Tensor & x1, const Tensor & x2, int
 static inline Tensor pixel_shuffle(const Tensor & self, int64_t upscale_factor);
 static inline Tensor pin_memory(const Tensor & self);
 static inline Tensor pinverse(const Tensor & self, double rcond=1e-15);
+static inline Tensor poisson_nll_loss(const Tensor & input, const Tensor & target, bool log_input, bool full, double eps, int64_t reduction);
 static inline Tensor scalar_tensor(Scalar s, const TensorOptions & options={});
 static inline Tensor rand(IntArrayRef size, const TensorOptions & options={});
 static inline Tensor rand(IntArrayRef size, Generator * generator, const TensorOptions & options={});
@@ -1007,6 +504,8 @@ static inline Tensor & sqrt_(Tensor & self);
 static inline Tensor & sqrt_out(Tensor & out, const Tensor & self);
 static inline Tensor std(const Tensor & self, bool unbiased=true);
 static inline Tensor std(const Tensor & self, IntArrayRef dim, bool unbiased=true, bool keepdim=false);
+static inline std::tuple<Tensor,Tensor> std_mean(const Tensor & self, bool unbiased=true);
+static inline std::tuple<Tensor,Tensor> std_mean(const Tensor & self, IntArrayRef dim, bool unbiased=true, bool keepdim=false);
 static inline Tensor & std_out(Tensor & out, const Tensor & self, IntArrayRef dim, bool unbiased=true, bool keepdim=false);
 static inline Tensor prod(const Tensor & self, ScalarType dtype);
 static inline Tensor prod(const Tensor & self);
@@ -1048,6 +547,8 @@ static inline Tensor unsqueeze(const Tensor & self, int64_t dim);
 static inline Tensor var(const Tensor & self, bool unbiased=true);
 static inline Tensor var(const Tensor & self, IntArrayRef dim, bool unbiased=true, bool keepdim=false);
 static inline Tensor & var_out(Tensor & out, const Tensor & self, IntArrayRef dim, bool unbiased=true, bool keepdim=false);
+static inline std::tuple<Tensor,Tensor> var_mean(const Tensor & self, bool unbiased=true);
+static inline std::tuple<Tensor,Tensor> var_mean(const Tensor & self, IntArrayRef dim, bool unbiased=true, bool keepdim=false);
 static inline Tensor where(const Tensor & condition, const Tensor & self, const Tensor & other);
 static inline Tensor _s_where(const Tensor & condition, const Tensor & self, const Tensor & other);
 static inline Tensor norm_except_dim(const Tensor & v, int64_t pow=2, int64_t dim=0);
@@ -1110,11 +611,13 @@ static inline int64_t numel(const Tensor & self);
 static inline std::vector<Tensor> unbind(const Tensor & self, int64_t dim=0);
 static inline Tensor mkldnn_reorder_conv2d_weight(const Tensor & self, IntArrayRef padding=0, IntArrayRef stride=1, IntArrayRef dilation=1, int64_t groups=1);
 static inline Tensor to_mkldnn_backward(const Tensor & grad, const Tensor & input);
-static inline Tensor quantize_linear(const Tensor & self, double scale, int64_t zero_point);
+static inline Tensor quantize_linear(const Tensor & self, double scale, int64_t zero_point, ScalarType dtype);
 static inline Tensor dequantize(const Tensor & self);
+static inline Tensor _dequantize_linear(const Tensor & self, double scale, int64_t zero_point, ScalarType dtype);
 static inline Scalar q_scale(const Tensor & self);
 static inline Scalar q_zero_point(const Tensor & self);
 static inline Tensor int_repr(const Tensor & self);
+static inline Tensor _per_tensor_affine_qtensor(const Tensor & self, double scale, int64_t zero_point);
 static inline std::vector<Tensor> meshgrid(TensorList tensors);
 static inline Tensor cartesian_prod(TensorList tensors);
 static inline Tensor combinations(const Tensor & self, int64_t r=2, bool with_replacement=false);
@@ -1310,10 +813,31 @@ static inline Tensor normal(const Tensor & mean, const Tensor & std, Generator *
 static inline Tensor alias(const Tensor & self);
 static inline Tensor & _dirichlet_grad_out(Tensor & out, const Tensor & x, const Tensor & alpha, const Tensor & total);
 static inline Tensor _dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total);
+static inline Tensor _addr(const Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta=1, Scalar alpha=1);
+static inline Tensor & _addr_(Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta=1, Scalar alpha=1);
+static inline Tensor & _addr_out(Tensor & out, const Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta=1, Scalar alpha=1);
+static inline Tensor & _index_copy_(Tensor & self, int64_t dim, const Tensor & index, const Tensor & source);
+static inline Tensor _cumsum(const Tensor & self, int64_t dim);
+static inline Tensor & _cumsum_out(Tensor & out, const Tensor & self, int64_t dim);
+static inline Tensor _cumprod(const Tensor & self, int64_t dim);
+static inline Tensor & _cumprod_out(Tensor & out, const Tensor & self, int64_t dim);
+static inline Tensor _var(const Tensor & self, bool unbiased=true);
+static inline Tensor _std(const Tensor & self, bool unbiased=true);
+static inline Tensor & _addmm_out(Tensor & out, const Tensor & self, const Tensor & mat1, const Tensor & mat2, Scalar beta=1, Scalar alpha=1);
+static inline Tensor _addmm(const Tensor & self, const Tensor & mat1, const Tensor & mat2, Scalar beta=1, Scalar alpha=1);
+static inline Tensor & _addmm_(Tensor & self, const Tensor & mat1, const Tensor & mat2, Scalar beta=1, Scalar alpha=1);
+static inline Tensor _cat(TensorList tensors, int64_t dim=0);
+static inline Tensor & _cat_out(Tensor & out, TensorList tensors, int64_t dim=0);
+static inline std::tuple<Tensor,Tensor> _mode(const Tensor & self, int64_t dim=-1, bool keepdim=false);
+static inline std::tuple<Tensor &,Tensor &> _mode_out(Tensor & values, Tensor & indices, const Tensor & self, int64_t dim=-1, bool keepdim=false);
+static inline std::tuple<Tensor,Tensor> _max(const Tensor & self, int64_t dim, bool keepdim=false);
+static inline std::tuple<Tensor &,Tensor &> _max_out(Tensor & max, Tensor & max_indices, const Tensor & self, int64_t dim, bool keepdim=false);
+static inline std::tuple<Tensor,Tensor> _min(const Tensor & self, int64_t dim, bool keepdim=false);
+static inline std::tuple<Tensor &,Tensor &> _min_out(Tensor & min, Tensor & min_indices, const Tensor & self, int64_t dim, bool keepdim=false);
 static inline Tensor & binary_cross_entropy_out(Tensor & out, const Tensor & self, const Tensor & target, const Tensor & weight={}, int64_t reduction=Reduction::Mean);
 static inline Tensor binary_cross_entropy(const Tensor & self, const Tensor & target, const Tensor & weight={}, int64_t reduction=Reduction::Mean);
-static inline Tensor & binary_cross_entropy_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction);
-static inline Tensor binary_cross_entropy_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction);
+static inline Tensor & binary_cross_entropy_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, const Tensor & weight={}, int64_t reduction=Reduction::Mean);
+static inline Tensor binary_cross_entropy_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, const Tensor & weight={}, int64_t reduction=Reduction::Mean);
 static inline Tensor & mse_loss_out(Tensor & out, const Tensor & self, const Tensor & target, int64_t reduction=Reduction::Mean);
 static inline Tensor mse_loss(const Tensor & self, const Tensor & target, int64_t reduction=Reduction::Mean);
 static inline Tensor & mse_loss_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction);
@@ -1324,8 +848,8 @@ static inline Tensor & l1_loss_backward_out(Tensor & grad_input, const Tensor & 
 static inline Tensor l1_loss_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction);
 static inline Tensor & multi_margin_loss_out(Tensor & out, const Tensor & self, const Tensor & target, Scalar p=1, Scalar margin=1, const Tensor & weight={}, int64_t reduction=Reduction::Mean);
 static inline Tensor multi_margin_loss(const Tensor & self, const Tensor & target, Scalar p=1, Scalar margin=1, const Tensor & weight={}, int64_t reduction=Reduction::Mean);
-static inline Tensor & multi_margin_loss_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, Scalar p, Scalar margin, const Tensor & weight, int64_t reduction);
-static inline Tensor multi_margin_loss_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, Scalar p, Scalar margin, const Tensor & weight, int64_t reduction);
+static inline Tensor & multi_margin_loss_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, Scalar p, Scalar margin, const Tensor & weight={}, int64_t reduction=Reduction::Mean);
+static inline Tensor multi_margin_loss_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, Scalar p, Scalar margin, const Tensor & weight={}, int64_t reduction=Reduction::Mean);
 static inline Tensor & multilabel_margin_loss_out(Tensor & out, const Tensor & self, const Tensor & target, int64_t reduction=Reduction::Mean);
 static inline Tensor multilabel_margin_loss(const Tensor & self, const Tensor & target, int64_t reduction=Reduction::Mean);
 static inline std::tuple<Tensor &,Tensor &> multilabel_margin_loss_forward_out(Tensor & output, Tensor & is_target, const Tensor & self, const Tensor & target, int64_t reduction);
@@ -1423,7 +947,7 @@ static inline std::tuple<Tensor &,Tensor &> fractional_max_pool3d_out(Tensor & o
 static inline std::tuple<Tensor,Tensor> fractional_max_pool3d(const Tensor & self, IntArrayRef kernel_size, IntArrayRef output_size, const Tensor & random_samples);
 static inline Tensor & fractional_max_pool3d_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef output_size, const Tensor & indices);
 static inline Tensor fractional_max_pool3d_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef output_size, const Tensor & indices);
-static inline std::tuple<Tensor &,Tensor &> max_pool2d_with_indices_out(Tensor & output, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride={}, IntArrayRef padding=0, IntArrayRef dilation=1, bool ceil_mode=false);
+static inline std::tuple<Tensor &,Tensor &> max_pool2d_with_indices_out(Tensor & out, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride={}, IntArrayRef padding=0, IntArrayRef dilation=1, bool ceil_mode=false);
 static inline std::tuple<Tensor,Tensor> max_pool2d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride={}, IntArrayRef padding=0, IntArrayRef dilation=1, bool ceil_mode=false);
 static inline Tensor & max_pool2d_with_indices_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices);
 static inline Tensor max_pool2d_with_indices_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices);
@@ -1546,7 +1070,7 @@ inline Tensor from_blob(
     const TensorOptions& options = {}) {
   auto device = getType(options).getDeviceFromPtr(data);
   if (options.device().has_index()) {
-    AT_CHECK(
+    TORCH_CHECK(
         options.device() == device,
         "Specified device ", options.device(),
         " does not match device of data ", device);
@@ -1587,11 +1111,11 @@ inline Tensor from_blob(
 namespace detail {
 
 static inline TypeExtendedInterface & infer_type(const Tensor & t) {
-  AT_CHECK(t.defined(), "undefined Tensor");
+  TORCH_CHECK(t.defined(), "undefined Tensor");
   return getType(t);
 }
 static inline TypeExtendedInterface & infer_type(const TensorList & tl) {
-  AT_CHECK(tl.size() > 0, "expected a non-empty list of Tensors");
+  TORCH_CHECK(tl.size() > 0, "expected a non-empty list of Tensors");
   return getType(tl[0]);
 }
 
@@ -1600,1512 +1124,6 @@ static inline TypeExtendedInterface & infer_type(const TensorList & tl) {
 // function definitions are all static inline because
 // they are one-line statically dispatched functions that
 // invoke the actual dynamic dispatch on the correct argument
-static inline Tensor & _th_set_(Tensor & self, Storage source) {
-    return detail::infer_type(self)._th_set_(self, source);
-}
-static inline Tensor & _th_set_(Tensor & self, Storage source, int64_t storage_offset, IntArrayRef size, IntArrayRef stride) {
-    return detail::infer_type(self)._th_set_(self, source, storage_offset, size, stride);
-}
-static inline Tensor & _th_set_(Tensor & self, const Tensor & source) {
-    return detail::infer_type(self)._th_set_(self, source);
-}
-static inline Tensor & _th_set_(Tensor & self) {
-    return detail::infer_type(self)._th_set_(self);
-}
-static inline Tensor & _th_fill_(Tensor & self, Scalar value) {
-    return detail::infer_type(self)._th_fill_(self, value);
-}
-static inline Tensor & _th_fill_(Tensor & self, const Tensor & value) {
-    return detail::infer_type(self)._th_fill_(self, value);
-}
-static inline bool _th_is_set_to(const Tensor & self, const Tensor & tensor) {
-    return detail::infer_type(self)._th_is_set_to(self, tensor);
-}
-static inline Tensor & _th_masked_fill_(Tensor & self, const Tensor & mask, Scalar value) {
-    return detail::infer_type(self)._th_masked_fill_(self, mask, value);
-}
-static inline Tensor & _th_masked_fill_(Tensor & self, const Tensor & mask, const Tensor & value) {
-    return detail::infer_type(self)._th_masked_fill_(self, mask, value);
-}
-static inline Tensor & _th_masked_fill_bool_(Tensor & self, const Tensor & mask, Scalar value) {
-    return detail::infer_type(self)._th_masked_fill_bool_(self, mask, value);
-}
-static inline Tensor & _th_masked_fill_bool_(Tensor & self, const Tensor & mask, const Tensor & value) {
-    return detail::infer_type(self)._th_masked_fill_bool_(self, mask, value);
-}
-static inline Tensor & _th_masked_scatter_(Tensor & self, const Tensor & mask, const Tensor & source) {
-    return detail::infer_type(self)._th_masked_scatter_(self, mask, source);
-}
-static inline Tensor & _th_masked_scatter_bool_(Tensor & self, const Tensor & mask, const Tensor & source) {
-    return detail::infer_type(self)._th_masked_scatter_bool_(self, mask, source);
-}
-static inline Tensor & _th_masked_select_out(Tensor & result, const Tensor & self, const Tensor & mask) {
-    return detail::infer_type(self)._th_masked_select_out(result, self, mask);
-}
-static inline Tensor _th_masked_select(const Tensor & self, const Tensor & mask) {
-    return detail::infer_type(self)._th_masked_select(self, mask);
-}
-static inline Tensor & _th_masked_select_bool_out(Tensor & result, const Tensor & self, const Tensor & mask) {
-    return detail::infer_type(self)._th_masked_select_bool_out(result, self, mask);
-}
-static inline Tensor _th_masked_select_bool(const Tensor & self, const Tensor & mask) {
-    return detail::infer_type(self)._th_masked_select_bool(self, mask);
-}
-static inline Tensor & _th_nonzero_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_nonzero_out(result, self);
-}
-static inline Tensor _th_nonzero(const Tensor & self) {
-    return detail::infer_type(self)._th_nonzero(self);
-}
-static inline Tensor _th_clone(const Tensor & self) {
-    return detail::infer_type(self)._th_clone(self);
-}
-static inline Tensor _th_view(const Tensor & self, IntArrayRef size) {
-    return detail::infer_type(self)._th_view(self, size);
-}
-static inline Tensor & _th_resize_as_(Tensor & self, const Tensor & the_template) {
-    return detail::infer_type(self)._th_resize_as_(self, the_template);
-}
-static inline Tensor & _th_index_select_out(Tensor & result, const Tensor & self, int64_t dim, const Tensor & index) {
-    return detail::infer_type(self)._th_index_select_out(result, self, dim, index);
-}
-static inline Tensor _th_index_select(const Tensor & self, int64_t dim, const Tensor & index) {
-    return detail::infer_type(self)._th_index_select(self, dim, index);
-}
-static inline Tensor & _th_index_copy_(Tensor & self, int64_t dim, const Tensor & index, const Tensor & source) {
-    return detail::infer_type(self)._th_index_copy_(self, dim, index, source);
-}
-static inline Tensor & _th_take_out(Tensor & result, const Tensor & self, const Tensor & index) {
-    return detail::infer_type(self)._th_take_out(result, self, index);
-}
-static inline Tensor _th_take(const Tensor & self, const Tensor & index) {
-    return detail::infer_type(self)._th_take(self, index);
-}
-static inline Tensor & _th_put_(Tensor & self, const Tensor & index, const Tensor & source, bool accumulate) {
-    return detail::infer_type(self)._th_put_(self, index, source, accumulate);
-}
-static inline Tensor & _th_index_add_(Tensor & self, int64_t dim, const Tensor & index, const Tensor & source) {
-    return detail::infer_type(self)._th_index_add_(self, dim, index, source);
-}
-static inline Tensor & _th_index_fill_(Tensor & self, int64_t dim, const Tensor & index, Scalar value) {
-    return detail::infer_type(self)._th_index_fill_(self, dim, index, value);
-}
-static inline Tensor & _th_index_fill_(Tensor & self, int64_t dim, const Tensor & index, const Tensor & value) {
-    return detail::infer_type(self)._th_index_fill_(self, dim, index, value);
-}
-static inline Tensor & _th_unfold_out(Tensor & result, const Tensor & self, int64_t dimension, int64_t size, int64_t step) {
-    return detail::infer_type(self)._th_unfold_out(result, self, dimension, size, step);
-}
-static inline Tensor _th_unfold(const Tensor & self, int64_t dimension, int64_t size, int64_t step) {
-    return detail::infer_type(self)._th_unfold(self, dimension, size, step);
-}
-static inline Tensor & _th_scatter_(Tensor & self, int64_t dim, const Tensor & index, const Tensor & src) {
-    return detail::infer_type(self)._th_scatter_(self, dim, index, src);
-}
-static inline Tensor & _th_scatter_(Tensor & self, int64_t dim, const Tensor & index, Scalar value) {
-    return detail::infer_type(self)._th_scatter_(self, dim, index, value);
-}
-static inline Tensor & _th_scatter_add_(Tensor & self, int64_t dim, const Tensor & index, const Tensor & src) {
-    return detail::infer_type(self)._th_scatter_add_(self, dim, index, src);
-}
-static inline Tensor & _th_gather_out(Tensor & result, const Tensor & self, int64_t dim, const Tensor & index) {
-    return detail::infer_type(self)._th_gather_out(result, self, dim, index);
-}
-static inline Tensor _th_gather(const Tensor & self, int64_t dim, const Tensor & index) {
-    return detail::infer_type(self)._th_gather(self, dim, index);
-}
-static inline bool _th_equal(const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_equal(self, other);
-}
-static inline Tensor & _th_and_out(Tensor & result, const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_and_out(result, self, other);
-}
-static inline Tensor _th_and(const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_and(self, other);
-}
-static inline Tensor & _th_and_out(Tensor & result, const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_and_out(result, self, other);
-}
-static inline Tensor _th_and(const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_and(self, other);
-}
-static inline Tensor & _th_iand_(Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_iand_(self, other);
-}
-static inline Tensor & _th_iand_(Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_iand_(self, other);
-}
-static inline Tensor & _th_or_out(Tensor & result, const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_or_out(result, self, other);
-}
-static inline Tensor _th_or(const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_or(self, other);
-}
-static inline Tensor & _th_or_out(Tensor & result, const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_or_out(result, self, other);
-}
-static inline Tensor _th_or(const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_or(self, other);
-}
-static inline Tensor & _th_ior_(Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_ior_(self, other);
-}
-static inline Tensor & _th_ior_(Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_ior_(self, other);
-}
-static inline Tensor & _th_xor_out(Tensor & result, const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_xor_out(result, self, other);
-}
-static inline Tensor _th_xor(const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_xor(self, other);
-}
-static inline Tensor & _th_xor_out(Tensor & result, const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_xor_out(result, self, other);
-}
-static inline Tensor _th_xor(const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_xor(self, other);
-}
-static inline Tensor & _th_ixor_(Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_ixor_(self, other);
-}
-static inline Tensor & _th_ixor_(Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_ixor_(self, other);
-}
-static inline Tensor & _th_lshift_out(Tensor & result, const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_lshift_out(result, self, other);
-}
-static inline Tensor _th_lshift(const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_lshift(self, other);
-}
-static inline Tensor & _th_lshift_out(Tensor & result, const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_lshift_out(result, self, other);
-}
-static inline Tensor _th_lshift(const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_lshift(self, other);
-}
-static inline Tensor & _th_ilshift_(Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_ilshift_(self, other);
-}
-static inline Tensor & _th_ilshift_(Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_ilshift_(self, other);
-}
-static inline Tensor & _th_rshift_out(Tensor & result, const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_rshift_out(result, self, other);
-}
-static inline Tensor _th_rshift(const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_rshift(self, other);
-}
-static inline Tensor & _th_rshift_out(Tensor & result, const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_rshift_out(result, self, other);
-}
-static inline Tensor _th_rshift(const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_rshift(self, other);
-}
-static inline Tensor & _th_irshift_(Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_irshift_(self, other);
-}
-static inline Tensor & _th_irshift_(Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_irshift_(self, other);
-}
-static inline Tensor & _th_lt_out(Tensor & result, const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_lt_out(result, self, other);
-}
-static inline Tensor _th_lt(const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_lt(self, other);
-}
-static inline Tensor & _th_lt_out(Tensor & result, const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_lt_out(result, self, other);
-}
-static inline Tensor _th_lt(const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_lt(self, other);
-}
-static inline Tensor & _th_lt_(Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_lt_(self, other);
-}
-static inline Tensor & _th_lt_(Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_lt_(self, other);
-}
-static inline Tensor & _th_gt_out(Tensor & result, const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_gt_out(result, self, other);
-}
-static inline Tensor _th_gt(const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_gt(self, other);
-}
-static inline Tensor & _th_gt_out(Tensor & result, const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_gt_out(result, self, other);
-}
-static inline Tensor _th_gt(const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_gt(self, other);
-}
-static inline Tensor & _th_gt_(Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_gt_(self, other);
-}
-static inline Tensor & _th_gt_(Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_gt_(self, other);
-}
-static inline Tensor & _th_le_out(Tensor & result, const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_le_out(result, self, other);
-}
-static inline Tensor _th_le(const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_le(self, other);
-}
-static inline Tensor & _th_le_out(Tensor & result, const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_le_out(result, self, other);
-}
-static inline Tensor _th_le(const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_le(self, other);
-}
-static inline Tensor & _th_le_(Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_le_(self, other);
-}
-static inline Tensor & _th_le_(Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_le_(self, other);
-}
-static inline Tensor & _th_ge_out(Tensor & result, const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_ge_out(result, self, other);
-}
-static inline Tensor _th_ge(const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_ge(self, other);
-}
-static inline Tensor & _th_ge_out(Tensor & result, const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_ge_out(result, self, other);
-}
-static inline Tensor _th_ge(const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_ge(self, other);
-}
-static inline Tensor & _th_ge_(Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_ge_(self, other);
-}
-static inline Tensor & _th_ge_(Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_ge_(self, other);
-}
-static inline Tensor & _th_eq_out(Tensor & result, const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_eq_out(result, self, other);
-}
-static inline Tensor _th_eq(const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_eq(self, other);
-}
-static inline Tensor & _th_eq_out(Tensor & result, const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_eq_out(result, self, other);
-}
-static inline Tensor _th_eq(const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_eq(self, other);
-}
-static inline Tensor & _th_eq_(Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_eq_(self, other);
-}
-static inline Tensor & _th_eq_(Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_eq_(self, other);
-}
-static inline Tensor & _th_ne_out(Tensor & result, const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_ne_out(result, self, other);
-}
-static inline Tensor _th_ne(const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_ne(self, other);
-}
-static inline Tensor & _th_ne_out(Tensor & result, const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_ne_out(result, self, other);
-}
-static inline Tensor _th_ne(const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_ne(self, other);
-}
-static inline Tensor & _th_ne_(Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_ne_(self, other);
-}
-static inline Tensor & _th_ne_(Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_ne_(self, other);
-}
-static inline Tensor & _th_min_out(Tensor & result, const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_min_out(result, self, other);
-}
-static inline Tensor _th_min(const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_min(self, other);
-}
-static inline Tensor _th_min(const Tensor & self) {
-    return detail::infer_type(self)._th_min(self);
-}
-static inline std::tuple<Tensor &,Tensor &> _th_min_out(Tensor & min, Tensor & min_indices, const Tensor & self, int64_t dim, bool keepdim) {
-    return detail::infer_type(self)._th_min_out(min, min_indices, self, dim, keepdim);
-}
-static inline std::tuple<Tensor,Tensor> _th_min(const Tensor & self, int64_t dim, bool keepdim) {
-    return detail::infer_type(self)._th_min(self, dim, keepdim);
-}
-static inline Tensor & _th_max_out(Tensor & result, const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_max_out(result, self, other);
-}
-static inline Tensor _th_max(const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_max(self, other);
-}
-static inline Tensor _th_max(const Tensor & self) {
-    return detail::infer_type(self)._th_max(self);
-}
-static inline std::tuple<Tensor &,Tensor &> _th_max_out(Tensor & max, Tensor & max_indices, const Tensor & self, int64_t dim, bool keepdim) {
-    return detail::infer_type(self)._th_max_out(max, max_indices, self, dim, keepdim);
-}
-static inline std::tuple<Tensor,Tensor> _th_max(const Tensor & self, int64_t dim, bool keepdim) {
-    return detail::infer_type(self)._th_max(self, dim, keepdim);
-}
-static inline std::tuple<Tensor &,Tensor &> _th_mode_out(Tensor & values, Tensor & indices, const Tensor & self, int64_t dim, bool keepdim) {
-    return detail::infer_type(self)._th_mode_out(values, indices, self, dim, keepdim);
-}
-static inline std::tuple<Tensor,Tensor> _th_mode(const Tensor & self, int64_t dim, bool keepdim) {
-    return detail::infer_type(self)._th_mode(self, dim, keepdim);
-}
-static inline std::tuple<Tensor &,Tensor &> _th_sort_out(Tensor & values, Tensor & indices, const Tensor & self, int64_t dim, bool descending) {
-    return detail::infer_type(self)._th_sort_out(values, indices, self, dim, descending);
-}
-static inline std::tuple<Tensor,Tensor> _th_sort(const Tensor & self, int64_t dim, bool descending) {
-    return detail::infer_type(self)._th_sort(self, dim, descending);
-}
-static inline std::tuple<Tensor &,Tensor &> _th_topk_out(Tensor & values, Tensor & indices, const Tensor & self, int64_t k, int64_t dim, bool largest, bool sorted) {
-    return detail::infer_type(self)._th_topk_out(values, indices, self, k, dim, largest, sorted);
-}
-static inline std::tuple<Tensor,Tensor> _th_topk(const Tensor & self, int64_t k, int64_t dim, bool largest, bool sorted) {
-    return detail::infer_type(self)._th_topk(self, k, dim, largest, sorted);
-}
-static inline Tensor & _th_abs_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_abs_out(result, self);
-}
-static inline Tensor _th_abs(const Tensor & self) {
-    return detail::infer_type(self)._th_abs(self);
-}
-static inline Tensor & _th_sigmoid_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_sigmoid_out(result, self);
-}
-static inline Tensor _th_sigmoid(const Tensor & self) {
-    return detail::infer_type(self)._th_sigmoid(self);
-}
-static inline Tensor & _th_log_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_log_out(result, self);
-}
-static inline Tensor _th_log(const Tensor & self) {
-    return detail::infer_type(self)._th_log(self);
-}
-static inline Tensor & _th_log10_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_log10_out(result, self);
-}
-static inline Tensor _th_log10(const Tensor & self) {
-    return detail::infer_type(self)._th_log10(self);
-}
-static inline Tensor & _th_log1p_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_log1p_out(result, self);
-}
-static inline Tensor _th_log1p(const Tensor & self) {
-    return detail::infer_type(self)._th_log1p(self);
-}
-static inline Tensor & _th_log2_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_log2_out(result, self);
-}
-static inline Tensor _th_log2(const Tensor & self) {
-    return detail::infer_type(self)._th_log2(self);
-}
-static inline Tensor & _th_lgamma_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_lgamma_out(result, self);
-}
-static inline Tensor _th_lgamma(const Tensor & self) {
-    return detail::infer_type(self)._th_lgamma(self);
-}
-static inline Tensor & _th_lgamma_(Tensor & self) {
-    return detail::infer_type(self)._th_lgamma_(self);
-}
-static inline Tensor & _th_digamma_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_digamma_out(result, self);
-}
-static inline Tensor _th_digamma(const Tensor & self) {
-    return detail::infer_type(self)._th_digamma(self);
-}
-static inline Tensor & _th_digamma_(Tensor & self) {
-    return detail::infer_type(self)._th_digamma_(self);
-}
-static inline Tensor & _th_polygamma_out(Tensor & result, int64_t n, const Tensor & self) {
-    return detail::infer_type(self)._th_polygamma_out(result, n, self);
-}
-static inline Tensor _th_polygamma(int64_t n, const Tensor & self) {
-    return detail::infer_type(self)._th_polygamma(n, self);
-}
-static inline Tensor & _th_polygamma_(Tensor & self, int64_t n) {
-    return detail::infer_type(self)._th_polygamma_(self, n);
-}
-static inline Tensor & _th_exp_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_exp_out(result, self);
-}
-static inline Tensor _th_exp(const Tensor & self) {
-    return detail::infer_type(self)._th_exp(self);
-}
-static inline Tensor & _th_expm1_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_expm1_out(result, self);
-}
-static inline Tensor _th_expm1(const Tensor & self) {
-    return detail::infer_type(self)._th_expm1(self);
-}
-static inline Tensor & _th_cos_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_cos_out(result, self);
-}
-static inline Tensor _th_cos(const Tensor & self) {
-    return detail::infer_type(self)._th_cos(self);
-}
-static inline Tensor & _th_acos_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_acos_out(result, self);
-}
-static inline Tensor _th_acos(const Tensor & self) {
-    return detail::infer_type(self)._th_acos(self);
-}
-static inline Tensor & _th_cosh_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_cosh_out(result, self);
-}
-static inline Tensor _th_cosh(const Tensor & self) {
-    return detail::infer_type(self)._th_cosh(self);
-}
-static inline Tensor & _th_sin_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_sin_out(result, self);
-}
-static inline Tensor _th_sin(const Tensor & self) {
-    return detail::infer_type(self)._th_sin(self);
-}
-static inline Tensor & _th_asin_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_asin_out(result, self);
-}
-static inline Tensor _th_asin(const Tensor & self) {
-    return detail::infer_type(self)._th_asin(self);
-}
-static inline Tensor & _th_sinh_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_sinh_out(result, self);
-}
-static inline Tensor _th_sinh(const Tensor & self) {
-    return detail::infer_type(self)._th_sinh(self);
-}
-static inline Tensor & _th_tan_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_tan_out(result, self);
-}
-static inline Tensor _th_tan(const Tensor & self) {
-    return detail::infer_type(self)._th_tan(self);
-}
-static inline Tensor & _th_atan_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_atan_out(result, self);
-}
-static inline Tensor _th_atan(const Tensor & self) {
-    return detail::infer_type(self)._th_atan(self);
-}
-static inline Tensor & _th_tanh_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_tanh_out(result, self);
-}
-static inline Tensor _th_tanh(const Tensor & self) {
-    return detail::infer_type(self)._th_tanh(self);
-}
-static inline Tensor & _th_erf_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_erf_out(result, self);
-}
-static inline Tensor _th_erf(const Tensor & self) {
-    return detail::infer_type(self)._th_erf(self);
-}
-static inline Tensor & _th_erfc_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_erfc_out(result, self);
-}
-static inline Tensor _th_erfc(const Tensor & self) {
-    return detail::infer_type(self)._th_erfc(self);
-}
-static inline Tensor & _th_erfinv_(Tensor & self) {
-    return detail::infer_type(self)._th_erfinv_(self);
-}
-static inline Tensor & _th_erfinv_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_erfinv_out(result, self);
-}
-static inline Tensor _th_erfinv(const Tensor & self) {
-    return detail::infer_type(self)._th_erfinv(self);
-}
-static inline Tensor & _th_sqrt_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_sqrt_out(result, self);
-}
-static inline Tensor _th_sqrt(const Tensor & self) {
-    return detail::infer_type(self)._th_sqrt(self);
-}
-static inline Tensor & _th_rsqrt_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_rsqrt_out(result, self);
-}
-static inline Tensor _th_rsqrt(const Tensor & self) {
-    return detail::infer_type(self)._th_rsqrt(self);
-}
-static inline Tensor & _th_ceil_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_ceil_out(result, self);
-}
-static inline Tensor _th_ceil(const Tensor & self) {
-    return detail::infer_type(self)._th_ceil(self);
-}
-static inline Tensor & _th_floor_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_floor_out(result, self);
-}
-static inline Tensor _th_floor(const Tensor & self) {
-    return detail::infer_type(self)._th_floor(self);
-}
-static inline Tensor & _th_round_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_round_out(result, self);
-}
-static inline Tensor _th_round(const Tensor & self) {
-    return detail::infer_type(self)._th_round(self);
-}
-static inline Tensor & _th_trunc_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_trunc_out(result, self);
-}
-static inline Tensor _th_trunc(const Tensor & self) {
-    return detail::infer_type(self)._th_trunc(self);
-}
-static inline Tensor & _th_frac_(Tensor & self) {
-    return detail::infer_type(self)._th_frac_(self);
-}
-static inline Tensor & _th_frac_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_frac_out(result, self);
-}
-static inline Tensor _th_frac(const Tensor & self) {
-    return detail::infer_type(self)._th_frac(self);
-}
-static inline Tensor & _th_var_out(Tensor & result, const Tensor & self, int64_t dim, bool unbiased, bool keepdim) {
-    return detail::infer_type(self)._th_var_out(result, self, dim, unbiased, keepdim);
-}
-static inline Tensor _th_var(const Tensor & self, int64_t dim, bool unbiased, bool keepdim) {
-    return detail::infer_type(self)._th_var(self, dim, unbiased, keepdim);
-}
-static inline Tensor _th_var(const Tensor & self, bool unbiased) {
-    return detail::infer_type(self)._th_var(self, unbiased);
-}
-static inline Tensor & _th_std_out(Tensor & result, const Tensor & self, int64_t dim, bool unbiased, bool keepdim) {
-    return detail::infer_type(self)._th_std_out(result, self, dim, unbiased, keepdim);
-}
-static inline Tensor _th_std(const Tensor & self, int64_t dim, bool unbiased, bool keepdim) {
-    return detail::infer_type(self)._th_std(self, dim, unbiased, keepdim);
-}
-static inline Tensor _th_std(const Tensor & self, bool unbiased) {
-    return detail::infer_type(self)._th_std(self, unbiased);
-}
-static inline Tensor & _th_renorm_out(Tensor & result, const Tensor & self, Scalar p, int64_t dim, Scalar maxnorm) {
-    return detail::infer_type(self)._th_renorm_out(result, self, p, dim, maxnorm);
-}
-static inline Tensor _th_renorm(const Tensor & self, Scalar p, int64_t dim, Scalar maxnorm) {
-    return detail::infer_type(self)._th_renorm(self, p, dim, maxnorm);
-}
-static inline Tensor & _th_renorm_(Tensor & self, Scalar p, int64_t dim, Scalar maxnorm) {
-    return detail::infer_type(self)._th_renorm_(self, p, dim, maxnorm);
-}
-static inline Tensor _th_dist(const Tensor & self, const Tensor & other, Scalar p) {
-    return detail::infer_type(self)._th_dist(self, other, p);
-}
-static inline Tensor & _th_reciprocal_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_reciprocal_out(result, self);
-}
-static inline Tensor _th_reciprocal(const Tensor & self) {
-    return detail::infer_type(self)._th_reciprocal(self);
-}
-static inline Tensor & _th_reciprocal_(Tensor & self) {
-    return detail::infer_type(self)._th_reciprocal_(self);
-}
-static inline Tensor & _th_neg_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_neg_out(result, self);
-}
-static inline Tensor _th_neg(const Tensor & self) {
-    return detail::infer_type(self)._th_neg(self);
-}
-static inline Tensor & _th_neg_(Tensor & self) {
-    return detail::infer_type(self)._th_neg_(self);
-}
-static inline Tensor & _th_atan2_out(Tensor & result, const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_atan2_out(result, self, other);
-}
-static inline Tensor _th_atan2(const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_atan2(self, other);
-}
-static inline Tensor & _th_atan2_(Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_atan2_(self, other);
-}
-static inline Tensor & _th_pow_out(Tensor & result, const Tensor & self, Scalar exponent) {
-    return detail::infer_type(self)._th_pow_out(result, self, exponent);
-}
-static inline Tensor _th_pow(const Tensor & self, Scalar exponent) {
-    return detail::infer_type(self)._th_pow(self, exponent);
-}
-static inline Tensor & _th_pow_out(Tensor & result, const Tensor & self, const Tensor & exponent) {
-    return detail::infer_type(self)._th_pow_out(result, self, exponent);
-}
-static inline Tensor _th_pow(const Tensor & self, const Tensor & exponent) {
-    return detail::infer_type(self)._th_pow(self, exponent);
-}
-static inline Tensor & _th_pow_out(Tensor & result, Scalar self, const Tensor & exponent) {
-    return detail::infer_type(result)._th_pow_out(result, self, exponent);
-}
-static inline Tensor _th_pow(Scalar self, const Tensor & exponent) {
-    return detail::infer_type(exponent)._th_pow(self, exponent);
-}
-static inline Tensor & _th_pow_(Tensor & self, Scalar exponent) {
-    return detail::infer_type(self)._th_pow_(self, exponent);
-}
-static inline Tensor & _th_pow_(Tensor & self, const Tensor & exponent) {
-    return detail::infer_type(self)._th_pow_(self, exponent);
-}
-static inline Tensor & _th_histc_out(Tensor & result, const Tensor & self, int64_t bins, Scalar min, Scalar max) {
-    return detail::infer_type(self)._th_histc_out(result, self, bins, min, max);
-}
-static inline Tensor _th_histc(const Tensor & self, int64_t bins, Scalar min, Scalar max) {
-    return detail::infer_type(self)._th_histc(self, bins, min, max);
-}
-static inline Tensor & _th_zero_(Tensor & self) {
-    return detail::infer_type(self)._th_zero_(self);
-}
-static inline Tensor & _th_cumsum_out(Tensor & result, const Tensor & self, int64_t dim) {
-    return detail::infer_type(self)._th_cumsum_out(result, self, dim);
-}
-static inline Tensor _th_cumsum(const Tensor & self, int64_t dim) {
-    return detail::infer_type(self)._th_cumsum(self, dim);
-}
-static inline Tensor & _th_cumprod_out(Tensor & result, const Tensor & self, int64_t dim) {
-    return detail::infer_type(self)._th_cumprod_out(result, self, dim);
-}
-static inline Tensor _th_cumprod(const Tensor & self, int64_t dim) {
-    return detail::infer_type(self)._th_cumprod(self, dim);
-}
-static inline Tensor & _th_sign_out(Tensor & result, const Tensor & self) {
-    return detail::infer_type(self)._th_sign_out(result, self);
-}
-static inline Tensor _th_sign(const Tensor & self) {
-    return detail::infer_type(self)._th_sign(self);
-}
-static inline Tensor & _th_sign_(Tensor & self) {
-    return detail::infer_type(self)._th_sign_(self);
-}
-static inline Tensor _th_trace(const Tensor & self) {
-    return detail::infer_type(self)._th_trace(self);
-}
-static inline Tensor & _th_fmod_out(Tensor & result, const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_fmod_out(result, self, other);
-}
-static inline Tensor _th_fmod(const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_fmod(self, other);
-}
-static inline Tensor & _th_fmod_out(Tensor & result, const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_fmod_out(result, self, other);
-}
-static inline Tensor _th_fmod(const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_fmod(self, other);
-}
-static inline Tensor & _th_fmod_(Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_fmod_(self, other);
-}
-static inline Tensor & _th_fmod_(Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_fmod_(self, other);
-}
-static inline Tensor & _th_remainder_out(Tensor & result, const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_remainder_out(result, self, other);
-}
-static inline Tensor _th_remainder(const Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_remainder(self, other);
-}
-static inline Tensor & _th_remainder_out(Tensor & result, const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_remainder_out(result, self, other);
-}
-static inline Tensor _th_remainder(const Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_remainder(self, other);
-}
-static inline Tensor & _th_remainder_(Tensor & self, Scalar other) {
-    return detail::infer_type(self)._th_remainder_(self, other);
-}
-static inline Tensor & _th_remainder_(Tensor & self, const Tensor & other) {
-    return detail::infer_type(self)._th_remainder_(self, other);
-}
-static inline Tensor & _th_clamp_out(Tensor & result, const Tensor & self, Scalar min, Scalar max) {
-    return detail::infer_type(self)._th_clamp_out(result, self, min, max);
-}
-static inline Tensor _th_clamp(const Tensor & self, Scalar min, Scalar max) {
-    return detail::infer_type(self)._th_clamp(self, min, max);
-}
-static inline Tensor & _th_clamp_min_out(Tensor & result, const Tensor & self, Scalar min) {
-    return detail::infer_type(self)._th_clamp_min_out(result, self, min);
-}
-static inline Tensor _th_clamp_min(const Tensor & self, Scalar min) {
-    return detail::infer_type(self)._th_clamp_min(self, min);
-}
-static inline Tensor & _th_clamp_max_out(Tensor & result, const Tensor & self, Scalar max) {
-    return detail::infer_type(self)._th_clamp_max_out(result, self, max);
-}
-static inline Tensor _th_clamp_max(const Tensor & self, Scalar max) {
-    return detail::infer_type(self)._th_clamp_max(self, max);
-}
-static inline Tensor _th_dot(const Tensor & self, const Tensor & tensor) {
-    return detail::infer_type(self)._th_dot(self, tensor);
-}
-static inline Tensor & _th_cross_kernel_out(Tensor & result, const Tensor & self, const Tensor & other, int64_t dim) {
-    return detail::infer_type(self)._th_cross_kernel_out(result, self, other, dim);
-}
-static inline Tensor _th_cross_kernel(const Tensor & self, const Tensor & other, int64_t dim) {
-    return detail::infer_type(self)._th_cross_kernel(self, other, dim);
-}
-static inline Tensor & _th_diag_out(Tensor & result, const Tensor & self, int64_t diagonal) {
-    return detail::infer_type(self)._th_diag_out(result, self, diagonal);
-}
-static inline Tensor _th_diag(const Tensor & self, int64_t diagonal) {
-    return detail::infer_type(self)._th_diag(self, diagonal);
-}
-static inline Tensor & _th_addmm_out(Tensor & result, const Tensor & self, const Tensor & mat1, const Tensor & mat2, Scalar beta, Scalar alpha) {
-    return detail::infer_type(self)._th_addmm_out(result, self, mat1, mat2, beta, alpha);
-}
-static inline Tensor _th_addmm(const Tensor & self, const Tensor & mat1, const Tensor & mat2, Scalar beta, Scalar alpha) {
-    return detail::infer_type(self)._th_addmm(self, mat1, mat2, beta, alpha);
-}
-static inline Tensor & _th_addmm_(Tensor & self, const Tensor & mat1, const Tensor & mat2, Scalar beta, Scalar alpha) {
-    return detail::infer_type(self)._th_addmm_(self, mat1, mat2, beta, alpha);
-}
-static inline Tensor & _th_addmv_out(Tensor & result, const Tensor & self, const Tensor & mat, const Tensor & vec, Scalar beta, Scalar alpha) {
-    return detail::infer_type(self)._th_addmv_out(result, self, mat, vec, beta, alpha);
-}
-static inline Tensor _th_addmv(const Tensor & self, const Tensor & mat, const Tensor & vec, Scalar beta, Scalar alpha) {
-    return detail::infer_type(self)._th_addmv(self, mat, vec, beta, alpha);
-}
-static inline Tensor & _th_addmv_(Tensor & self, const Tensor & mat, const Tensor & vec, Scalar beta, Scalar alpha) {
-    return detail::infer_type(self)._th_addmv_(self, mat, vec, beta, alpha);
-}
-static inline Tensor & _th_addr_out(Tensor & result, const Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta, Scalar alpha) {
-    return detail::infer_type(self)._th_addr_out(result, self, vec1, vec2, beta, alpha);
-}
-static inline Tensor _th_addr(const Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta, Scalar alpha) {
-    return detail::infer_type(self)._th_addr(self, vec1, vec2, beta, alpha);
-}
-static inline Tensor & _th_addr_(Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta, Scalar alpha) {
-    return detail::infer_type(self)._th_addr_(self, vec1, vec2, beta, alpha);
-}
-static inline Tensor & _th_ger_out(Tensor & result, const Tensor & self, const Tensor & vec2) {
-    return detail::infer_type(self)._th_ger_out(result, self, vec2);
-}
-static inline Tensor _th_ger(const Tensor & self, const Tensor & vec2) {
-    return detail::infer_type(self)._th_ger(self, vec2);
-}
-static inline Tensor & _th_mv_out(Tensor & result, const Tensor & self, const Tensor & vec) {
-    return detail::infer_type(self)._th_mv_out(result, self, vec);
-}
-static inline Tensor _th_mv(const Tensor & self, const Tensor & vec) {
-    return detail::infer_type(self)._th_mv(self, vec);
-}
-static inline Tensor & _th_mm_out(Tensor & result, const Tensor & self, const Tensor & mat2) {
-    return detail::infer_type(self)._th_mm_out(result, self, mat2);
-}
-static inline Tensor _th_mm(const Tensor & self, const Tensor & mat2) {
-    return detail::infer_type(self)._th_mm(self, mat2);
-}
-static inline Tensor & _th_bmm_out(Tensor & result, const Tensor & self, const Tensor & mat2) {
-    return detail::infer_type(self)._th_bmm_out(result, self, mat2);
-}
-static inline Tensor _th_bmm(const Tensor & self, const Tensor & mat2) {
-    return detail::infer_type(self)._th_bmm(self, mat2);
-}
-static inline Tensor & _th_addbmm_out(Tensor & result, const Tensor & self, const Tensor & batch1, const Tensor & batch2, Scalar beta, Scalar alpha) {
-    return detail::infer_type(self)._th_addbmm_out(result, self, batch1, batch2, beta, alpha);
-}
-static inline Tensor _th_addbmm(const Tensor & self, const Tensor & batch1, const Tensor & batch2, Scalar beta, Scalar alpha) {
-    return detail::infer_type(self)._th_addbmm(self, batch1, batch2, beta, alpha);
-}
-static inline Tensor & _th_addbmm_(Tensor & self, const Tensor & batch1, const Tensor & batch2, Scalar beta, Scalar alpha) {
-    return detail::infer_type(self)._th_addbmm_(self, batch1, batch2, beta, alpha);
-}
-static inline Tensor & _th_baddbmm_out(Tensor & result, const Tensor & self, const Tensor & batch1, const Tensor & batch2, Scalar beta, Scalar alpha) {
-    return detail::infer_type(self)._th_baddbmm_out(result, self, batch1, batch2, beta, alpha);
-}
-static inline Tensor _th_baddbmm(const Tensor & self, const Tensor & batch1, const Tensor & batch2, Scalar beta, Scalar alpha) {
-    return detail::infer_type(self)._th_baddbmm(self, batch1, batch2, beta, alpha);
-}
-static inline Tensor & _th_addcmul_out(Tensor & result, const Tensor & self, const Tensor & tensor1, const Tensor & tensor2, Scalar value) {
-    return detail::infer_type(self)._th_addcmul_out(result, self, tensor1, tensor2, value);
-}
-static inline Tensor _th_addcmul(const Tensor & self, const Tensor & tensor1, const Tensor & tensor2, Scalar value) {
-    return detail::infer_type(self)._th_addcmul(self, tensor1, tensor2, value);
-}
-static inline Tensor & _th_addcmul_(Tensor & self, const Tensor & tensor1, const Tensor & tensor2, Scalar value) {
-    return detail::infer_type(self)._th_addcmul_(self, tensor1, tensor2, value);
-}
-static inline Tensor & _th_addcdiv_out(Tensor & result, const Tensor & self, const Tensor & tensor1, const Tensor & tensor2, Scalar value) {
-    return detail::infer_type(self)._th_addcdiv_out(result, self, tensor1, tensor2, value);
-}
-static inline Tensor _th_addcdiv(const Tensor & self, const Tensor & tensor1, const Tensor & tensor2, Scalar value) {
-    return detail::infer_type(self)._th_addcdiv(self, tensor1, tensor2, value);
-}
-static inline Tensor & _th_addcdiv_(Tensor & self, const Tensor & tensor1, const Tensor & tensor2, Scalar value) {
-    return detail::infer_type(self)._th_addcdiv_(self, tensor1, tensor2, value);
-}
-static inline std::tuple<Tensor &,Tensor &> _th_gels_out(Tensor & res1, Tensor & res2, const Tensor & self, const Tensor & A) {
-    return detail::infer_type(self)._th_gels_out(res1, res2, self, A);
-}
-static inline std::tuple<Tensor,Tensor> _th_gels(const Tensor & self, const Tensor & A) {
-    return detail::infer_type(self)._th_gels(self, A);
-}
-static inline std::tuple<Tensor &,Tensor &> _th_symeig_out(Tensor & res1, Tensor & res2, const Tensor & self, bool eigenvectors, bool upper) {
-    return detail::infer_type(self)._th_symeig_out(res1, res2, self, eigenvectors, upper);
-}
-static inline std::tuple<Tensor,Tensor> _th_symeig(const Tensor & self, bool eigenvectors, bool upper) {
-    return detail::infer_type(self)._th_symeig(self, eigenvectors, upper);
-}
-static inline std::tuple<Tensor &,Tensor &> _th_eig_out(Tensor & res1, Tensor & res2, const Tensor & self, bool eigenvectors) {
-    return detail::infer_type(self)._th_eig_out(res1, res2, self, eigenvectors);
-}
-static inline std::tuple<Tensor,Tensor> _th_eig(const Tensor & self, bool eigenvectors) {
-    return detail::infer_type(self)._th_eig(self, eigenvectors);
-}
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _th_svd_out(Tensor & res1, Tensor & res2, Tensor & res3, const Tensor & self, bool some, bool compute_uv) {
-    return detail::infer_type(self)._th_svd_out(res1, res2, res3, self, some, compute_uv);
-}
-static inline std::tuple<Tensor,Tensor,Tensor> _th_svd(const Tensor & self, bool some, bool compute_uv) {
-    return detail::infer_type(self)._th_svd(self, some, compute_uv);
-}
-static inline Tensor & _th_getri_single_out(Tensor & output, const Tensor & self) {
-    return detail::infer_type(self)._th_getri_single_out(output, self);
-}
-static inline Tensor _th_getri_single(const Tensor & self) {
-    return detail::infer_type(self)._th_getri_single(self);
-}
-static inline Tensor & _th_potri_out(Tensor & output, const Tensor & self, bool upper) {
-    return detail::infer_type(self)._th_potri_out(output, self, upper);
-}
-static inline Tensor _th_potri(const Tensor & self, bool upper) {
-    return detail::infer_type(self)._th_potri(self, upper);
-}
-static inline std::tuple<Tensor &,Tensor &> _th_pstrf_out(Tensor & res1, Tensor & res2, const Tensor & self, bool upper, Scalar tol) {
-    return detail::infer_type(self)._th_pstrf_out(res1, res2, self, upper, tol);
-}
-static inline std::tuple<Tensor,Tensor> _th_pstrf(const Tensor & self, bool upper, Scalar tol) {
-    return detail::infer_type(self)._th_pstrf(self, upper, tol);
-}
-static inline std::tuple<Tensor &,Tensor &> _th_qr_out(Tensor & res1, Tensor & res2, const Tensor & self) {
-    return detail::infer_type(self)._th_qr_out(res1, res2, self);
-}
-static inline std::tuple<Tensor,Tensor> _th_qr(const Tensor & self) {
-    return detail::infer_type(self)._th_qr(self);
-}
-static inline std::tuple<Tensor &,Tensor &> _th_geqrf_out(Tensor & res1, Tensor & res2, const Tensor & self) {
-    return detail::infer_type(self)._th_geqrf_out(res1, res2, self);
-}
-static inline std::tuple<Tensor,Tensor> _th_geqrf(const Tensor & self) {
-    return detail::infer_type(self)._th_geqrf(self);
-}
-static inline Tensor & _th_orgqr_out(Tensor & result, const Tensor & self, const Tensor & input2) {
-    return detail::infer_type(self)._th_orgqr_out(result, self, input2);
-}
-static inline Tensor _th_orgqr(const Tensor & self, const Tensor & input2) {
-    return detail::infer_type(self)._th_orgqr(self, input2);
-}
-static inline Tensor & _th_ormqr_out(Tensor & result, const Tensor & self, const Tensor & input2, const Tensor & input3, bool left, bool transpose) {
-    return detail::infer_type(self)._th_ormqr_out(result, self, input2, input3, left, transpose);
-}
-static inline Tensor _th_ormqr(const Tensor & self, const Tensor & input2, const Tensor & input3, bool left, bool transpose) {
-    return detail::infer_type(self)._th_ormqr(self, input2, input3, left, transpose);
-}
-static inline Tensor & _th_btrisolve_out(Tensor & result, const Tensor & self, const Tensor & LU_data, const Tensor & LU_pivots) {
-    return detail::infer_type(self)._th_btrisolve_out(result, self, LU_data, LU_pivots);
-}
-static inline Tensor _th_btrisolve(const Tensor & self, const Tensor & LU_data, const Tensor & LU_pivots) {
-    return detail::infer_type(self)._th_btrisolve(self, LU_data, LU_pivots);
-}
-static inline Tensor & _th_random_(Tensor & self, int64_t from, int64_t to, Generator * generator) {
-    return detail::infer_type(self)._th_random_(self, from, to, generator);
-}
-static inline Tensor & _th_random_(Tensor & self, int64_t to, Generator * generator) {
-    return detail::infer_type(self)._th_random_(self, to, generator);
-}
-static inline Tensor & _th_random_(Tensor & self, Generator * generator) {
-    return detail::infer_type(self)._th_random_(self, generator);
-}
-static inline std::tuple<Tensor &,Tensor &> _th_multinomial_alias_setup_out(Tensor & J, Tensor & q, const Tensor & probs) {
-    return detail::infer_type(J)._th_multinomial_alias_setup_out(J, q, probs);
-}
-static inline std::tuple<Tensor,Tensor> _th_multinomial_alias_setup(const Tensor & probs) {
-    return detail::infer_type(probs)._th_multinomial_alias_setup(probs);
-}
-static inline Tensor & _th_multinomial_alias_draw_out(Tensor & result, const Tensor & q, const Tensor & J, int64_t num_samples, Generator * generator) {
-    return detail::infer_type(result)._th_multinomial_alias_draw_out(result, q, J, num_samples, generator);
-}
-static inline Tensor _th_multinomial_alias_draw(const Tensor & q, const Tensor & J, int64_t num_samples, Generator * generator) {
-    return detail::infer_type(q)._th_multinomial_alias_draw(q, J, num_samples, generator);
-}
-static inline Tensor & _th_multinomial_out(Tensor & result, const Tensor & self, int64_t num_samples, bool replacement, Generator * generator) {
-    return detail::infer_type(self)._th_multinomial_out(result, self, num_samples, replacement, generator);
-}
-static inline Tensor _th_multinomial(const Tensor & self, int64_t num_samples, bool replacement, Generator * generator) {
-    return detail::infer_type(self)._th_multinomial(self, num_samples, replacement, generator);
-}
-static inline Tensor & _th_uniform_(Tensor & self, double from, double to, Generator * generator) {
-    return detail::infer_type(self)._th_uniform_(self, from, to, generator);
-}
-static inline Tensor & _th_normal_out(Tensor & output, const Tensor & mean, double std, Generator * generator) {
-    return detail::infer_type(output)._th_normal_out(output, mean, std, generator);
-}
-static inline Tensor _th_normal(const Tensor & mean, double std, Generator * generator) {
-    return detail::infer_type(mean)._th_normal(mean, std, generator);
-}
-static inline Tensor & _th_normal_out(Tensor & output, double mean, const Tensor & std, Generator * generator) {
-    return detail::infer_type(output)._th_normal_out(output, mean, std, generator);
-}
-static inline Tensor _th_normal(double mean, const Tensor & std, Generator * generator) {
-    return detail::infer_type(std)._th_normal(mean, std, generator);
-}
-static inline Tensor & _th_normal_out(Tensor & output, const Tensor & mean, const Tensor & std, Generator * generator) {
-    return detail::infer_type(output)._th_normal_out(output, mean, std, generator);
-}
-static inline Tensor _th_normal(const Tensor & mean, const Tensor & std, Generator * generator) {
-    return detail::infer_type(mean)._th_normal(mean, std, generator);
-}
-static inline Tensor & _th_normal_(Tensor & self, double mean, double std, Generator * generator) {
-    return detail::infer_type(self)._th_normal_(self, mean, std, generator);
-}
-static inline Tensor & _th_cauchy_(Tensor & self, double median, double sigma, Generator * generator) {
-    return detail::infer_type(self)._th_cauchy_(self, median, sigma, generator);
-}
-static inline Tensor & _th_log_normal_(Tensor & self, double mean, double std, Generator * generator) {
-    return detail::infer_type(self)._th_log_normal_(self, mean, std, generator);
-}
-static inline Tensor & _th_exponential_(Tensor & self, double lambd, Generator * generator) {
-    return detail::infer_type(self)._th_exponential_(self, lambd, generator);
-}
-static inline Tensor & _th_geometric_(Tensor & self, double p, Generator * generator) {
-    return detail::infer_type(self)._th_geometric_(self, p, generator);
-}
-static inline Tensor & _th_dirichlet_grad_out(Tensor & output, const Tensor & x, const Tensor & alpha, const Tensor & total) {
-    return detail::infer_type(output)._th_dirichlet_grad_out(output, x, alpha, total);
-}
-static inline Tensor _th_dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total) {
-    return detail::infer_type(x)._th_dirichlet_grad(x, alpha, total);
-}
-static inline Tensor _th_alias(const Tensor & self) {
-    return detail::infer_type(self)._th_alias(self);
-}
-static inline Tensor & _th_copy_ignoring_overlaps_(Tensor & self, const Tensor & src) {
-    return detail::infer_type(self)._th_copy_ignoring_overlaps_(self, src);
-}
-static inline Tensor & _th_cat_out(Tensor & self, TensorList tensors, int64_t dim) {
-    return detail::infer_type(self)._th_cat_out(self, tensors, dim);
-}
-static inline Tensor _th_cat(TensorList tensors, int64_t dim) {
-    return detail::infer_type(tensors)._th_cat(tensors, dim);
-}
-static inline Tensor & _thnn_binary_cross_entropy_forward_out(Tensor & output, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction) {
-    return detail::infer_type(self)._thnn_binary_cross_entropy_forward_out(output, self, target, weight, reduction);
-}
-static inline Tensor _thnn_binary_cross_entropy_forward(const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction) {
-    return detail::infer_type(self)._thnn_binary_cross_entropy_forward(self, target, weight, reduction);
-}
-static inline Tensor & _thnn_binary_cross_entropy_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction) {
-    return detail::infer_type(self)._thnn_binary_cross_entropy_backward_out(grad_input, grad_output, self, target, weight, reduction);
-}
-static inline Tensor _thnn_binary_cross_entropy_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction) {
-    return detail::infer_type(self)._thnn_binary_cross_entropy_backward(grad_output, self, target, weight, reduction);
-}
-static inline Tensor & _thnn_l1_loss_forward_out(Tensor & output, const Tensor & self, const Tensor & target, int64_t reduction) {
-    return detail::infer_type(self)._thnn_l1_loss_forward_out(output, self, target, reduction);
-}
-static inline Tensor _thnn_l1_loss_forward(const Tensor & self, const Tensor & target, int64_t reduction) {
-    return detail::infer_type(self)._thnn_l1_loss_forward(self, target, reduction);
-}
-static inline Tensor & _thnn_l1_loss_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction) {
-    return detail::infer_type(self)._thnn_l1_loss_backward_out(grad_input, grad_output, self, target, reduction);
-}
-static inline Tensor _thnn_l1_loss_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction) {
-    return detail::infer_type(self)._thnn_l1_loss_backward(grad_output, self, target, reduction);
-}
-static inline Tensor & _thnn_mse_loss_forward_out(Tensor & output, const Tensor & self, const Tensor & target, int64_t reduction) {
-    return detail::infer_type(self)._thnn_mse_loss_forward_out(output, self, target, reduction);
-}
-static inline Tensor _thnn_mse_loss_forward(const Tensor & self, const Tensor & target, int64_t reduction) {
-    return detail::infer_type(self)._thnn_mse_loss_forward(self, target, reduction);
-}
-static inline Tensor & _thnn_mse_loss_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction) {
-    return detail::infer_type(self)._thnn_mse_loss_backward_out(grad_input, grad_output, self, target, reduction);
-}
-static inline Tensor _thnn_mse_loss_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction) {
-    return detail::infer_type(self)._thnn_mse_loss_backward(grad_output, self, target, reduction);
-}
-static inline Tensor & _thnn_multi_margin_loss_forward_out(Tensor & output, const Tensor & self, const Tensor & target, Scalar p, Scalar margin, const Tensor & weight, int64_t reduction) {
-    return detail::infer_type(self)._thnn_multi_margin_loss_forward_out(output, self, target, p, margin, weight, reduction);
-}
-static inline Tensor _thnn_multi_margin_loss_forward(const Tensor & self, const Tensor & target, Scalar p, Scalar margin, const Tensor & weight, int64_t reduction) {
-    return detail::infer_type(self)._thnn_multi_margin_loss_forward(self, target, p, margin, weight, reduction);
-}
-static inline Tensor & _thnn_multi_margin_loss_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, Scalar p, Scalar margin, const Tensor & weight, int64_t reduction) {
-    return detail::infer_type(self)._thnn_multi_margin_loss_backward_out(grad_input, grad_output, self, target, p, margin, weight, reduction);
-}
-static inline Tensor _thnn_multi_margin_loss_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, Scalar p, Scalar margin, const Tensor & weight, int64_t reduction) {
-    return detail::infer_type(self)._thnn_multi_margin_loss_backward(grad_output, self, target, p, margin, weight, reduction);
-}
-static inline std::tuple<Tensor &,Tensor &> _thnn_multilabel_margin_loss_forward_out(Tensor & output, Tensor & is_target, const Tensor & self, const Tensor & target, int64_t reduction) {
-    return detail::infer_type(self)._thnn_multilabel_margin_loss_forward_out(output, is_target, self, target, reduction);
-}
-static inline std::tuple<Tensor,Tensor> _thnn_multilabel_margin_loss_forward(const Tensor & self, const Tensor & target, int64_t reduction) {
-    return detail::infer_type(self)._thnn_multilabel_margin_loss_forward(self, target, reduction);
-}
-static inline Tensor & _thnn_multilabel_margin_loss_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction, const Tensor & is_target) {
-    return detail::infer_type(self)._thnn_multilabel_margin_loss_backward_out(grad_input, grad_output, self, target, reduction, is_target);
-}
-static inline Tensor _thnn_multilabel_margin_loss_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction, const Tensor & is_target) {
-    return detail::infer_type(self)._thnn_multilabel_margin_loss_backward(grad_output, self, target, reduction, is_target);
-}
-static inline std::tuple<Tensor &,Tensor &> _thnn_nll_loss_forward_out(Tensor & output, Tensor & total_weight, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction, int64_t ignore_index) {
-    return detail::infer_type(self)._thnn_nll_loss_forward_out(output, total_weight, self, target, weight, reduction, ignore_index);
-}
-static inline std::tuple<Tensor,Tensor> _thnn_nll_loss_forward(const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction, int64_t ignore_index) {
-    return detail::infer_type(self)._thnn_nll_loss_forward(self, target, weight, reduction, ignore_index);
-}
-static inline Tensor & _thnn_nll_loss_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction, int64_t ignore_index, const Tensor & total_weight) {
-    return detail::infer_type(self)._thnn_nll_loss_backward_out(grad_input, grad_output, self, target, weight, reduction, ignore_index, total_weight);
-}
-static inline Tensor _thnn_nll_loss_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction, int64_t ignore_index, const Tensor & total_weight) {
-    return detail::infer_type(self)._thnn_nll_loss_backward(grad_output, self, target, weight, reduction, ignore_index, total_weight);
-}
-static inline std::tuple<Tensor &,Tensor &> _thnn_nll_loss2d_forward_out(Tensor & output, Tensor & total_weight, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction, int64_t ignore_index) {
-    return detail::infer_type(self)._thnn_nll_loss2d_forward_out(output, total_weight, self, target, weight, reduction, ignore_index);
-}
-static inline std::tuple<Tensor,Tensor> _thnn_nll_loss2d_forward(const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction, int64_t ignore_index) {
-    return detail::infer_type(self)._thnn_nll_loss2d_forward(self, target, weight, reduction, ignore_index);
-}
-static inline Tensor & _thnn_nll_loss2d_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction, int64_t ignore_index, const Tensor & total_weight) {
-    return detail::infer_type(self)._thnn_nll_loss2d_backward_out(grad_input, grad_output, self, target, weight, reduction, ignore_index, total_weight);
-}
-static inline Tensor _thnn_nll_loss2d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction, int64_t ignore_index, const Tensor & total_weight) {
-    return detail::infer_type(self)._thnn_nll_loss2d_backward(grad_output, self, target, weight, reduction, ignore_index, total_weight);
-}
-static inline Tensor & _thnn_smooth_l1_loss_forward_out(Tensor & output, const Tensor & self, const Tensor & target, int64_t reduction) {
-    return detail::infer_type(self)._thnn_smooth_l1_loss_forward_out(output, self, target, reduction);
-}
-static inline Tensor _thnn_smooth_l1_loss_forward(const Tensor & self, const Tensor & target, int64_t reduction) {
-    return detail::infer_type(self)._thnn_smooth_l1_loss_forward(self, target, reduction);
-}
-static inline Tensor & _thnn_smooth_l1_loss_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction) {
-    return detail::infer_type(self)._thnn_smooth_l1_loss_backward_out(grad_input, grad_output, self, target, reduction);
-}
-static inline Tensor _thnn_smooth_l1_loss_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction) {
-    return detail::infer_type(self)._thnn_smooth_l1_loss_backward(grad_output, self, target, reduction);
-}
-static inline Tensor & _thnn_soft_margin_loss_forward_out(Tensor & output, const Tensor & self, const Tensor & target, int64_t reduction) {
-    return detail::infer_type(self)._thnn_soft_margin_loss_forward_out(output, self, target, reduction);
-}
-static inline Tensor _thnn_soft_margin_loss_forward(const Tensor & self, const Tensor & target, int64_t reduction) {
-    return detail::infer_type(self)._thnn_soft_margin_loss_forward(self, target, reduction);
-}
-static inline Tensor & _thnn_soft_margin_loss_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction) {
-    return detail::infer_type(self)._thnn_soft_margin_loss_backward_out(grad_input, grad_output, self, target, reduction);
-}
-static inline Tensor _thnn_soft_margin_loss_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction) {
-    return detail::infer_type(self)._thnn_soft_margin_loss_backward(grad_output, self, target, reduction);
-}
-static inline Tensor & _thnn_elu_forward_out(Tensor & output, const Tensor & self, Scalar alpha, Scalar scale, Scalar input_scale) {
-    return detail::infer_type(self)._thnn_elu_forward_out(output, self, alpha, scale, input_scale);
-}
-static inline Tensor _thnn_elu_forward(const Tensor & self, Scalar alpha, Scalar scale, Scalar input_scale) {
-    return detail::infer_type(self)._thnn_elu_forward(self, alpha, scale, input_scale);
-}
-static inline Tensor & _thnn_elu_backward_out(Tensor & grad_input, const Tensor & grad_output, Scalar alpha, Scalar scale, Scalar input_scale, const Tensor & output) {
-    return detail::infer_type(grad_input)._thnn_elu_backward_out(grad_input, grad_output, alpha, scale, input_scale, output);
-}
-static inline Tensor _thnn_elu_backward(const Tensor & grad_output, Scalar alpha, Scalar scale, Scalar input_scale, const Tensor & output) {
-    return detail::infer_type(grad_output)._thnn_elu_backward(grad_output, alpha, scale, input_scale, output);
-}
-static inline Tensor & _thnn_elu_(Tensor & self, Scalar alpha, Scalar scale, Scalar input_scale) {
-    return detail::infer_type(self)._thnn_elu_(self, alpha, scale, input_scale);
-}
-static inline Tensor & _thnn_elu_forward_(Tensor & self, Scalar alpha, Scalar scale, Scalar input_scale) {
-    return detail::infer_type(self)._thnn_elu_forward_(self, alpha, scale, input_scale);
-}
-static inline Tensor & _thnn_glu_forward_out(Tensor & output, const Tensor & self, int64_t dim) {
-    return detail::infer_type(self)._thnn_glu_forward_out(output, self, dim);
-}
-static inline Tensor _thnn_glu_forward(const Tensor & self, int64_t dim) {
-    return detail::infer_type(self)._thnn_glu_forward(self, dim);
-}
-static inline Tensor & _thnn_glu_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, int64_t dim) {
-    return detail::infer_type(self)._thnn_glu_backward_out(grad_input, grad_output, self, dim);
-}
-static inline Tensor _thnn_glu_backward(const Tensor & grad_output, const Tensor & self, int64_t dim) {
-    return detail::infer_type(self)._thnn_glu_backward(grad_output, self, dim);
-}
-static inline Tensor & _thnn_hardtanh_forward_out(Tensor & output, const Tensor & self, Scalar min_val, Scalar max_val) {
-    return detail::infer_type(self)._thnn_hardtanh_forward_out(output, self, min_val, max_val);
-}
-static inline Tensor _thnn_hardtanh_forward(const Tensor & self, Scalar min_val, Scalar max_val) {
-    return detail::infer_type(self)._thnn_hardtanh_forward(self, min_val, max_val);
-}
-static inline Tensor & _thnn_hardtanh_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, Scalar min_val, Scalar max_val) {
-    return detail::infer_type(self)._thnn_hardtanh_backward_out(grad_input, grad_output, self, min_val, max_val);
-}
-static inline Tensor _thnn_hardtanh_backward(const Tensor & grad_output, const Tensor & self, Scalar min_val, Scalar max_val) {
-    return detail::infer_type(self)._thnn_hardtanh_backward(grad_output, self, min_val, max_val);
-}
-static inline Tensor & _thnn_hardtanh_(Tensor & self, Scalar min_val, Scalar max_val) {
-    return detail::infer_type(self)._thnn_hardtanh_(self, min_val, max_val);
-}
-static inline Tensor & _thnn_hardtanh_forward_(Tensor & self, Scalar min_val, Scalar max_val) {
-    return detail::infer_type(self)._thnn_hardtanh_forward_(self, min_val, max_val);
-}
-static inline Tensor & _thnn_leaky_relu_forward_out(Tensor & output, const Tensor & self, Scalar negative_slope) {
-    return detail::infer_type(self)._thnn_leaky_relu_forward_out(output, self, negative_slope);
-}
-static inline Tensor _thnn_leaky_relu_forward(const Tensor & self, Scalar negative_slope) {
-    return detail::infer_type(self)._thnn_leaky_relu_forward(self, negative_slope);
-}
-static inline Tensor & _thnn_leaky_relu_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, Scalar negative_slope) {
-    return detail::infer_type(self)._thnn_leaky_relu_backward_out(grad_input, grad_output, self, negative_slope);
-}
-static inline Tensor _thnn_leaky_relu_backward(const Tensor & grad_output, const Tensor & self, Scalar negative_slope) {
-    return detail::infer_type(self)._thnn_leaky_relu_backward(grad_output, self, negative_slope);
-}
-static inline Tensor & _thnn_leaky_relu_(Tensor & self, Scalar negative_slope) {
-    return detail::infer_type(self)._thnn_leaky_relu_(self, negative_slope);
-}
-static inline Tensor & _thnn_leaky_relu_forward_(Tensor & self, Scalar negative_slope) {
-    return detail::infer_type(self)._thnn_leaky_relu_forward_(self, negative_slope);
-}
-static inline std::tuple<Tensor &,Tensor &> _thnn_log_sigmoid_forward_out(Tensor & output, Tensor & buffer, const Tensor & self) {
-    return detail::infer_type(self)._thnn_log_sigmoid_forward_out(output, buffer, self);
-}
-static inline std::tuple<Tensor,Tensor> _thnn_log_sigmoid_forward(const Tensor & self) {
-    return detail::infer_type(self)._thnn_log_sigmoid_forward(self);
-}
-static inline Tensor & _thnn_log_sigmoid_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & buffer) {
-    return detail::infer_type(self)._thnn_log_sigmoid_backward_out(grad_input, grad_output, self, buffer);
-}
-static inline Tensor _thnn_log_sigmoid_backward(const Tensor & grad_output, const Tensor & self, const Tensor & buffer) {
-    return detail::infer_type(self)._thnn_log_sigmoid_backward(grad_output, self, buffer);
-}
-static inline Tensor & _thnn_rrelu_with_noise_forward_out(Tensor & output, const Tensor & self, const Tensor & noise, Scalar lower, Scalar upper, bool training, Generator * generator) {
-    return detail::infer_type(self)._thnn_rrelu_with_noise_forward_out(output, self, noise, lower, upper, training, generator);
-}
-static inline Tensor _thnn_rrelu_with_noise_forward(const Tensor & self, const Tensor & noise, Scalar lower, Scalar upper, bool training, Generator * generator) {
-    return detail::infer_type(self)._thnn_rrelu_with_noise_forward(self, noise, lower, upper, training, generator);
-}
-static inline Tensor & _thnn_rrelu_with_noise_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & noise, Scalar lower, Scalar upper, bool training) {
-    return detail::infer_type(self)._thnn_rrelu_with_noise_backward_out(grad_input, grad_output, self, noise, lower, upper, training);
-}
-static inline Tensor _thnn_rrelu_with_noise_backward(const Tensor & grad_output, const Tensor & self, const Tensor & noise, Scalar lower, Scalar upper, bool training) {
-    return detail::infer_type(self)._thnn_rrelu_with_noise_backward(grad_output, self, noise, lower, upper, training);
-}
-static inline Tensor & _thnn_rrelu_with_noise_(Tensor & self, const Tensor & noise, Scalar lower, Scalar upper, bool training, Generator * generator) {
-    return detail::infer_type(self)._thnn_rrelu_with_noise_(self, noise, lower, upper, training, generator);
-}
-static inline Tensor & _thnn_rrelu_with_noise_forward_(Tensor & self, const Tensor & noise, Scalar lower, Scalar upper, bool training, Generator * generator) {
-    return detail::infer_type(self)._thnn_rrelu_with_noise_forward_(self, noise, lower, upper, training, generator);
-}
-static inline Tensor & _thnn_softplus_forward_out(Tensor & output, const Tensor & self, Scalar beta, Scalar threshold) {
-    return detail::infer_type(self)._thnn_softplus_forward_out(output, self, beta, threshold);
-}
-static inline Tensor _thnn_softplus_forward(const Tensor & self, Scalar beta, Scalar threshold) {
-    return detail::infer_type(self)._thnn_softplus_forward(self, beta, threshold);
-}
-static inline Tensor & _thnn_softplus_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, Scalar beta, Scalar threshold, const Tensor & output) {
-    return detail::infer_type(self)._thnn_softplus_backward_out(grad_input, grad_output, self, beta, threshold, output);
-}
-static inline Tensor _thnn_softplus_backward(const Tensor & grad_output, const Tensor & self, Scalar beta, Scalar threshold, const Tensor & output) {
-    return detail::infer_type(self)._thnn_softplus_backward(grad_output, self, beta, threshold, output);
-}
-static inline Tensor & _thnn_softshrink_forward_out(Tensor & output, const Tensor & self, Scalar lambd) {
-    return detail::infer_type(self)._thnn_softshrink_forward_out(output, self, lambd);
-}
-static inline Tensor _thnn_softshrink_forward(const Tensor & self, Scalar lambd) {
-    return detail::infer_type(self)._thnn_softshrink_forward(self, lambd);
-}
-static inline Tensor & _thnn_softshrink_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, Scalar lambd) {
-    return detail::infer_type(self)._thnn_softshrink_backward_out(grad_input, grad_output, self, lambd);
-}
-static inline Tensor _thnn_softshrink_backward(const Tensor & grad_output, const Tensor & self, Scalar lambd) {
-    return detail::infer_type(self)._thnn_softshrink_backward(grad_output, self, lambd);
-}
-static inline Tensor & _thnn_adaptive_avg_pool3d_forward_out(Tensor & output, const Tensor & self, IntArrayRef output_size) {
-    return detail::infer_type(self)._thnn_adaptive_avg_pool3d_forward_out(output, self, output_size);
-}
-static inline Tensor _thnn_adaptive_avg_pool3d_forward(const Tensor & self, IntArrayRef output_size) {
-    return detail::infer_type(self)._thnn_adaptive_avg_pool3d_forward(self, output_size);
-}
-static inline Tensor & _thnn_adaptive_avg_pool3d_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self) {
-    return detail::infer_type(self)._thnn_adaptive_avg_pool3d_backward_out(grad_input, grad_output, self);
-}
-static inline Tensor _thnn_adaptive_avg_pool3d_backward(const Tensor & grad_output, const Tensor & self) {
-    return detail::infer_type(self)._thnn_adaptive_avg_pool3d_backward(grad_output, self);
-}
-static inline Tensor & _thnn_avg_pool2d_forward_out(Tensor & output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad) {
-    return detail::infer_type(self)._thnn_avg_pool2d_forward_out(output, self, kernel_size, stride, padding, ceil_mode, count_include_pad);
-}
-static inline Tensor _thnn_avg_pool2d_forward(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad) {
-    return detail::infer_type(self)._thnn_avg_pool2d_forward(self, kernel_size, stride, padding, ceil_mode, count_include_pad);
-}
-static inline Tensor & _thnn_avg_pool2d_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad) {
-    return detail::infer_type(self)._thnn_avg_pool2d_backward_out(grad_input, grad_output, self, kernel_size, stride, padding, ceil_mode, count_include_pad);
-}
-static inline Tensor _thnn_avg_pool2d_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad) {
-    return detail::infer_type(self)._thnn_avg_pool2d_backward(grad_output, self, kernel_size, stride, padding, ceil_mode, count_include_pad);
-}
-static inline Tensor & _thnn_avg_pool3d_forward_out(Tensor & output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad) {
-    return detail::infer_type(self)._thnn_avg_pool3d_forward_out(output, self, kernel_size, stride, padding, ceil_mode, count_include_pad);
-}
-static inline Tensor _thnn_avg_pool3d_forward(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad) {
-    return detail::infer_type(self)._thnn_avg_pool3d_forward(self, kernel_size, stride, padding, ceil_mode, count_include_pad);
-}
-static inline Tensor & _thnn_avg_pool3d_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad) {
-    return detail::infer_type(self)._thnn_avg_pool3d_backward_out(grad_input, grad_output, self, kernel_size, stride, padding, ceil_mode, count_include_pad);
-}
-static inline Tensor _thnn_avg_pool3d_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad) {
-    return detail::infer_type(self)._thnn_avg_pool3d_backward(grad_output, self, kernel_size, stride, padding, ceil_mode, count_include_pad);
-}
-static inline std::tuple<Tensor &,Tensor &> _thnn_max_pool2d_with_indices_forward_out(Tensor & output, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) {
-    return detail::infer_type(self)._thnn_max_pool2d_with_indices_forward_out(output, indices, self, kernel_size, stride, padding, dilation, ceil_mode);
-}
-static inline std::tuple<Tensor,Tensor> _thnn_max_pool2d_with_indices_forward(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) {
-    return detail::infer_type(self)._thnn_max_pool2d_with_indices_forward(self, kernel_size, stride, padding, dilation, ceil_mode);
-}
-static inline Tensor & _thnn_max_pool2d_with_indices_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices) {
-    return detail::infer_type(self)._thnn_max_pool2d_with_indices_backward_out(grad_input, grad_output, self, kernel_size, stride, padding, dilation, ceil_mode, indices);
-}
-static inline Tensor _thnn_max_pool2d_with_indices_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices) {
-    return detail::infer_type(self)._thnn_max_pool2d_with_indices_backward(grad_output, self, kernel_size, stride, padding, dilation, ceil_mode, indices);
-}
-static inline std::tuple<Tensor &,Tensor &> _thnn_max_pool3d_with_indices_forward_out(Tensor & output, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) {
-    return detail::infer_type(self)._thnn_max_pool3d_with_indices_forward_out(output, indices, self, kernel_size, stride, padding, dilation, ceil_mode);
-}
-static inline std::tuple<Tensor,Tensor> _thnn_max_pool3d_with_indices_forward(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) {
-    return detail::infer_type(self)._thnn_max_pool3d_with_indices_forward(self, kernel_size, stride, padding, dilation, ceil_mode);
-}
-static inline Tensor & _thnn_max_pool3d_with_indices_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices) {
-    return detail::infer_type(self)._thnn_max_pool3d_with_indices_backward_out(grad_input, grad_output, self, kernel_size, stride, padding, dilation, ceil_mode, indices);
-}
-static inline Tensor _thnn_max_pool3d_with_indices_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices) {
-    return detail::infer_type(self)._thnn_max_pool3d_with_indices_backward(grad_output, self, kernel_size, stride, padding, dilation, ceil_mode, indices);
-}
-static inline Tensor & _thnn_max_unpool2d_forward_out(Tensor & output, const Tensor & self, const Tensor & indices, IntArrayRef output_size) {
-    return detail::infer_type(self)._thnn_max_unpool2d_forward_out(output, self, indices, output_size);
-}
-static inline Tensor _thnn_max_unpool2d_forward(const Tensor & self, const Tensor & indices, IntArrayRef output_size) {
-    return detail::infer_type(self)._thnn_max_unpool2d_forward(self, indices, output_size);
-}
-static inline Tensor & _thnn_max_unpool2d_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & indices, IntArrayRef output_size) {
-    return detail::infer_type(self)._thnn_max_unpool2d_backward_out(grad_input, grad_output, self, indices, output_size);
-}
-static inline Tensor _thnn_max_unpool2d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & indices, IntArrayRef output_size) {
-    return detail::infer_type(self)._thnn_max_unpool2d_backward(grad_output, self, indices, output_size);
-}
-static inline Tensor & _thnn_max_unpool3d_forward_out(Tensor & output, const Tensor & self, const Tensor & indices, IntArrayRef output_size, IntArrayRef stride, IntArrayRef padding) {
-    return detail::infer_type(self)._thnn_max_unpool3d_forward_out(output, self, indices, output_size, stride, padding);
-}
-static inline Tensor _thnn_max_unpool3d_forward(const Tensor & self, const Tensor & indices, IntArrayRef output_size, IntArrayRef stride, IntArrayRef padding) {
-    return detail::infer_type(self)._thnn_max_unpool3d_forward(self, indices, output_size, stride, padding);
-}
-static inline Tensor & _thnn_max_unpool3d_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & indices, IntArrayRef output_size, IntArrayRef stride, IntArrayRef padding) {
-    return detail::infer_type(self)._thnn_max_unpool3d_backward_out(grad_input, grad_output, self, indices, output_size, stride, padding);
-}
-static inline Tensor _thnn_max_unpool3d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & indices, IntArrayRef output_size, IntArrayRef stride, IntArrayRef padding) {
-    return detail::infer_type(self)._thnn_max_unpool3d_backward(grad_output, self, indices, output_size, stride, padding);
-}
-static inline Tensor & _thnn_upsample_linear1d_forward_out(Tensor & output, const Tensor & self, IntArrayRef output_size, bool align_corners) {
-    return detail::infer_type(self)._thnn_upsample_linear1d_forward_out(output, self, output_size, align_corners);
-}
-static inline Tensor _thnn_upsample_linear1d_forward(const Tensor & self, IntArrayRef output_size, bool align_corners) {
-    return detail::infer_type(self)._thnn_upsample_linear1d_forward(self, output_size, align_corners);
-}
-static inline Tensor & _thnn_upsample_linear1d_backward_out(Tensor & grad_input, const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size, bool align_corners) {
-    return detail::infer_type(grad_input)._thnn_upsample_linear1d_backward_out(grad_input, grad_output, output_size, input_size, align_corners);
-}
-static inline Tensor _thnn_upsample_linear1d_backward(const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size, bool align_corners) {
-    return detail::infer_type(grad_output)._thnn_upsample_linear1d_backward(grad_output, output_size, input_size, align_corners);
-}
-static inline Tensor & _thnn_upsample_bilinear2d_forward_out(Tensor & output, const Tensor & self, IntArrayRef output_size, bool align_corners) {
-    return detail::infer_type(self)._thnn_upsample_bilinear2d_forward_out(output, self, output_size, align_corners);
-}
-static inline Tensor _thnn_upsample_bilinear2d_forward(const Tensor & self, IntArrayRef output_size, bool align_corners) {
-    return detail::infer_type(self)._thnn_upsample_bilinear2d_forward(self, output_size, align_corners);
-}
-static inline Tensor & _thnn_upsample_bilinear2d_backward_out(Tensor & grad_input, const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size, bool align_corners) {
-    return detail::infer_type(grad_input)._thnn_upsample_bilinear2d_backward_out(grad_input, grad_output, output_size, input_size, align_corners);
-}
-static inline Tensor _thnn_upsample_bilinear2d_backward(const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size, bool align_corners) {
-    return detail::infer_type(grad_output)._thnn_upsample_bilinear2d_backward(grad_output, output_size, input_size, align_corners);
-}
-static inline Tensor & _thnn_upsample_bicubic2d_forward_out(Tensor & output, const Tensor & self, IntArrayRef output_size, bool align_corners) {
-    return detail::infer_type(self)._thnn_upsample_bicubic2d_forward_out(output, self, output_size, align_corners);
-}
-static inline Tensor _thnn_upsample_bicubic2d_forward(const Tensor & self, IntArrayRef output_size, bool align_corners) {
-    return detail::infer_type(self)._thnn_upsample_bicubic2d_forward(self, output_size, align_corners);
-}
-static inline Tensor & _thnn_upsample_bicubic2d_backward_out(Tensor & grad_input, const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size, bool align_corners) {
-    return detail::infer_type(grad_input)._thnn_upsample_bicubic2d_backward_out(grad_input, grad_output, output_size, input_size, align_corners);
-}
-static inline Tensor _thnn_upsample_bicubic2d_backward(const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size, bool align_corners) {
-    return detail::infer_type(grad_output)._thnn_upsample_bicubic2d_backward(grad_output, output_size, input_size, align_corners);
-}
-static inline Tensor & _thnn_upsample_trilinear3d_forward_out(Tensor & output, const Tensor & self, IntArrayRef output_size, bool align_corners) {
-    return detail::infer_type(self)._thnn_upsample_trilinear3d_forward_out(output, self, output_size, align_corners);
-}
-static inline Tensor _thnn_upsample_trilinear3d_forward(const Tensor & self, IntArrayRef output_size, bool align_corners) {
-    return detail::infer_type(self)._thnn_upsample_trilinear3d_forward(self, output_size, align_corners);
-}
-static inline Tensor & _thnn_upsample_trilinear3d_backward_out(Tensor & grad_input, const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size, bool align_corners) {
-    return detail::infer_type(grad_input)._thnn_upsample_trilinear3d_backward_out(grad_input, grad_output, output_size, input_size, align_corners);
-}
-static inline Tensor _thnn_upsample_trilinear3d_backward(const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size, bool align_corners) {
-    return detail::infer_type(grad_output)._thnn_upsample_trilinear3d_backward(grad_output, output_size, input_size, align_corners);
-}
-static inline Tensor & _thnn_upsample_nearest1d_forward_out(Tensor & output, const Tensor & self, IntArrayRef output_size) {
-    return detail::infer_type(self)._thnn_upsample_nearest1d_forward_out(output, self, output_size);
-}
-static inline Tensor _thnn_upsample_nearest1d_forward(const Tensor & self, IntArrayRef output_size) {
-    return detail::infer_type(self)._thnn_upsample_nearest1d_forward(self, output_size);
-}
-static inline Tensor & _thnn_upsample_nearest1d_backward_out(Tensor & grad_input, const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size) {
-    return detail::infer_type(grad_input)._thnn_upsample_nearest1d_backward_out(grad_input, grad_output, output_size, input_size);
-}
-static inline Tensor _thnn_upsample_nearest1d_backward(const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size) {
-    return detail::infer_type(grad_output)._thnn_upsample_nearest1d_backward(grad_output, output_size, input_size);
-}
-static inline Tensor & _thnn_upsample_nearest2d_forward_out(Tensor & output, const Tensor & self, IntArrayRef output_size) {
-    return detail::infer_type(self)._thnn_upsample_nearest2d_forward_out(output, self, output_size);
-}
-static inline Tensor _thnn_upsample_nearest2d_forward(const Tensor & self, IntArrayRef output_size) {
-    return detail::infer_type(self)._thnn_upsample_nearest2d_forward(self, output_size);
-}
-static inline Tensor & _thnn_upsample_nearest2d_backward_out(Tensor & grad_input, const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size) {
-    return detail::infer_type(grad_input)._thnn_upsample_nearest2d_backward_out(grad_input, grad_output, output_size, input_size);
-}
-static inline Tensor _thnn_upsample_nearest2d_backward(const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size) {
-    return detail::infer_type(grad_output)._thnn_upsample_nearest2d_backward(grad_output, output_size, input_size);
-}
-static inline Tensor & _thnn_upsample_nearest3d_forward_out(Tensor & output, const Tensor & self, IntArrayRef output_size) {
-    return detail::infer_type(self)._thnn_upsample_nearest3d_forward_out(output, self, output_size);
-}
-static inline Tensor _thnn_upsample_nearest3d_forward(const Tensor & self, IntArrayRef output_size) {
-    return detail::infer_type(self)._thnn_upsample_nearest3d_forward(self, output_size);
-}
-static inline Tensor & _thnn_upsample_nearest3d_backward_out(Tensor & grad_input, const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size) {
-    return detail::infer_type(grad_input)._thnn_upsample_nearest3d_backward_out(grad_input, grad_output, output_size, input_size);
-}
-static inline Tensor _thnn_upsample_nearest3d_backward(const Tensor & grad_output, IntArrayRef output_size, IntArrayRef input_size) {
-    return detail::infer_type(grad_output)._thnn_upsample_nearest3d_backward(grad_output, output_size, input_size);
-}
-static inline Tensor & _thnn_sigmoid_forward_out(Tensor & output, const Tensor & self) {
-    return detail::infer_type(self)._thnn_sigmoid_forward_out(output, self);
-}
-static inline Tensor _thnn_sigmoid_forward(const Tensor & self) {
-    return detail::infer_type(self)._thnn_sigmoid_forward(self);
-}
-static inline Tensor & _thnn_sigmoid_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & output) {
-    return detail::infer_type(grad_input)._thnn_sigmoid_backward_out(grad_input, grad_output, output);
-}
-static inline Tensor _thnn_sigmoid_backward(const Tensor & grad_output, const Tensor & output) {
-    return detail::infer_type(grad_output)._thnn_sigmoid_backward(grad_output, output);
-}
-static inline Tensor & _thnn_tanh_forward_out(Tensor & output, const Tensor & self) {
-    return detail::infer_type(self)._thnn_tanh_forward_out(output, self);
-}
-static inline Tensor _thnn_tanh_forward(const Tensor & self) {
-    return detail::infer_type(self)._thnn_tanh_forward(self);
-}
-static inline Tensor & _thnn_tanh_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & output) {
-    return detail::infer_type(grad_input)._thnn_tanh_backward_out(grad_input, grad_output, output);
-}
-static inline Tensor _thnn_tanh_backward(const Tensor & grad_output, const Tensor & output) {
-    return detail::infer_type(grad_output)._thnn_tanh_backward(grad_output, output);
-}
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv_transpose2d_forward_out(Tensor & output, Tensor & columns, Tensor & ones, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation) {
-    return detail::infer_type(self)._thnn_conv_transpose2d_forward_out(output, columns, ones, self, weight, kernel_size, bias, stride, padding, output_padding, dilation);
-}
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv_transpose2d_forward(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation) {
-    return detail::infer_type(self)._thnn_conv_transpose2d_forward(self, weight, kernel_size, bias, stride, padding, output_padding, dilation);
-}
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv_transpose2d_backward_out(Tensor & grad_input, Tensor & grad_weight, Tensor & grad_bias, const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation, const Tensor & columns, const Tensor & ones) {
-    return detail::infer_type(self)._thnn_conv_transpose2d_backward_out(grad_input, grad_weight, grad_bias, grad_output, self, weight, kernel_size, stride, padding, output_padding, dilation, columns, ones);
-}
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv_transpose2d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation, const Tensor & columns, const Tensor & ones, std::array<bool,3> output_mask) {
-    return detail::infer_type(self)._thnn_conv_transpose2d_backward(grad_output, self, weight, kernel_size, stride, padding, output_padding, dilation, columns, ones, output_mask);
-}
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv_transpose3d_forward_out(Tensor & output, Tensor & finput, Tensor & fgrad_input, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation) {
-    return detail::infer_type(self)._thnn_conv_transpose3d_forward_out(output, finput, fgrad_input, self, weight, kernel_size, bias, stride, padding, output_padding, dilation);
-}
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv_transpose3d_forward(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation) {
-    return detail::infer_type(self)._thnn_conv_transpose3d_forward(self, weight, kernel_size, bias, stride, padding, output_padding, dilation);
-}
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv_transpose3d_backward_out(Tensor & grad_input, Tensor & grad_weight, Tensor & grad_bias, const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation, const Tensor & finput, const Tensor & fgrad_input) {
-    return detail::infer_type(self)._thnn_conv_transpose3d_backward_out(grad_input, grad_weight, grad_bias, grad_output, self, weight, kernel_size, stride, padding, output_padding, dilation, finput, fgrad_input);
-}
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv_transpose3d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation, const Tensor & finput, const Tensor & fgrad_input, std::array<bool,3> output_mask) {
-    return detail::infer_type(self)._thnn_conv_transpose3d_backward(grad_output, self, weight, kernel_size, stride, padding, output_padding, dilation, finput, fgrad_input, output_mask);
-}
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv2d_forward_out(Tensor & output, Tensor & finput, Tensor & fgrad_input, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding) {
-    return detail::infer_type(self)._thnn_conv2d_forward_out(output, finput, fgrad_input, self, weight, kernel_size, bias, stride, padding);
-}
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv2d_forward(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding) {
-    return detail::infer_type(self)._thnn_conv2d_forward(self, weight, kernel_size, bias, stride, padding);
-}
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv2d_backward_out(Tensor & grad_input, Tensor & grad_weight, Tensor & grad_bias, const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, const Tensor & finput, const Tensor & fgrad_input) {
-    return detail::infer_type(self)._thnn_conv2d_backward_out(grad_input, grad_weight, grad_bias, grad_output, self, weight, kernel_size, stride, padding, finput, fgrad_input);
-}
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv2d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, const Tensor & finput, const Tensor & fgrad_input, std::array<bool,3> output_mask) {
-    return detail::infer_type(self)._thnn_conv2d_backward(grad_output, self, weight, kernel_size, stride, padding, finput, fgrad_input, output_mask);
-}
-static inline Tensor & _thnn_conv_depthwise2d_forward_out(Tensor & output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation) {
-    return detail::infer_type(self)._thnn_conv_depthwise2d_forward_out(output, self, weight, kernel_size, bias, stride, padding, dilation);
-}
-static inline Tensor _thnn_conv_depthwise2d_forward(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation) {
-    return detail::infer_type(self)._thnn_conv_depthwise2d_forward(self, weight, kernel_size, bias, stride, padding, dilation);
-}
-static inline std::tuple<Tensor &,Tensor &> _thnn_conv_depthwise2d_backward_out(Tensor & grad_input, Tensor & grad_weight, const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation) {
-    return detail::infer_type(self)._thnn_conv_depthwise2d_backward_out(grad_input, grad_weight, grad_output, self, weight, kernel_size, stride, padding, dilation);
-}
-static inline std::tuple<Tensor,Tensor> _thnn_conv_depthwise2d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, std::array<bool,2> output_mask) {
-    return detail::infer_type(self)._thnn_conv_depthwise2d_backward(grad_output, self, weight, kernel_size, stride, padding, dilation, output_mask);
-}
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv3d_forward_out(Tensor & output, Tensor & finput, Tensor & fgrad_input, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding) {
-    return detail::infer_type(self)._thnn_conv3d_forward_out(output, finput, fgrad_input, self, weight, kernel_size, bias, stride, padding);
-}
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv3d_forward(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding) {
-    return detail::infer_type(self)._thnn_conv3d_forward(self, weight, kernel_size, bias, stride, padding);
-}
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv3d_backward_out(Tensor & grad_input, Tensor & grad_weight, Tensor & grad_bias, const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, const Tensor & finput, const Tensor & fgrad_input) {
-    return detail::infer_type(self)._thnn_conv3d_backward_out(grad_input, grad_weight, grad_bias, grad_output, self, weight, kernel_size, stride, padding, finput, fgrad_input);
-}
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv3d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, const Tensor & finput, const Tensor & fgrad_input, std::array<bool,3> output_mask) {
-    return detail::infer_type(self)._thnn_conv3d_backward(grad_output, self, weight, kernel_size, stride, padding, finput, fgrad_input, output_mask);
-}
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv_dilated2d_forward_out(Tensor & output, Tensor & columns, Tensor & ones, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation) {
-    return detail::infer_type(self)._thnn_conv_dilated2d_forward_out(output, columns, ones, self, weight, kernel_size, bias, stride, padding, dilation);
-}
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv_dilated2d_forward(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation) {
-    return detail::infer_type(self)._thnn_conv_dilated2d_forward(self, weight, kernel_size, bias, stride, padding, dilation);
-}
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv_dilated2d_backward_out(Tensor & grad_input, Tensor & grad_weight, Tensor & grad_bias, const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, const Tensor & columns, const Tensor & ones) {
-    return detail::infer_type(self)._thnn_conv_dilated2d_backward_out(grad_input, grad_weight, grad_bias, grad_output, self, weight, kernel_size, stride, padding, dilation, columns, ones);
-}
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv_dilated2d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, const Tensor & columns, const Tensor & ones, std::array<bool,3> output_mask) {
-    return detail::infer_type(self)._thnn_conv_dilated2d_backward(grad_output, self, weight, kernel_size, stride, padding, dilation, columns, ones, output_mask);
-}
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv_dilated3d_forward_out(Tensor & output, Tensor & columns, Tensor & ones, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation) {
-    return detail::infer_type(self)._thnn_conv_dilated3d_forward_out(output, columns, ones, self, weight, kernel_size, bias, stride, padding, dilation);
-}
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv_dilated3d_forward(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation) {
-    return detail::infer_type(self)._thnn_conv_dilated3d_forward(self, weight, kernel_size, bias, stride, padding, dilation);
-}
-static inline std::tuple<Tensor &,Tensor &,Tensor &> _thnn_conv_dilated3d_backward_out(Tensor & grad_input, Tensor & grad_weight, Tensor & grad_bias, const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, const Tensor & columns, const Tensor & ones) {
-    return detail::infer_type(self)._thnn_conv_dilated3d_backward_out(grad_input, grad_weight, grad_bias, grad_output, self, weight, kernel_size, stride, padding, dilation, columns, ones);
-}
-static inline std::tuple<Tensor,Tensor,Tensor> _thnn_conv_dilated3d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, const Tensor & columns, const Tensor & ones, std::array<bool,3> output_mask) {
-    return detail::infer_type(self)._thnn_conv_dilated3d_backward(grad_output, self, weight, kernel_size, stride, padding, dilation, columns, ones, output_mask);
-}
-static inline Tensor & _thnn_col2im_forward_out(Tensor & output, const Tensor & self, IntArrayRef output_size, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride) {
-    return detail::infer_type(self)._thnn_col2im_forward_out(output, self, output_size, kernel_size, dilation, padding, stride);
-}
-static inline Tensor _thnn_col2im_forward(const Tensor & self, IntArrayRef output_size, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride) {
-    return detail::infer_type(self)._thnn_col2im_forward(self, output_size, kernel_size, dilation, padding, stride);
-}
-static inline Tensor & _thnn_col2im_backward_out(Tensor & grad_input, const Tensor & grad_output, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride) {
-    return detail::infer_type(grad_input)._thnn_col2im_backward_out(grad_input, grad_output, kernel_size, dilation, padding, stride);
-}
-static inline Tensor _thnn_col2im_backward(const Tensor & grad_output, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride) {
-    return detail::infer_type(grad_output)._thnn_col2im_backward(grad_output, kernel_size, dilation, padding, stride);
-}
-static inline Tensor & _thnn_im2col_forward_out(Tensor & output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride) {
-    return detail::infer_type(self)._thnn_im2col_forward_out(output, self, kernel_size, dilation, padding, stride);
-}
-static inline Tensor _thnn_im2col_forward(const Tensor & self, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride) {
-    return detail::infer_type(self)._thnn_im2col_forward(self, kernel_size, dilation, padding, stride);
-}
-static inline Tensor & _thnn_im2col_backward_out(Tensor & grad_input, const Tensor & grad_output, IntArrayRef input_size, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride) {
-    return detail::infer_type(grad_input)._thnn_im2col_backward_out(grad_input, grad_output, input_size, kernel_size, dilation, padding, stride);
-}
-static inline Tensor _thnn_im2col_backward(const Tensor & grad_output, IntArrayRef input_size, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride) {
-    return detail::infer_type(grad_output)._thnn_im2col_backward(grad_output, input_size, kernel_size, dilation, padding, stride);
-}
 static inline Tensor _cast_Byte(const Tensor & self, bool non_blocking) {
     return detail::infer_type(self)._cast_Byte(self, non_blocking);
 }
@@ -3466,14 +1484,8 @@ static inline Tensor conv_transpose2d(const Tensor & input, const Tensor & weigh
 static inline Tensor conv_transpose3d(const Tensor & input, const Tensor & weight, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, int64_t groups, IntArrayRef dilation) {
     return detail::infer_type(input).conv_transpose3d(input, weight, bias, stride, padding, output_padding, groups, dilation);
 }
-static inline Tensor & s_copy_(Tensor & self, const Tensor & src, bool non_blocking) {
-    return detail::infer_type(self).s_copy_(self, src, non_blocking);
-}
-static inline Tensor _s_copy_from(const Tensor & self, const Tensor & dst, bool non_blocking) {
-    return detail::infer_type(self)._s_copy_from(self, dst, non_blocking);
-}
-static inline void _copy_same_type_(Tensor & self, const Tensor & src) {
-    return detail::infer_type(self)._copy_same_type_(self, src);
+static inline Tensor _copy_from(const Tensor & self, const Tensor & dst, bool non_blocking) {
+    return detail::infer_type(self)._copy_from(self, dst, non_blocking);
 }
 static inline Tensor cos(const Tensor & self) {
     return detail::infer_type(self).cos(self);
@@ -4228,6 +2240,9 @@ static inline Tensor pin_memory(const Tensor & self) {
 static inline Tensor pinverse(const Tensor & self, double rcond) {
     return detail::infer_type(self).pinverse(self, rcond);
 }
+static inline Tensor poisson_nll_loss(const Tensor & input, const Tensor & target, bool log_input, bool full, double eps, int64_t reduction) {
+    return detail::infer_type(input).poisson_nll_loss(input, target, log_input, full, eps, reduction);
+}
 static inline Tensor scalar_tensor(Scalar s, const TensorOptions & options) {
     return at::getType(options).scalar_tensor(s, options);
 }
@@ -4561,6 +2576,12 @@ static inline Tensor std(const Tensor & self, bool unbiased) {
 static inline Tensor std(const Tensor & self, IntArrayRef dim, bool unbiased, bool keepdim) {
     return detail::infer_type(self).std(self, dim, unbiased, keepdim);
 }
+static inline std::tuple<Tensor,Tensor> std_mean(const Tensor & self, bool unbiased) {
+    return detail::infer_type(self).std_mean(self, unbiased);
+}
+static inline std::tuple<Tensor,Tensor> std_mean(const Tensor & self, IntArrayRef dim, bool unbiased, bool keepdim) {
+    return detail::infer_type(self).std_mean(self, dim, unbiased, keepdim);
+}
 static inline Tensor & std_out(Tensor & out, const Tensor & self, IntArrayRef dim, bool unbiased, bool keepdim) {
     return detail::infer_type(self).std_out(out, self, dim, unbiased, keepdim);
 }
@@ -4683,6 +2704,12 @@ static inline Tensor var(const Tensor & self, IntArrayRef dim, bool unbiased, bo
 }
 static inline Tensor & var_out(Tensor & out, const Tensor & self, IntArrayRef dim, bool unbiased, bool keepdim) {
     return detail::infer_type(self).var_out(out, self, dim, unbiased, keepdim);
+}
+static inline std::tuple<Tensor,Tensor> var_mean(const Tensor & self, bool unbiased) {
+    return detail::infer_type(self).var_mean(self, unbiased);
+}
+static inline std::tuple<Tensor,Tensor> var_mean(const Tensor & self, IntArrayRef dim, bool unbiased, bool keepdim) {
+    return detail::infer_type(self).var_mean(self, dim, unbiased, keepdim);
 }
 static inline Tensor where(const Tensor & condition, const Tensor & self, const Tensor & other) {
     return detail::infer_type(self).where(condition, self, other);
@@ -4870,11 +2897,14 @@ static inline Tensor mkldnn_reorder_conv2d_weight(const Tensor & self, IntArrayR
 static inline Tensor to_mkldnn_backward(const Tensor & grad, const Tensor & input) {
     return detail::infer_type(grad).to_mkldnn_backward(grad, input);
 }
-static inline Tensor quantize_linear(const Tensor & self, double scale, int64_t zero_point) {
-    return detail::infer_type(self).quantize_linear(self, scale, zero_point);
+static inline Tensor quantize_linear(const Tensor & self, double scale, int64_t zero_point, ScalarType dtype) {
+    return detail::infer_type(self).quantize_linear(self, scale, zero_point, dtype);
 }
 static inline Tensor dequantize(const Tensor & self) {
     return detail::infer_type(self).dequantize(self);
+}
+static inline Tensor _dequantize_linear(const Tensor & self, double scale, int64_t zero_point, ScalarType dtype) {
+    return detail::infer_type(self)._dequantize_linear(self, scale, zero_point, dtype);
 }
 static inline Scalar q_scale(const Tensor & self) {
     return detail::infer_type(self).q_scale(self);
@@ -4884,6 +2914,9 @@ static inline Scalar q_zero_point(const Tensor & self) {
 }
 static inline Tensor int_repr(const Tensor & self) {
     return detail::infer_type(self).int_repr(self);
+}
+static inline Tensor _per_tensor_affine_qtensor(const Tensor & self, double scale, int64_t zero_point) {
+    return detail::infer_type(self)._per_tensor_affine_qtensor(self, scale, zero_point);
 }
 static inline std::vector<Tensor> meshgrid(TensorList tensors) {
     return detail::infer_type(tensors).meshgrid(tensors);
@@ -5470,6 +3503,69 @@ static inline Tensor & _dirichlet_grad_out(Tensor & out, const Tensor & x, const
 static inline Tensor _dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total) {
     return detail::infer_type(x)._dirichlet_grad(x, alpha, total);
 }
+static inline Tensor _addr(const Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta, Scalar alpha) {
+    return detail::infer_type(self)._addr(self, vec1, vec2, beta, alpha);
+}
+static inline Tensor & _addr_(Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta, Scalar alpha) {
+    return detail::infer_type(self)._addr_(self, vec1, vec2, beta, alpha);
+}
+static inline Tensor & _addr_out(Tensor & out, const Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta, Scalar alpha) {
+    return detail::infer_type(self)._addr_out(out, self, vec1, vec2, beta, alpha);
+}
+static inline Tensor & _index_copy_(Tensor & self, int64_t dim, const Tensor & index, const Tensor & source) {
+    return detail::infer_type(self)._index_copy_(self, dim, index, source);
+}
+static inline Tensor _cumsum(const Tensor & self, int64_t dim) {
+    return detail::infer_type(self)._cumsum(self, dim);
+}
+static inline Tensor & _cumsum_out(Tensor & out, const Tensor & self, int64_t dim) {
+    return detail::infer_type(self)._cumsum_out(out, self, dim);
+}
+static inline Tensor _cumprod(const Tensor & self, int64_t dim) {
+    return detail::infer_type(self)._cumprod(self, dim);
+}
+static inline Tensor & _cumprod_out(Tensor & out, const Tensor & self, int64_t dim) {
+    return detail::infer_type(self)._cumprod_out(out, self, dim);
+}
+static inline Tensor _var(const Tensor & self, bool unbiased) {
+    return detail::infer_type(self)._var(self, unbiased);
+}
+static inline Tensor _std(const Tensor & self, bool unbiased) {
+    return detail::infer_type(self)._std(self, unbiased);
+}
+static inline Tensor & _addmm_out(Tensor & out, const Tensor & self, const Tensor & mat1, const Tensor & mat2, Scalar beta, Scalar alpha) {
+    return detail::infer_type(self)._addmm_out(out, self, mat1, mat2, beta, alpha);
+}
+static inline Tensor _addmm(const Tensor & self, const Tensor & mat1, const Tensor & mat2, Scalar beta, Scalar alpha) {
+    return detail::infer_type(self)._addmm(self, mat1, mat2, beta, alpha);
+}
+static inline Tensor & _addmm_(Tensor & self, const Tensor & mat1, const Tensor & mat2, Scalar beta, Scalar alpha) {
+    return detail::infer_type(self)._addmm_(self, mat1, mat2, beta, alpha);
+}
+static inline Tensor _cat(TensorList tensors, int64_t dim) {
+    return detail::infer_type(tensors)._cat(tensors, dim);
+}
+static inline Tensor & _cat_out(Tensor & out, TensorList tensors, int64_t dim) {
+    return detail::infer_type(out)._cat_out(out, tensors, dim);
+}
+static inline std::tuple<Tensor,Tensor> _mode(const Tensor & self, int64_t dim, bool keepdim) {
+    return detail::infer_type(self)._mode(self, dim, keepdim);
+}
+static inline std::tuple<Tensor &,Tensor &> _mode_out(Tensor & values, Tensor & indices, const Tensor & self, int64_t dim, bool keepdim) {
+    return detail::infer_type(self)._mode_out(values, indices, self, dim, keepdim);
+}
+static inline std::tuple<Tensor,Tensor> _max(const Tensor & self, int64_t dim, bool keepdim) {
+    return detail::infer_type(self)._max(self, dim, keepdim);
+}
+static inline std::tuple<Tensor &,Tensor &> _max_out(Tensor & max, Tensor & max_indices, const Tensor & self, int64_t dim, bool keepdim) {
+    return detail::infer_type(self)._max_out(max, max_indices, self, dim, keepdim);
+}
+static inline std::tuple<Tensor,Tensor> _min(const Tensor & self, int64_t dim, bool keepdim) {
+    return detail::infer_type(self)._min(self, dim, keepdim);
+}
+static inline std::tuple<Tensor &,Tensor &> _min_out(Tensor & min, Tensor & min_indices, const Tensor & self, int64_t dim, bool keepdim) {
+    return detail::infer_type(self)._min_out(min, min_indices, self, dim, keepdim);
+}
 static inline Tensor & binary_cross_entropy_out(Tensor & out, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction) {
     return detail::infer_type(self).binary_cross_entropy_out(out, self, target, weight, reduction);
 }
@@ -5809,8 +3905,8 @@ static inline Tensor & fractional_max_pool3d_backward_out(Tensor & grad_input, c
 static inline Tensor fractional_max_pool3d_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef output_size, const Tensor & indices) {
     return detail::infer_type(self).fractional_max_pool3d_backward(grad_output, self, kernel_size, output_size, indices);
 }
-static inline std::tuple<Tensor &,Tensor &> max_pool2d_with_indices_out(Tensor & output, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) {
-    return detail::infer_type(self).max_pool2d_with_indices_out(output, indices, self, kernel_size, stride, padding, dilation, ceil_mode);
+static inline std::tuple<Tensor &,Tensor &> max_pool2d_with_indices_out(Tensor & out, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) {
+    return detail::infer_type(self).max_pool2d_with_indices_out(out, indices, self, kernel_size, stride, padding, dilation, ceil_mode);
 }
 static inline std::tuple<Tensor,Tensor> max_pool2d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) {
     return detail::infer_type(self).max_pool2d_with_indices(self, kernel_size, stride, padding, dilation, ceil_mode);

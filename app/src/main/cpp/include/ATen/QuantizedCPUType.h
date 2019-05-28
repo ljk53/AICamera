@@ -25,7 +25,6 @@ struct QuantizedCPUType final : public CPUTypeDefault {
   // example
   // virtual Tensor * add(Tensor & a, Tensor & b) override;
   Tensor as_strided(const Tensor & self, IntArrayRef size, IntArrayRef stride, c10::optional<int64_t> storage_offset) const override;
-  Tensor & s_copy_(Tensor & self, const Tensor & src, bool non_blocking) const override;
   Tensor _empty_affine_quantized(IntArrayRef size, const TensorOptions & options, double scale, int64_t zero_point) const override;
   Tensor dequantize(const Tensor & self) const override;
   Scalar q_scale(const Tensor & self) const override;
@@ -37,7 +36,7 @@ struct QuantizedCPUType final : public CPUTypeDefault {
     return t.scalar_type();
   }
   ScalarType infer_scalar_type(const TensorList & tl) const {
-    AT_CHECK(tl.size() > 0, "expected a non-empty list of Tensors");
+    TORCH_CHECK(tl.size() > 0, "expected a non-empty list of Tensors");
     return tl[0].scalar_type();
   }
 };

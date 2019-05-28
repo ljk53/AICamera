@@ -1046,6 +1046,30 @@ class CAFFE2_API QTensorProto : public ::google::protobuf::Message /* @@protoc_i
   ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
       mutable_data();
 
+  // repeated double scales = 9;
+  int scales_size() const;
+  void clear_scales();
+  static const int kScalesFieldNumber = 9;
+  double scales(int index) const;
+  void set_scales(int index, double value);
+  void add_scales(double value);
+  const ::google::protobuf::RepeatedField< double >&
+      scales() const;
+  ::google::protobuf::RepeatedField< double >*
+      mutable_scales();
+
+  // repeated double biases = 10;
+  int biases_size() const;
+  void clear_biases();
+  static const int kBiasesFieldNumber = 10;
+  double biases(int index) const;
+  void set_biases(int index, double value);
+  void add_biases(double value);
+  const ::google::protobuf::RepeatedField< double >&
+      biases() const;
+  ::google::protobuf::RepeatedField< double >*
+      mutable_biases();
+
   // optional string name = 7;
   bool has_name() const;
   void clear_name();
@@ -1068,6 +1092,13 @@ class CAFFE2_API QTensorProto : public ::google::protobuf::Message /* @@protoc_i
   double scale() const;
   void set_scale(double value);
 
+  // required double bias = 4;
+  bool has_bias() const;
+  void clear_bias();
+  static const int kBiasFieldNumber = 4;
+  double bias() const;
+  void set_bias(double value);
+
   // required int32 precision = 2;
   bool has_precision() const;
   void clear_precision();
@@ -1082,12 +1113,19 @@ class CAFFE2_API QTensorProto : public ::google::protobuf::Message /* @@protoc_i
   bool is_signed() const;
   void set_is_signed(bool value);
 
-  // required double bias = 4;
-  bool has_bias() const;
-  void clear_bias();
-  static const int kBiasFieldNumber = 4;
-  double bias() const;
-  void set_bias(double value);
+  // optional bool is_multiparam = 12 [default = false];
+  bool has_is_multiparam() const;
+  void clear_is_multiparam();
+  static const int kIsMultiparamFieldNumber = 12;
+  bool is_multiparam() const;
+  void set_is_multiparam(bool value);
+
+  // optional int32 axis = 11;
+  bool has_axis() const;
+  void clear_axis();
+  static const int kAxisFieldNumber = 11;
+  ::google::protobuf::int32 axis() const;
+  void set_axis(::google::protobuf::int32 value);
 
   // optional .caffe2.TensorProto.DataType data_type = 8 [default = INT32];
   bool has_data_type() const;
@@ -1110,6 +1148,10 @@ class CAFFE2_API QTensorProto : public ::google::protobuf::Message /* @@protoc_i
   void clear_has_name();
   void set_has_data_type();
   void clear_has_data_type();
+  void set_has_axis();
+  void clear_has_axis();
+  void set_has_is_multiparam();
+  void clear_has_is_multiparam();
 
   // helper for ByteSizeLong()
   size_t RequiredFieldsByteSizeFallback() const;
@@ -1120,11 +1162,15 @@ class CAFFE2_API QTensorProto : public ::google::protobuf::Message /* @@protoc_i
   ::google::protobuf::RepeatedField< ::google::protobuf::int64 > dims_;
   ::google::protobuf::RepeatedField< ::google::protobuf::int32 > data_;
   mutable int _data_cached_byte_size_;
+  ::google::protobuf::RepeatedField< double > scales_;
+  ::google::protobuf::RepeatedField< double > biases_;
   ::google::protobuf::internal::ArenaStringPtr name_;
   double scale_;
+  double bias_;
   ::google::protobuf::int32 precision_;
   bool is_signed_;
-  double bias_;
+  bool is_multiparam_;
+  ::google::protobuf::int32 axis_;
   int data_type_;
   friend struct ::protobuf_caffe2_2fproto_2fcaffe2_2eproto::TableStruct;
 };
@@ -4268,13 +4314,13 @@ QTensorProto::mutable_dims() {
 
 // required int32 precision = 2;
 inline bool QTensorProto::has_precision() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
+  return (_has_bits_[0] & 0x00000008u) != 0;
 }
 inline void QTensorProto::set_has_precision() {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
 }
 inline void QTensorProto::clear_has_precision() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline void QTensorProto::clear_precision() {
   precision_ = 0;
@@ -4316,13 +4362,13 @@ inline void QTensorProto::set_scale(double value) {
 
 // required double bias = 4;
 inline bool QTensorProto::has_bias() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 inline void QTensorProto::set_has_bias() {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000004u;
 }
 inline void QTensorProto::clear_has_bias() {
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline void QTensorProto::clear_bias() {
   bias_ = 0;
@@ -4340,13 +4386,13 @@ inline void QTensorProto::set_bias(double value) {
 
 // required bool is_signed = 5;
 inline bool QTensorProto::has_is_signed() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+  return (_has_bits_[0] & 0x00000010u) != 0;
 }
 inline void QTensorProto::set_has_is_signed() {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000010u;
 }
 inline void QTensorProto::clear_has_is_signed() {
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline void QTensorProto::clear_is_signed() {
   is_signed_ = false;
@@ -4460,13 +4506,13 @@ inline void QTensorProto::set_allocated_name(::std::string* name) {
 
 // optional .caffe2.TensorProto.DataType data_type = 8 [default = INT32];
 inline bool QTensorProto::has_data_type() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
+  return (_has_bits_[0] & 0x00000080u) != 0;
 }
 inline void QTensorProto::set_has_data_type() {
-  _has_bits_[0] |= 0x00000020u;
+  _has_bits_[0] |= 0x00000080u;
 }
 inline void QTensorProto::clear_has_data_type() {
-  _has_bits_[0] &= ~0x00000020u;
+  _has_bits_[0] &= ~0x00000080u;
 }
 inline void QTensorProto::clear_data_type() {
   data_type_ = 2;
@@ -4481,6 +4527,114 @@ inline void QTensorProto::set_data_type(::caffe2::TensorProto_DataType value) {
   set_has_data_type();
   data_type_ = value;
   // @@protoc_insertion_point(field_set:caffe2.QTensorProto.data_type)
+}
+
+// repeated double scales = 9;
+inline int QTensorProto::scales_size() const {
+  return scales_.size();
+}
+inline void QTensorProto::clear_scales() {
+  scales_.Clear();
+}
+inline double QTensorProto::scales(int index) const {
+  // @@protoc_insertion_point(field_get:caffe2.QTensorProto.scales)
+  return scales_.Get(index);
+}
+inline void QTensorProto::set_scales(int index, double value) {
+  scales_.Set(index, value);
+  // @@protoc_insertion_point(field_set:caffe2.QTensorProto.scales)
+}
+inline void QTensorProto::add_scales(double value) {
+  scales_.Add(value);
+  // @@protoc_insertion_point(field_add:caffe2.QTensorProto.scales)
+}
+inline const ::google::protobuf::RepeatedField< double >&
+QTensorProto::scales() const {
+  // @@protoc_insertion_point(field_list:caffe2.QTensorProto.scales)
+  return scales_;
+}
+inline ::google::protobuf::RepeatedField< double >*
+QTensorProto::mutable_scales() {
+  // @@protoc_insertion_point(field_mutable_list:caffe2.QTensorProto.scales)
+  return &scales_;
+}
+
+// repeated double biases = 10;
+inline int QTensorProto::biases_size() const {
+  return biases_.size();
+}
+inline void QTensorProto::clear_biases() {
+  biases_.Clear();
+}
+inline double QTensorProto::biases(int index) const {
+  // @@protoc_insertion_point(field_get:caffe2.QTensorProto.biases)
+  return biases_.Get(index);
+}
+inline void QTensorProto::set_biases(int index, double value) {
+  biases_.Set(index, value);
+  // @@protoc_insertion_point(field_set:caffe2.QTensorProto.biases)
+}
+inline void QTensorProto::add_biases(double value) {
+  biases_.Add(value);
+  // @@protoc_insertion_point(field_add:caffe2.QTensorProto.biases)
+}
+inline const ::google::protobuf::RepeatedField< double >&
+QTensorProto::biases() const {
+  // @@protoc_insertion_point(field_list:caffe2.QTensorProto.biases)
+  return biases_;
+}
+inline ::google::protobuf::RepeatedField< double >*
+QTensorProto::mutable_biases() {
+  // @@protoc_insertion_point(field_mutable_list:caffe2.QTensorProto.biases)
+  return &biases_;
+}
+
+// optional int32 axis = 11;
+inline bool QTensorProto::has_axis() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void QTensorProto::set_has_axis() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void QTensorProto::clear_has_axis() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void QTensorProto::clear_axis() {
+  axis_ = 0;
+  clear_has_axis();
+}
+inline ::google::protobuf::int32 QTensorProto::axis() const {
+  // @@protoc_insertion_point(field_get:caffe2.QTensorProto.axis)
+  return axis_;
+}
+inline void QTensorProto::set_axis(::google::protobuf::int32 value) {
+  set_has_axis();
+  axis_ = value;
+  // @@protoc_insertion_point(field_set:caffe2.QTensorProto.axis)
+}
+
+// optional bool is_multiparam = 12 [default = false];
+inline bool QTensorProto::has_is_multiparam() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void QTensorProto::set_has_is_multiparam() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void QTensorProto::clear_has_is_multiparam() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void QTensorProto::clear_is_multiparam() {
+  is_multiparam_ = false;
+  clear_has_is_multiparam();
+}
+inline bool QTensorProto::is_multiparam() const {
+  // @@protoc_insertion_point(field_get:caffe2.QTensorProto.is_multiparam)
+  return is_multiparam_;
+}
+inline void QTensorProto::set_is_multiparam(bool value) {
+  set_has_is_multiparam();
+  is_multiparam_ = value;
+  // @@protoc_insertion_point(field_set:caffe2.QTensorProto.is_multiparam)
 }
 
 // -------------------------------------------------------------------

@@ -5768,5 +5768,85 @@ struct TORCH_API PackPaddedSequenceBackward : public TraceableFunction {
   SavedVariable result1_;
 
 };
+struct TORCH_API StdMeanBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "StdMeanBackward0"; }
+  void release_variables() override {
+    self_.reset_data();
+    self_.reset_grad_function();
+    result0_.reset_data();
+    result0_.reset_grad_function();
+    result1_.reset_data();
+    result1_.reset_grad_function();
+  }
+
+  SavedVariable self_;
+  std::vector<int64_t> dim;
+  bool unbiased;
+  bool keepdim;
+  SavedVariable result0_;
+  SavedVariable result1_;
+
+};
+struct TORCH_API VarMeanBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "VarMeanBackward0"; }
+  void release_variables() override {
+    self_.reset_data();
+    self_.reset_grad_function();
+    result0_.reset_data();
+    result0_.reset_grad_function();
+    result1_.reset_data();
+    result1_.reset_grad_function();
+  }
+
+  SavedVariable self_;
+  std::vector<int64_t> dim;
+  bool unbiased;
+  bool keepdim;
+  SavedVariable result0_;
+  SavedVariable result1_;
+
+};
+struct TORCH_API StdMeanBackward1 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "StdMeanBackward1"; }
+  void release_variables() override {
+    self_.reset_data();
+    self_.reset_grad_function();
+    result0_.reset_data();
+    result0_.reset_grad_function();
+    result1_.reset_data();
+    result1_.reset_grad_function();
+  }
+
+  SavedVariable self_;
+  bool unbiased;
+  SavedVariable result0_;
+  SavedVariable result1_;
+
+};
+struct TORCH_API VarMeanBackward1 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "VarMeanBackward1"; }
+  void release_variables() override {
+    self_.reset_data();
+    self_.reset_grad_function();
+    result0_.reset_data();
+    result0_.reset_grad_function();
+    result1_.reset_data();
+    result1_.reset_grad_function();
+  }
+
+  SavedVariable self_;
+  bool unbiased;
+  SavedVariable result0_;
+  SavedVariable result1_;
+
+};
 
 }}} // namespace torch::autograd::generated
