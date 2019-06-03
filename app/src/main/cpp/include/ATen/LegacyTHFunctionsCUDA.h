@@ -368,8 +368,6 @@ std::tuple<Tensor &,Tensor &,Tensor &> _th_svd_out(Tensor & res1, Tensor & res2,
 std::tuple<Tensor,Tensor,Tensor> _th_svd(const Tensor & self, bool some, bool compute_uv);
 Tensor & _th_potri_out(Tensor & output, const Tensor & self, bool upper);
 Tensor _th_potri(const Tensor & self, bool upper);
-std::tuple<Tensor &,Tensor &> _th_qr_out(Tensor & res1, Tensor & res2, const Tensor & self);
-std::tuple<Tensor,Tensor> _th_qr(const Tensor & self);
 std::tuple<Tensor &,Tensor &> _th_geqrf_out(Tensor & res1, Tensor & res2, const Tensor & self);
 std::tuple<Tensor,Tensor> _th_geqrf(const Tensor & self);
 Tensor & _th_btrisolve_out(Tensor & result, const Tensor & self, const Tensor & LU_data, const Tensor & LU_pivots);
@@ -475,10 +473,6 @@ Tensor & _thnn_avg_pool3d_forward_out(Tensor & output, const Tensor & self, IntA
 Tensor _thnn_avg_pool3d_forward(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad);
 Tensor & _thnn_avg_pool3d_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad);
 Tensor _thnn_avg_pool3d_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad);
-std::tuple<Tensor &,Tensor &> _thnn_max_pool3d_with_indices_forward_out(Tensor & output, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode);
-std::tuple<Tensor,Tensor> _thnn_max_pool3d_with_indices_forward(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode);
-Tensor & _thnn_max_pool3d_with_indices_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices);
-Tensor _thnn_max_pool3d_with_indices_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices);
 Tensor & _thnn_max_unpool2d_forward_out(Tensor & output, const Tensor & self, const Tensor & indices, IntArrayRef output_size);
 Tensor _thnn_max_unpool2d_forward(const Tensor & self, const Tensor & indices, IntArrayRef output_size);
 Tensor & _thnn_max_unpool2d_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & indices, IntArrayRef output_size);

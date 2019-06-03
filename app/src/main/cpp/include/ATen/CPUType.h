@@ -142,7 +142,7 @@ struct CPUType final : public CPUTypeDefault {
   Tensor & sinh_out(Tensor & out, const Tensor & self) const override;
   Tensor _softmax(const Tensor & self, int64_t dim, bool half_to_float) const override;
   Tensor _softmax_backward_data(const Tensor & grad_output, const Tensor & output, int64_t dim, const Tensor & self) const override;
-  Tensor & _sparse_dense_add_out(Tensor & out, const Tensor & self, SparseTensorRef other, Scalar alpha) const override;
+  Tensor & _sparse_dense_add_out(Tensor & out, const Tensor & self, const Tensor & other, Scalar alpha) const override;
   Tensor & sspaddmm_out(Tensor & out, const Tensor & self, const Tensor & mat1, const Tensor & mat2, Scalar beta, Scalar alpha) const override;
   Tensor & sqrt_(Tensor & self) const override;
   Tensor & sqrt_out(Tensor & out, const Tensor & self) const override;
@@ -172,11 +172,12 @@ struct CPUType final : public CPUTypeDefault {
   Tensor & s_native_addmm_out(Tensor & out, const Tensor & self, const Tensor & mat1, const Tensor & mat2, Scalar beta, Scalar alpha) const override;
   Tensor s_native_addmm(const Tensor & self, const Tensor & mat1, const Tensor & mat2, Scalar beta, Scalar alpha) const override;
   Tensor & s_native_addmm_(Tensor & self, const Tensor & mat1, const Tensor & mat2, Scalar beta, Scalar alpha) const override;
-  Tensor sparse_mask(const Tensor & self, SparseTensorRef mask) const override;
+  Tensor sparse_mask(const Tensor & self, const Tensor & mask) const override;
   Tensor to_sparse(const Tensor & self, int64_t sparse_dim) const override;
   Tensor to_sparse(const Tensor & self) const override;
   Tensor to_mkldnn(const Tensor & self) const override;
   Tensor quantize_linear(const Tensor & self, double scale, int64_t zero_point, ScalarType dtype) const override;
+  Tensor quantize_linear_per_channel(const Tensor & self, const Tensor & scales, const Tensor & zero_points, IntArrayRef axis, ScalarType dtype) const override;
   Tensor _dequantize_linear(const Tensor & self, double scale, int64_t zero_point, ScalarType dtype) const override;
   Tensor _per_tensor_affine_qtensor(const Tensor & self, double scale, int64_t zero_point) const override;
   Scalar _local_scalar_dense(const Tensor & self) const override;
@@ -320,8 +321,7 @@ struct CPUType final : public CPUTypeDefault {
   Tensor cholesky_inverse(const Tensor & self, bool upper) const override;
   std::tuple<Tensor &,Tensor &> pstrf_out(Tensor & u, Tensor & pivot, const Tensor & self, bool upper, Scalar tol) const override;
   std::tuple<Tensor,Tensor> pstrf(const Tensor & self, bool upper, Scalar tol) const override;
-  std::tuple<Tensor &,Tensor &> qr_out(Tensor & Q, Tensor & R, const Tensor & self) const override;
-  std::tuple<Tensor,Tensor> qr(const Tensor & self) const override;
+  std::tuple<Tensor,Tensor> _qr_helper(const Tensor & self, bool some) const override;
   std::tuple<Tensor &,Tensor &> geqrf_out(Tensor & a, Tensor & tau, const Tensor & self) const override;
   std::tuple<Tensor,Tensor> geqrf(const Tensor & self) const override;
   Tensor & orgqr_out(Tensor & out, const Tensor & self, const Tensor & input2) const override;
@@ -518,7 +518,7 @@ struct CPUType final : public CPUTypeDefault {
   std::tuple<Tensor,Tensor> max_pool2d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) const override;
   Tensor & max_pool2d_with_indices_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices) const override;
   Tensor max_pool2d_with_indices_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices) const override;
-  std::tuple<Tensor &,Tensor &> max_pool3d_with_indices_out(Tensor & output, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) const override;
+  std::tuple<Tensor &,Tensor &> max_pool3d_with_indices_out(Tensor & out, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) const override;
   std::tuple<Tensor,Tensor> max_pool3d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) const override;
   Tensor & max_pool3d_with_indices_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices) const override;
   Tensor max_pool3d_with_indices_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices) const override;

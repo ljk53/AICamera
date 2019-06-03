@@ -24,7 +24,6 @@ using at::IntArrayRef;
 using at::MemoryFormat;
 using at::Scalar;
 using at::ScalarType;
-using at::SparseTensorRef;
 using at::Storage;
 using at::Tensor;
 using at::TensorList;
@@ -165,6 +164,7 @@ struct TORCH_API VariableType final : public at::TypeDefault {
   Tensor _pdist_backward(const Tensor & grad, const Tensor & self, double p, const Tensor & pdist) const override;
   Tensor _pdist_forward(const Tensor & self, double p) const override;
   Tensor _per_tensor_affine_qtensor(const Tensor & self, double scale, int64_t zero_point) const override;
+  std::tuple<Tensor,Tensor> _qr_helper(const Tensor & self, bool some) const override;
   Tensor _reshape_from_tensor(const Tensor & self, const Tensor & shape) const override;
   Tensor _s_where(const Tensor & condition, const Tensor & self, const Tensor & other) const override;
   Tensor _sample_dirichlet(const Tensor & self, Generator * generator) const override;
@@ -181,7 +181,7 @@ struct TORCH_API VariableType final : public at::TypeDefault {
   Tensor _sparse_coo_tensor_unsafe(const Tensor & indices, const Tensor & values, IntArrayRef size, const TensorOptions & options) const override;
   Tensor _sparse_coo_tensor_with_dims(int64_t sparse_dim, int64_t dense_dim, IntArrayRef size, const TensorOptions & options) const override;
   Tensor _sparse_coo_tensor_with_dims_and_tensors(int64_t sparse_dim, int64_t dense_dim, IntArrayRef size, const Tensor & indices, const Tensor & values, const TensorOptions & options) const override;
-  Tensor & _sparse_dense_add_out(Tensor & out, const Tensor & self, SparseTensorRef other, Scalar alpha) const override;
+  Tensor & _sparse_dense_add_out(Tensor & out, const Tensor & self, const Tensor & other, Scalar alpha) const override;
   Tensor & _sparse_div_scalar_out(Tensor & out, const Tensor & self, Scalar other) const override;
   Tensor & _sparse_div_zerodim_out(Tensor & out, const Tensor & self, const Tensor & other) const override;
   Tensor _sparse_mm(const Tensor & sparse, const Tensor & dense) const override;
@@ -406,7 +406,6 @@ struct TORCH_API VariableType final : public at::TypeDefault {
   Tensor cumsum(const Tensor & self, int64_t dim) const override;
   Tensor & cumsum_out(Tensor & out, const Tensor & self, int64_t dim, ScalarType dtype) const override;
   Tensor & cumsum_out(Tensor & out, const Tensor & self, int64_t dim) const override;
-  void* data_ptr(const Tensor & self) const override;
   int64_t dense_dim(const Tensor & self) const override;
   Tensor dequantize(const Tensor & self) const override;
   Tensor det(const Tensor & self) const override;
@@ -701,7 +700,7 @@ struct TORCH_API VariableType final : public at::TypeDefault {
   std::tuple<Tensor,Tensor> max_pool3d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) const override;
   Tensor max_pool3d_with_indices_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices) const override;
   Tensor & max_pool3d_with_indices_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices) const override;
-  std::tuple<Tensor &,Tensor &> max_pool3d_with_indices_out(Tensor & output, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) const override;
+  std::tuple<Tensor &,Tensor &> max_pool3d_with_indices_out(Tensor & out, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) const override;
   Tensor max_unpool2d(const Tensor & self, const Tensor & indices, IntArrayRef output_size) const override;
   Tensor max_unpool2d_backward(const Tensor & grad_output, const Tensor & self, const Tensor & indices, IntArrayRef output_size) const override;
   Tensor & max_unpool2d_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, const Tensor & indices, IntArrayRef output_size) const override;
@@ -870,9 +869,10 @@ struct TORCH_API VariableType final : public at::TypeDefault {
   Tensor & put_(Tensor & self, const Tensor & index, const Tensor & source, bool accumulate) const override;
   Scalar q_scale(const Tensor & self) const override;
   Scalar q_zero_point(const Tensor & self) const override;
-  std::tuple<Tensor,Tensor> qr(const Tensor & self) const override;
-  std::tuple<Tensor &,Tensor &> qr_out(Tensor & Q, Tensor & R, const Tensor & self) const override;
+  std::tuple<Tensor,Tensor> qr(const Tensor & self, bool some) const override;
+  std::tuple<Tensor &,Tensor &> qr_out(Tensor & Q, Tensor & R, const Tensor & self, bool some) const override;
   Tensor quantize_linear(const Tensor & self, double scale, int64_t zero_point, ScalarType dtype) const override;
+  Tensor quantize_linear_per_channel(const Tensor & self, const Tensor & scales, const Tensor & zero_points, IntArrayRef axis, ScalarType dtype) const override;
   Tensor quantized_gru_cell(const Tensor & input, const Tensor & hx, const Tensor & w_ih, const Tensor & w_hh, const Tensor & b_ih, const Tensor & b_hh, const Tensor & packed_ih, const Tensor & packed_hh, const Tensor & col_offsets_ih, const Tensor & col_offsets_hh, Scalar scale_ih, Scalar scale_hh, Scalar zero_point_ih, Scalar zero_point_hh) const override;
   std::tuple<Tensor,Tensor,Tensor> quantized_lstm(const Tensor & input, TensorList hx, TensorList params, bool has_biases, int64_t num_layers, double dropout, bool train, bool bidirectional, bool batch_first) const override;
   std::tuple<Tensor,Tensor> quantized_lstm_cell(const Tensor & input, TensorList hx, const Tensor & w_ih, const Tensor & w_hh, const Tensor & b_ih, const Tensor & b_hh, const Tensor & packed_ih, const Tensor & packed_hh, const Tensor & col_offsets_ih, const Tensor & col_offsets_hh, Scalar scale_ih, Scalar scale_hh, Scalar zero_point_ih, Scalar zero_point_hh) const override;
@@ -1039,7 +1039,7 @@ struct TORCH_API VariableType final : public at::TypeDefault {
   Tensor sparse_coo_tensor(const Tensor & indices, const Tensor & values, const TensorOptions & options) const override;
   Tensor sparse_coo_tensor(const Tensor & indices, const Tensor & values, IntArrayRef size, const TensorOptions & options) const override;
   int64_t sparse_dim(const Tensor & self) const override;
-  Tensor sparse_mask(const Tensor & self, SparseTensorRef mask) const override;
+  Tensor sparse_mask(const Tensor & self, const Tensor & mask) const override;
   Tensor & sparse_resize_(Tensor & self, IntArrayRef size, int64_t sparse_dim, int64_t dense_dim) const override;
   Tensor & sparse_resize_and_clear_(Tensor & self, IntArrayRef size, int64_t sparse_dim, int64_t dense_dim) const override;
   std::vector<Tensor> split(const Tensor & self, int64_t split_size, int64_t dim) const override;
@@ -1230,7 +1230,6 @@ private:
   static Variable & checked_cast_variable(Tensor & t, const char * name, int pos);
   static at::Tensor & unpack(Tensor & t, const char * name, int pos);
   static const at::Tensor & unpack(const Tensor & t, const char * name, int pos);
-  static at::SparseTensorRef unpack(SparseTensorRef t, const char * name, int pos);
   static at::Tensor unpack_opt(const Tensor & t, const char * name, int pos);
   static std::vector<at::Tensor> unpack(at::TensorList tl, const char *name, int pos);
 

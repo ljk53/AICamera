@@ -475,7 +475,7 @@ static inline Tensor softmax(const Tensor & self, int64_t dim);
 static inline Tensor _softmax(const Tensor & self, int64_t dim, bool half_to_float);
 static inline Tensor _softmax_backward_data(const Tensor & grad_output, const Tensor & output, int64_t dim, const Tensor & self);
 static inline Tensor & _sparse_add_out(Tensor & out, const Tensor & self, const Tensor & other, Scalar alpha=1);
-static inline Tensor & _sparse_dense_add_out(Tensor & out, const Tensor & self, SparseTensorRef other, Scalar alpha=1);
+static inline Tensor & _sparse_dense_add_out(Tensor & out, const Tensor & self, const Tensor & other, Scalar alpha=1);
 static inline Tensor & _sparse_div_zerodim_out(Tensor & out, const Tensor & self, const Tensor & other);
 static inline Tensor & _sparse_div_scalar_out(Tensor & out, const Tensor & self, Scalar other);
 static inline Tensor & _sparse_mul_out(Tensor & out, const Tensor & self, const Tensor & other);
@@ -612,6 +612,7 @@ static inline std::vector<Tensor> unbind(const Tensor & self, int64_t dim=0);
 static inline Tensor mkldnn_reorder_conv2d_weight(const Tensor & self, IntArrayRef padding=0, IntArrayRef stride=1, IntArrayRef dilation=1, int64_t groups=1);
 static inline Tensor to_mkldnn_backward(const Tensor & grad, const Tensor & input);
 static inline Tensor quantize_linear(const Tensor & self, double scale, int64_t zero_point, ScalarType dtype);
+static inline Tensor quantize_linear_per_channel(const Tensor & self, const Tensor & scales, const Tensor & zero_points, IntArrayRef axis, ScalarType dtype);
 static inline Tensor dequantize(const Tensor & self);
 static inline Tensor _dequantize_linear(const Tensor & self, double scale, int64_t zero_point, ScalarType dtype);
 static inline Scalar q_scale(const Tensor & self);
@@ -741,8 +742,9 @@ static inline Tensor & cholesky_inverse_out(Tensor & out, const Tensor & self, b
 static inline Tensor cholesky_inverse(const Tensor & self, bool upper=false);
 static inline std::tuple<Tensor &,Tensor &> pstrf_out(Tensor & u, Tensor & pivot, const Tensor & self, bool upper=true, Scalar tol=-1);
 static inline std::tuple<Tensor,Tensor> pstrf(const Tensor & self, bool upper=true, Scalar tol=-1);
-static inline std::tuple<Tensor &,Tensor &> qr_out(Tensor & Q, Tensor & R, const Tensor & self);
-static inline std::tuple<Tensor,Tensor> qr(const Tensor & self);
+static inline std::tuple<Tensor &,Tensor &> qr_out(Tensor & Q, Tensor & R, const Tensor & self, bool some=true);
+static inline std::tuple<Tensor,Tensor> qr(const Tensor & self, bool some=true);
+static inline std::tuple<Tensor,Tensor> _qr_helper(const Tensor & self, bool some);
 static inline std::tuple<Tensor &,Tensor &> geqrf_out(Tensor & a, Tensor & tau, const Tensor & self);
 static inline std::tuple<Tensor,Tensor> geqrf(const Tensor & self);
 static inline Tensor & orgqr_out(Tensor & out, const Tensor & self, const Tensor & input2);
@@ -951,7 +953,7 @@ static inline std::tuple<Tensor &,Tensor &> max_pool2d_with_indices_out(Tensor &
 static inline std::tuple<Tensor,Tensor> max_pool2d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride={}, IntArrayRef padding=0, IntArrayRef dilation=1, bool ceil_mode=false);
 static inline Tensor & max_pool2d_with_indices_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices);
 static inline Tensor max_pool2d_with_indices_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices);
-static inline std::tuple<Tensor &,Tensor &> max_pool3d_with_indices_out(Tensor & output, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride={}, IntArrayRef padding=0, IntArrayRef dilation=1, bool ceil_mode=false);
+static inline std::tuple<Tensor &,Tensor &> max_pool3d_with_indices_out(Tensor & out, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride={}, IntArrayRef padding=0, IntArrayRef dilation=1, bool ceil_mode=false);
 static inline std::tuple<Tensor,Tensor> max_pool3d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride={}, IntArrayRef padding=0, IntArrayRef dilation=1, bool ceil_mode=false);
 static inline Tensor & max_pool3d_with_indices_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices);
 static inline Tensor max_pool3d_with_indices_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices);
@@ -2489,7 +2491,7 @@ static inline Tensor _softmax_backward_data(const Tensor & grad_output, const Te
 static inline Tensor & _sparse_add_out(Tensor & out, const Tensor & self, const Tensor & other, Scalar alpha) {
     return detail::infer_type(self)._sparse_add_out(out, self, other, alpha);
 }
-static inline Tensor & _sparse_dense_add_out(Tensor & out, const Tensor & self, SparseTensorRef other, Scalar alpha) {
+static inline Tensor & _sparse_dense_add_out(Tensor & out, const Tensor & self, const Tensor & other, Scalar alpha) {
     return detail::infer_type(self)._sparse_dense_add_out(out, self, other, alpha);
 }
 static inline Tensor & _sparse_div_zerodim_out(Tensor & out, const Tensor & self, const Tensor & other) {
@@ -2900,6 +2902,9 @@ static inline Tensor to_mkldnn_backward(const Tensor & grad, const Tensor & inpu
 static inline Tensor quantize_linear(const Tensor & self, double scale, int64_t zero_point, ScalarType dtype) {
     return detail::infer_type(self).quantize_linear(self, scale, zero_point, dtype);
 }
+static inline Tensor quantize_linear_per_channel(const Tensor & self, const Tensor & scales, const Tensor & zero_points, IntArrayRef axis, ScalarType dtype) {
+    return detail::infer_type(self).quantize_linear_per_channel(self, scales, zero_points, axis, dtype);
+}
 static inline Tensor dequantize(const Tensor & self) {
     return detail::infer_type(self).dequantize(self);
 }
@@ -3287,11 +3292,14 @@ static inline std::tuple<Tensor &,Tensor &> pstrf_out(Tensor & u, Tensor & pivot
 static inline std::tuple<Tensor,Tensor> pstrf(const Tensor & self, bool upper, Scalar tol) {
     return detail::infer_type(self).pstrf(self, upper, tol);
 }
-static inline std::tuple<Tensor &,Tensor &> qr_out(Tensor & Q, Tensor & R, const Tensor & self) {
-    return detail::infer_type(self).qr_out(Q, R, self);
+static inline std::tuple<Tensor &,Tensor &> qr_out(Tensor & Q, Tensor & R, const Tensor & self, bool some) {
+    return detail::infer_type(self).qr_out(Q, R, self, some);
 }
-static inline std::tuple<Tensor,Tensor> qr(const Tensor & self) {
-    return detail::infer_type(self).qr(self);
+static inline std::tuple<Tensor,Tensor> qr(const Tensor & self, bool some) {
+    return detail::infer_type(self).qr(self, some);
+}
+static inline std::tuple<Tensor,Tensor> _qr_helper(const Tensor & self, bool some) {
+    return detail::infer_type(self)._qr_helper(self, some);
 }
 static inline std::tuple<Tensor &,Tensor &> geqrf_out(Tensor & a, Tensor & tau, const Tensor & self) {
     return detail::infer_type(self).geqrf_out(a, tau, self);
@@ -3917,8 +3925,8 @@ static inline Tensor & max_pool2d_with_indices_backward_out(Tensor & grad_input,
 static inline Tensor max_pool2d_with_indices_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices) {
     return detail::infer_type(self).max_pool2d_with_indices_backward(grad_output, self, kernel_size, stride, padding, dilation, ceil_mode, indices);
 }
-static inline std::tuple<Tensor &,Tensor &> max_pool3d_with_indices_out(Tensor & output, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) {
-    return detail::infer_type(self).max_pool3d_with_indices_out(output, indices, self, kernel_size, stride, padding, dilation, ceil_mode);
+static inline std::tuple<Tensor &,Tensor &> max_pool3d_with_indices_out(Tensor & out, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) {
+    return detail::infer_type(self).max_pool3d_with_indices_out(out, indices, self, kernel_size, stride, padding, dilation, ceil_mode);
 }
 static inline std::tuple<Tensor,Tensor> max_pool3d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) {
     return detail::infer_type(self).max_pool3d_with_indices(self, kernel_size, stride, padding, dilation, ceil_mode);

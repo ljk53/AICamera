@@ -519,7 +519,7 @@ struct CAFFE2_API TypeDefault : public TypeExtendedInterface {
   Tensor _softmax(const Tensor & self, int64_t dim, bool half_to_float) const override;
   Tensor _softmax_backward_data(const Tensor & grad_output, const Tensor & output, int64_t dim, const Tensor & self) const override;
   Tensor & _sparse_add_out(Tensor & out, const Tensor & self, const Tensor & other, Scalar alpha) const override;
-  Tensor & _sparse_dense_add_out(Tensor & out, const Tensor & self, SparseTensorRef other, Scalar alpha) const override;
+  Tensor & _sparse_dense_add_out(Tensor & out, const Tensor & self, const Tensor & other, Scalar alpha) const override;
   Tensor & _sparse_div_zerodim_out(Tensor & out, const Tensor & self, const Tensor & other) const override;
   Tensor & _sparse_div_scalar_out(Tensor & out, const Tensor & self, Scalar other) const override;
   Tensor & _sparse_mul_out(Tensor & out, const Tensor & self, const Tensor & other) const override;
@@ -660,7 +660,7 @@ struct CAFFE2_API TypeDefault : public TypeExtendedInterface {
   Tensor _sparse_coo_tensor_with_dims_and_tensors(int64_t sparse_dim, int64_t dense_dim, IntArrayRef size, const Tensor & indices, const Tensor & values, const TensorOptions & options) const override;
   Tensor & sparse_resize_(Tensor & self, IntArrayRef size, int64_t sparse_dim, int64_t dense_dim) const override;
   Tensor & sparse_resize_and_clear_(Tensor & self, IntArrayRef size, int64_t sparse_dim, int64_t dense_dim) const override;
-  Tensor sparse_mask(const Tensor & self, SparseTensorRef mask) const override;
+  Tensor sparse_mask(const Tensor & self, const Tensor & mask) const override;
   Tensor to_dense(const Tensor & self) const override;
   Tensor to_dense_backward(const Tensor & grad, const Tensor & input) const override;
   int64_t sparse_dim(const Tensor & self) const override;
@@ -686,6 +686,7 @@ struct CAFFE2_API TypeDefault : public TypeExtendedInterface {
   Tensor mkldnn_reorder_conv2d_weight(const Tensor & self, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups) const override;
   Tensor to_mkldnn_backward(const Tensor & grad, const Tensor & input) const override;
   Tensor quantize_linear(const Tensor & self, double scale, int64_t zero_point, ScalarType dtype) const override;
+  Tensor quantize_linear_per_channel(const Tensor & self, const Tensor & scales, const Tensor & zero_points, IntArrayRef axis, ScalarType dtype) const override;
   Tensor dequantize(const Tensor & self) const override;
   Tensor _dequantize_linear(const Tensor & self, double scale, int64_t zero_point, ScalarType dtype) const override;
   Scalar q_scale(const Tensor & self) const override;
@@ -725,7 +726,6 @@ struct CAFFE2_API TypeDefault : public TypeExtendedInterface {
   std::tuple<Tensor,Tensor> _pack_padded_sequence(const Tensor & input, const Tensor & lengths, bool batch_first) const override;
   Tensor _pack_padded_sequence_backward(const Tensor & grad, IntArrayRef input_size, const Tensor & batch_sizes, bool batch_first) const override;
   std::tuple<Tensor,Tensor> _pad_packed_sequence(const Tensor & data, const Tensor & batch_sizes, bool batch_first, Scalar padding_value, int64_t total_length) const override;
-  void* data_ptr(const Tensor & self) const override;
   Tensor & set_(Tensor & self, Storage source) const override;
   Tensor & set_(Tensor & self, Storage source, int64_t storage_offset, IntArrayRef size, IntArrayRef stride) const override;
   Tensor & set_(Tensor & self, const Tensor & source) const override;
@@ -888,8 +888,9 @@ struct CAFFE2_API TypeDefault : public TypeExtendedInterface {
   Tensor cholesky_inverse(const Tensor & self, bool upper) const override;
   std::tuple<Tensor &,Tensor &> pstrf_out(Tensor & u, Tensor & pivot, const Tensor & self, bool upper, Scalar tol) const override;
   std::tuple<Tensor,Tensor> pstrf(const Tensor & self, bool upper, Scalar tol) const override;
-  std::tuple<Tensor &,Tensor &> qr_out(Tensor & Q, Tensor & R, const Tensor & self) const override;
-  std::tuple<Tensor,Tensor> qr(const Tensor & self) const override;
+  std::tuple<Tensor &,Tensor &> qr_out(Tensor & Q, Tensor & R, const Tensor & self, bool some) const override;
+  std::tuple<Tensor,Tensor> qr(const Tensor & self, bool some) const override;
+  std::tuple<Tensor,Tensor> _qr_helper(const Tensor & self, bool some) const override;
   std::tuple<Tensor &,Tensor &> geqrf_out(Tensor & a, Tensor & tau, const Tensor & self) const override;
   std::tuple<Tensor,Tensor> geqrf(const Tensor & self) const override;
   Tensor & orgqr_out(Tensor & out, const Tensor & self, const Tensor & input2) const override;
@@ -1099,7 +1100,7 @@ struct CAFFE2_API TypeDefault : public TypeExtendedInterface {
   std::tuple<Tensor,Tensor> max_pool2d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) const override;
   Tensor & max_pool2d_with_indices_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices) const override;
   Tensor max_pool2d_with_indices_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices) const override;
-  std::tuple<Tensor &,Tensor &> max_pool3d_with_indices_out(Tensor & output, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) const override;
+  std::tuple<Tensor &,Tensor &> max_pool3d_with_indices_out(Tensor & out, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) const override;
   std::tuple<Tensor,Tensor> max_pool3d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) const override;
   Tensor & max_pool3d_with_indices_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices) const override;
   Tensor max_pool3d_with_indices_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices) const override;

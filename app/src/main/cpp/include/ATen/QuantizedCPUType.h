@@ -30,6 +30,7 @@ struct QuantizedCPUType final : public CPUTypeDefault {
   Scalar q_scale(const Tensor & self) const override;
   Scalar q_zero_point(const Tensor & self) const override;
   Tensor int_repr(const Tensor & self) const override;
+  Tensor & set_(Tensor & self, Storage source, int64_t storage_offset, IntArrayRef size, IntArrayRef stride) const override;
 
  private:
   ScalarType infer_scalar_type(const Tensor & t) const {

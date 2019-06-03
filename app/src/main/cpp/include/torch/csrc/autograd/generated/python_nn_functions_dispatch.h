@@ -194,10 +194,10 @@ inline std::tuple<Tensor,Tensor> dispatch_max_pool2d_with_indices(const Tensor &
   AutoNoGIL no_gil;
   return at::max_pool2d_with_indices(self, kernel_size, stride, padding, dilation, ceil_mode);
 }
-inline std::tuple<Tensor,Tensor> dispatch_max_pool3d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, Tensor & output, Tensor & indices) {
+inline std::tuple<Tensor,Tensor> dispatch_max_pool3d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, Tensor & out, Tensor & indices) {
 
   AutoNoGIL no_gil;
-  return at::max_pool3d_with_indices_out(output, indices, self, kernel_size, stride, padding, dilation, ceil_mode);
+  return at::max_pool3d_with_indices_out(out, indices, self, kernel_size, stride, padding, dilation, ceil_mode);
 }
 inline std::tuple<Tensor,Tensor> dispatch_max_pool3d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) {
 

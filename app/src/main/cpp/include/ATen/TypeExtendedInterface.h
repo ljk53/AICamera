@@ -313,7 +313,7 @@ struct CAFFE2_API TypeExtendedInterface : public Type {
   virtual Tensor _softmax(const Tensor & self, int64_t dim, bool half_to_float) const = 0;
   virtual Tensor _softmax_backward_data(const Tensor & grad_output, const Tensor & output, int64_t dim, const Tensor & self) const = 0;
   virtual Tensor & _sparse_add_out(Tensor & out, const Tensor & self, const Tensor & other, Scalar alpha) const = 0;
-  virtual Tensor & _sparse_dense_add_out(Tensor & out, const Tensor & self, SparseTensorRef other, Scalar alpha) const = 0;
+  virtual Tensor & _sparse_dense_add_out(Tensor & out, const Tensor & self, const Tensor & other, Scalar alpha) const = 0;
   virtual Tensor & _sparse_div_zerodim_out(Tensor & out, const Tensor & self, const Tensor & other) const = 0;
   virtual Tensor & _sparse_div_scalar_out(Tensor & out, const Tensor & self, Scalar other) const = 0;
   virtual Tensor & _sparse_mul_out(Tensor & out, const Tensor & self, const Tensor & other) const = 0;
@@ -400,6 +400,8 @@ struct CAFFE2_API TypeExtendedInterface : public Type {
   virtual Tensor & copy_sparse_to_sparse_(Tensor & self, const Tensor & src, bool non_blocking) const = 0;
   virtual Tensor mkldnn_reorder_conv2d_weight(const Tensor & self, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups) const = 0;
   virtual Tensor to_mkldnn_backward(const Tensor & grad, const Tensor & input) const = 0;
+  virtual Tensor quantize_linear(const Tensor & self, double scale, int64_t zero_point, ScalarType dtype) const = 0;
+  virtual Tensor quantize_linear_per_channel(const Tensor & self, const Tensor & scales, const Tensor & zero_points, IntArrayRef axis, ScalarType dtype) const = 0;
   virtual Tensor _dequantize_linear(const Tensor & self, double scale, int64_t zero_point, ScalarType dtype) const = 0;
   virtual Tensor _per_tensor_affine_qtensor(const Tensor & self, double scale, int64_t zero_point) const = 0;
   virtual std::vector<Tensor> meshgrid(TensorList tensors) const = 0;
@@ -471,7 +473,8 @@ struct CAFFE2_API TypeExtendedInterface : public Type {
   virtual std::tuple<Tensor,Tensor> _solve_helper(const Tensor & self, const Tensor & A) const = 0;
   virtual Tensor & cholesky_inverse_out(Tensor & out, const Tensor & self, bool upper) const = 0;
   virtual std::tuple<Tensor &,Tensor &> pstrf_out(Tensor & u, Tensor & pivot, const Tensor & self, bool upper, Scalar tol) const = 0;
-  virtual std::tuple<Tensor &,Tensor &> qr_out(Tensor & Q, Tensor & R, const Tensor & self) const = 0;
+  virtual std::tuple<Tensor &,Tensor &> qr_out(Tensor & Q, Tensor & R, const Tensor & self, bool some) const = 0;
+  virtual std::tuple<Tensor,Tensor> _qr_helper(const Tensor & self, bool some) const = 0;
   virtual std::tuple<Tensor &,Tensor &> geqrf_out(Tensor & a, Tensor & tau, const Tensor & self) const = 0;
   virtual Tensor & orgqr_out(Tensor & out, const Tensor & self, const Tensor & input2) const = 0;
   virtual Tensor & ormqr_out(Tensor & out, const Tensor & self, const Tensor & input2, const Tensor & input3, bool left, bool transpose) const = 0;
@@ -646,7 +649,7 @@ struct CAFFE2_API TypeExtendedInterface : public Type {
   virtual std::tuple<Tensor,Tensor> max_pool2d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) const = 0;
   virtual Tensor & max_pool2d_with_indices_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices) const = 0;
   virtual Tensor max_pool2d_with_indices_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices) const = 0;
-  virtual std::tuple<Tensor &,Tensor &> max_pool3d_with_indices_out(Tensor & output, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) const = 0;
+  virtual std::tuple<Tensor &,Tensor &> max_pool3d_with_indices_out(Tensor & out, Tensor & indices, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) const = 0;
   virtual std::tuple<Tensor,Tensor> max_pool3d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) const = 0;
   virtual Tensor & max_pool3d_with_indices_backward_out(Tensor & grad_input, const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices) const = 0;
   virtual Tensor max_pool3d_with_indices_backward(const Tensor & grad_output, const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, const Tensor & indices) const = 0;

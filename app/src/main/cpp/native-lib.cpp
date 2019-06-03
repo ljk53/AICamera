@@ -30,7 +30,7 @@ static std::string storage_dir;
 static std::string debug_file_prefix;
 static float input_data[MAX_DATA_SIZE];
 static std::shared_ptr<torch::jit::script::Module> module;
-static at::Tensor input{torch::zeros({1, IMG_C, IMG_H, IMG_W})};
+//static at::Tensor input{torch::zeros({1, IMG_C, IMG_H, IMG_W})};
 static int debug_counter;
 
 extern "C" JNIEXPORT void JNICALL
@@ -77,7 +77,9 @@ Java_facebook_f8demo_ClassifyCamera_initModel(
 
     return env->NewStringUTF(out.str().c_str());
 #endif
-    std::ifstream input(storage_dir + "/squeeze.model");
+    std::string p = storage_dir + "/squeeze.model";
+    std::ifstream input(p);
+    alog("JKL %s", p.c_str());
     module = torch::jit::load(input);
 }
 
@@ -125,6 +127,7 @@ Java_facebook_f8demo_ClassifyCamera_classification(
         }
     }
 
+    at::Tensor input{torch::zeros({1, IMG_C, IMG_H, IMG_W})};
     memcpy(input.data<float>(), input_data, IMG_H * IMG_W * IMG_C * sizeof(float));
 
 #if 0
@@ -142,7 +145,6 @@ Java_facebook_f8demo_ClassifyCamera_classification(
         }
     }
 #endif
-
     std::vector<torch::jit::IValue> inputs;
     inputs.push_back(input);
 

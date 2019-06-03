@@ -21,7 +21,6 @@ using at::ScalarType;
 using at::TensorList;
 using at::IntArrayRef;
 using at::Generator;
-using at::SparseTensorRef;
 using at::Storage;
 using at::TensorOptions;
 
@@ -2829,20 +2828,25 @@ inline Scalar dispatch_q_zero_point(const Tensor & self) {
   AutoNoGIL no_gil;
   return self.q_zero_point();
 }
-inline std::tuple<Tensor,Tensor> dispatch_qr(const Tensor & self, Tensor & Q, Tensor & R) {
+inline std::tuple<Tensor,Tensor> dispatch_qr(const Tensor & self, bool some, Tensor & Q, Tensor & R) {
 
   AutoNoGIL no_gil;
-  return at::qr_out(Q, R, self);
+  return at::qr_out(Q, R, self, some);
 }
-inline std::tuple<Tensor,Tensor> dispatch_qr(const Tensor & self) {
+inline std::tuple<Tensor,Tensor> dispatch_qr(const Tensor & self, bool some) {
 
   AutoNoGIL no_gil;
-  return self.qr();
+  return self.qr(some);
 }
 inline Tensor dispatch_quantize_linear(const Tensor & self, double scale, int64_t zero_point, ScalarType dtype) {
 
   AutoNoGIL no_gil;
-  return self.quantize_linear(scale, zero_point, dtype);
+  return at::quantize_linear(self, scale, zero_point, dtype);
+}
+inline Tensor dispatch_quantize_linear_per_channel(const Tensor & self, const Tensor & scales, const Tensor & zero_points, IntArrayRef axis, ScalarType dtype) {
+
+  AutoNoGIL no_gil;
+  return at::quantize_linear_per_channel(self, scales, zero_points, axis, dtype);
 }
 inline Tensor dispatch_quantized_gru_cell(const Tensor & input, const Tensor & hx, const Tensor & w_ih, const Tensor & w_hh, const Tensor & b_ih, const Tensor & b_hh, const Tensor & packed_ih, const Tensor & packed_hh, const Tensor & col_offsets_ih, const Tensor & col_offsets_hh, Scalar scale_ih, Scalar scale_hh, Scalar zero_point_ih, Scalar zero_point_hh) {
 
