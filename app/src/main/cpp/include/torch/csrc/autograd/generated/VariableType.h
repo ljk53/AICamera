@@ -36,7 +36,6 @@ struct TORCH_API VariableType final : public at::TypeDefault {
   at::Backend backend() const override;
   at::Allocator* allocator() const override;
   at::Device getDeviceFromPtr(void * data) const override;
-  std::unique_ptr<at::Generator> generator() const override;
   const char * toString() const override;
   at::TypeID ID() const override;
   at::Type & toBackend(at::Backend b) const override;
@@ -55,7 +54,7 @@ struct TORCH_API VariableType final : public at::TypeDefault {
       bool keep_graph,
       bool create_graph) const override;
   void set_data(Tensor & self, Tensor new_data) const override;
-#if 0
+
   Tensor __and__(const Tensor & self, Scalar other) const override;
   Tensor __and__(const Tensor & self, const Tensor & other) const override;
   Tensor & __iand__(Tensor & self, Scalar other) const override;
@@ -1167,6 +1166,8 @@ struct TORCH_API VariableType final : public at::TypeDefault {
   Tensor trace(const Tensor & self) const override;
   Tensor transpose(const Tensor & self, int64_t dim0, int64_t dim1) const override;
   Tensor & transpose_(Tensor & self, int64_t dim0, int64_t dim1) const override;
+  Tensor trapz(const Tensor & y, const Tensor & x, int64_t dim) const override;
+  Tensor trapz(const Tensor & y, double dx, int64_t dim) const override;
   std::tuple<Tensor,Tensor> triangular_solve(const Tensor & self, const Tensor & A, bool upper, bool transpose, bool unitriangular) const override;
   std::tuple<Tensor &,Tensor &> triangular_solve_out(Tensor & X, Tensor & M, const Tensor & self, const Tensor & A, bool upper, bool transpose, bool unitriangular) const override;
   Tensor tril(const Tensor & self, int64_t diagonal) const override;
@@ -1232,13 +1233,6 @@ struct TORCH_API VariableType final : public at::TypeDefault {
   Tensor zeros_like(const Tensor & self) const override;
   Tensor zeros_like(const Tensor & self, const TensorOptions & options) const override;
   Tensor & zeros_out(Tensor & out, IntArrayRef size) const override;
-#endif
-
-  Tensor & copy_(Tensor & self, const Tensor & src, bool non_blocking) const override;
-  Tensor & resize_(Tensor & self, IntArrayRef size) const override;
-  Tensor & resize_as_(Tensor & self, const Tensor & the_template) const override;
-  Tensor detach(const Tensor & self) const override;
-  Tensor & detach_(Tensor & self) const override;
 
 private:
   // checks that t is actually a Variable

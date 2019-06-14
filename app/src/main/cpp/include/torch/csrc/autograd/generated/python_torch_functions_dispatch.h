@@ -3558,6 +3558,16 @@ inline Tensor dispatch_transpose(const Tensor & self, int64_t dim0, int64_t dim1
   AutoNoGIL no_gil;
   return self.transpose(dim0, dim1);
 }
+inline Tensor dispatch_trapz(const Tensor & y, double dx, int64_t dim) {
+
+  AutoNoGIL no_gil;
+  return at::trapz(y, dx, dim);
+}
+inline Tensor dispatch_trapz(const Tensor & y, const Tensor & x, int64_t dim) {
+
+  AutoNoGIL no_gil;
+  return at::trapz(y, x, dim);
+}
 inline std::tuple<Tensor,Tensor> dispatch_triangular_solve(const Tensor & self, const Tensor & A, bool upper, bool transpose, bool unitriangular, Tensor & X, Tensor & M) {
 
   AutoNoGIL no_gil;
