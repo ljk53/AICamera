@@ -10,15 +10,15 @@
 #include <android/asset_manager_jni.h>
 #include <android/log.h>
 #include <chrono>
-#include <torch/csrc/jit/lite/mobile.h>
+#include <torch/csrc/lite_interpreter/predictor.h>
 
 #define PROTOBUF_USE_DLLS 1
 #define CAFFE2_USE_LITE_PROTO 1
 
 #include "classes.h"
 
-#define IMG_H 227
-#define IMG_W 227
+#define IMG_H 224
+#define IMG_W 224
 #define IMG_C 3
 #define MAX_DATA_SIZE IMG_H * IMG_W * IMG_C
 
@@ -79,7 +79,7 @@ Java_facebook_f8demo_ClassifyCamera_initModel(
 
     return env->NewStringUTF(out.str().c_str());
 #endif
-    std::ifstream input(storage_dir + "/squeeze.model");
+    std::ifstream input(storage_dir + "/resnet18_eval.bc");
     //module = torch::jit::load(input);
     load_model(input);
     allocate_input_buffer(IMG_C, IMG_H, IMG_W);

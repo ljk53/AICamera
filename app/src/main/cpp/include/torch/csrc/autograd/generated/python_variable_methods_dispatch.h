@@ -16,7 +16,6 @@ using at::Scalar;
 using at::TensorList;
 using at::IntArrayRef;
 using at::Generator;
-using at::SparseTensorRef;
 using at::Storage;
 
 inline Tensor dispatch___and__(Tensor & self, const Tensor & other) {
@@ -608,11 +607,6 @@ inline Tensor dispatch_cumsum(Tensor & self, int64_t dim, ScalarType dtype) {
 
   AutoNoGIL no_gil;
   return self.cumsum(dim, dtype);
-}
-inline void* dispatch_data_ptr(Tensor & self) {
-
-  AutoNoGIL no_gil;
-  return self.data_ptr();
 }
 inline int64_t dispatch_dense_dim(Tensor & self) {
 
@@ -1384,11 +1378,6 @@ inline Tensor dispatch_neg_(Tensor & self) {
   AutoNoGIL no_gil;
   return self.neg_();
 }
-inline Tensor dispatch_nonzero(Tensor & self) {
-
-  AutoNoGIL no_gil;
-  return self.nonzero();
-}
 inline Tensor dispatch_norm(Tensor & self, Scalar p) {
 
   AutoNoGIL no_gil;
@@ -1524,15 +1513,10 @@ inline Scalar dispatch_q_zero_point(Tensor & self) {
   AutoNoGIL no_gil;
   return self.q_zero_point();
 }
-inline std::tuple<Tensor,Tensor> dispatch_qr(Tensor & self) {
+inline std::tuple<Tensor,Tensor> dispatch_qr(Tensor & self, bool some) {
 
   AutoNoGIL no_gil;
-  return self.qr();
-}
-inline Tensor dispatch_quantize_linear(Tensor & self, double scale, int64_t zero_point) {
-
-  AutoNoGIL no_gil;
-  return self.quantize_linear(scale, zero_point);
+  return self.qr(some);
 }
 inline Tensor dispatch_random_(Tensor & self, Generator * generator) {
 
@@ -1799,7 +1783,7 @@ inline int64_t dispatch_sparse_dim(Tensor & self) {
   AutoNoGIL no_gil;
   return self.sparse_dim();
 }
-inline Tensor dispatch_sparse_mask(Tensor & self, SparseTensorRef mask) {
+inline Tensor dispatch_sparse_mask(Tensor & self, const Tensor & mask) {
 
   AutoNoGIL no_gil;
   return self.sparse_mask(mask);

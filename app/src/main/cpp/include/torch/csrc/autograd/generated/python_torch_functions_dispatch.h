@@ -21,7 +21,6 @@ using at::ScalarType;
 using at::TensorList;
 using at::IntArrayRef;
 using at::Generator;
-using at::SparseTensorRef;
 using at::Storage;
 using at::TensorOptions;
 
@@ -94,6 +93,36 @@ inline Tensor dispatch__adaptive_avg_pool2d(const Tensor & self, IntArrayRef out
   AutoNoGIL no_gil;
   return at::_adaptive_avg_pool2d(self, output_size);
 }
+inline Tensor dispatch__addmm(const Tensor & self, const Tensor & mat1, const Tensor & mat2, Scalar beta, Scalar alpha, Tensor out) {
+
+  AutoNoGIL no_gil;
+  return at::_addmm_out(out, self, mat1, mat2, beta, alpha);
+}
+inline Tensor dispatch__addmm(const Tensor & self, const Tensor & mat1, const Tensor & mat2, Scalar beta, Scalar alpha) {
+
+  AutoNoGIL no_gil;
+  return at::_addmm(self, mat1, mat2, beta, alpha);
+}
+inline Tensor dispatch__addmm_(Tensor self, const Tensor & mat1, const Tensor & mat2, Scalar beta, Scalar alpha) {
+
+  AutoNoGIL no_gil;
+  return at::_addmm_(self, mat1, mat2, beta, alpha);
+}
+inline Tensor dispatch__addr(const Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta, Scalar alpha, Tensor out) {
+
+  AutoNoGIL no_gil;
+  return at::_addr_out(out, self, vec1, vec2, beta, alpha);
+}
+inline Tensor dispatch__addr(const Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta, Scalar alpha) {
+
+  AutoNoGIL no_gil;
+  return at::_addr(self, vec1, vec2, beta, alpha);
+}
+inline Tensor dispatch__addr_(Tensor self, const Tensor & vec1, const Tensor & vec2, Scalar beta, Scalar alpha) {
+
+  AutoNoGIL no_gil;
+  return at::_addr_(self, vec1, vec2, beta, alpha);
+}
 inline Tensor dispatch__baddbmm_mkl_(Tensor self, const Tensor & batch1, const Tensor & batch2, Scalar beta, Scalar alpha) {
 
   AutoNoGIL no_gil;
@@ -144,6 +173,16 @@ inline Tensor dispatch__cast_Short(const Tensor & self, bool non_blocking) {
   AutoNoGIL no_gil;
   return at::_cast_Short(self, non_blocking);
 }
+inline Tensor dispatch__cat(TensorList tensors, int64_t dim, Tensor out) {
+
+  AutoNoGIL no_gil;
+  return at::_cat_out(out, tensors, dim);
+}
+inline Tensor dispatch__cat(TensorList tensors, int64_t dim) {
+
+  AutoNoGIL no_gil;
+  return at::_cat(tensors, dim);
+}
 inline Tensor dispatch__convolution(const Tensor & input, const Tensor & weight, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool transposed, IntArrayRef output_padding, int64_t groups, bool benchmark, bool deterministic, bool cudnn_enabled) {
 
   AutoNoGIL no_gil;
@@ -154,10 +193,10 @@ inline Tensor dispatch__convolution_nogroup(const Tensor & input, const Tensor &
   AutoNoGIL no_gil;
   return at::_convolution_nogroup(input, weight, bias, stride, padding, dilation, transposed, output_padding);
 }
-inline void dispatch__copy_same_type_(Tensor self, const Tensor & src) {
+inline Tensor dispatch__copy_from(const Tensor & self, const Tensor & dst, bool non_blocking) {
 
   AutoNoGIL no_gil;
-  return at::_copy_same_type_(self, src);
+  return at::_copy_from(self, dst, non_blocking);
 }
 inline std::tuple<Tensor,Tensor> dispatch__ctc_loss(const Tensor & log_probs, const Tensor & targets, IntArrayRef input_lengths, IntArrayRef target_lengths, int64_t blank, bool zero_infinity) {
 
@@ -209,15 +248,15 @@ inline int64_t dispatch__debug_has_internal_overlap(const Tensor & self) {
   AutoNoGIL no_gil;
   return at::_debug_has_internal_overlap(self);
 }
+inline Tensor dispatch__dequantize_linear(const Tensor & self, double scale, int64_t zero_point, ScalarType dtype) {
+
+  AutoNoGIL no_gil;
+  return at::_dequantize_linear(self, scale, zero_point, dtype);
+}
 inline Tensor dispatch__dim_arange(const Tensor & like, int64_t dim) {
 
   AutoNoGIL no_gil;
   return at::_dim_arange(like, dim);
-}
-inline Tensor dispatch__dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total, Tensor out) {
-
-  AutoNoGIL no_gil;
-  return at::_dirichlet_grad_out(out, x, alpha, total);
 }
 inline Tensor dispatch__dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total) {
 
@@ -244,6 +283,16 @@ inline std::tuple<Tensor,Tensor> dispatch__fused_dropout(const Tensor & self, do
   AutoNoGIL no_gil;
   return at::_fused_dropout(self, p, generator);
 }
+inline Tensor dispatch__index_copy_(Tensor self, int64_t dim, const Tensor & index, const Tensor & source) {
+
+  AutoNoGIL no_gil;
+  return at::_index_copy_(self, dim, index, source);
+}
+inline Tensor dispatch__index_put_impl_(Tensor self, TensorList indices, const Tensor & values, bool accumulate, bool unsafe) {
+
+  AutoNoGIL no_gil;
+  return at::_index_put_impl_(self, indices, values, accumulate, unsafe);
+}
 inline Tensor dispatch__log_softmax(const Tensor & self, int64_t dim, bool half_to_float) {
 
   AutoNoGIL no_gil;
@@ -263,6 +312,36 @@ inline Tensor dispatch__masked_scale(const Tensor & self, const Tensor & mask, d
 
   AutoNoGIL no_gil;
   return at::_masked_scale(self, mask, scale);
+}
+inline std::tuple<Tensor,Tensor> dispatch__max(const Tensor & self, int64_t dim, bool keepdim, Tensor & max, Tensor & max_indices) {
+
+  AutoNoGIL no_gil;
+  return at::_max_out(max, max_indices, self, dim, keepdim);
+}
+inline std::tuple<Tensor,Tensor> dispatch__max(const Tensor & self, int64_t dim, bool keepdim) {
+
+  AutoNoGIL no_gil;
+  return at::_max(self, dim, keepdim);
+}
+inline std::tuple<Tensor,Tensor> dispatch__min(const Tensor & self, int64_t dim, bool keepdim, Tensor & min, Tensor & min_indices) {
+
+  AutoNoGIL no_gil;
+  return at::_min_out(min, min_indices, self, dim, keepdim);
+}
+inline std::tuple<Tensor,Tensor> dispatch__min(const Tensor & self, int64_t dim, bool keepdim) {
+
+  AutoNoGIL no_gil;
+  return at::_min(self, dim, keepdim);
+}
+inline std::tuple<Tensor,Tensor> dispatch__mode(const Tensor & self, int64_t dim, bool keepdim, Tensor & values, Tensor & indices) {
+
+  AutoNoGIL no_gil;
+  return at::_mode_out(values, indices, self, dim, keepdim);
+}
+inline std::tuple<Tensor,Tensor> dispatch__mode(const Tensor & self, int64_t dim, bool keepdim) {
+
+  AutoNoGIL no_gil;
+  return at::_mode(self, dim, keepdim);
 }
 inline Tensor dispatch__multinomial_alias_draw(const Tensor & J, const Tensor & q, int64_t num_samples, Generator * generator) {
 
@@ -294,15 +373,15 @@ inline std::tuple<Tensor,Tensor> dispatch__pad_packed_sequence(const Tensor & da
   AutoNoGIL no_gil;
   return at::_pad_packed_sequence(data, batch_sizes, batch_first, padding_value, total_length);
 }
+inline Tensor dispatch__per_tensor_affine_qtensor(const Tensor & self, double scale, int64_t zero_point) {
+
+  AutoNoGIL no_gil;
+  return at::_per_tensor_affine_qtensor(self, scale, zero_point);
+}
 inline Tensor dispatch__reshape_from_tensor(const Tensor & self, const Tensor & shape) {
 
   AutoNoGIL no_gil;
   return at::_reshape_from_tensor(self, shape);
-}
-inline Tensor dispatch__s_copy_from(const Tensor & self, const Tensor & dst, bool non_blocking) {
-
-  AutoNoGIL no_gil;
-  return at::_s_copy_from(self, dst, non_blocking);
 }
 inline Tensor dispatch__s_where(const Tensor & condition, const Tensor & self, const Tensor & other) {
 
@@ -389,6 +468,11 @@ inline Tensor dispatch__standard_gamma_grad(const Tensor & self, const Tensor & 
   AutoNoGIL no_gil;
   return at::_standard_gamma_grad(self, output);
 }
+inline Tensor dispatch__std(const Tensor & self, bool unbiased) {
+
+  AutoNoGIL no_gil;
+  return at::_std(self, unbiased);
+}
 inline Tensor dispatch__trilinear(const Tensor & i1, const Tensor & i2, const Tensor & i3, IntArrayRef expand1, IntArrayRef expand2, IntArrayRef expand3, IntArrayRef sumdim, int64_t unroll_dim) {
 
   AutoNoGIL no_gil;
@@ -403,6 +487,11 @@ inline std::tuple<Tensor,Tensor,Tensor> dispatch__unique2(const Tensor & self, b
 
   AutoNoGIL no_gil;
   return at::_unique2(self, sorted, return_inverse, return_counts);
+}
+inline Tensor dispatch__var(const Tensor & self, bool unbiased) {
+
+  AutoNoGIL no_gil;
+  return at::_var(self, unbiased);
 }
 inline Tensor dispatch__weight_norm(const Tensor & v, const Tensor & g, int64_t dim) {
 
@@ -2429,6 +2518,11 @@ inline std::tuple<Tensor,Tensor,Tensor> dispatch_native_batch_norm(const Tensor 
   AutoNoGIL no_gil;
   return at::native_batch_norm(input, weight, bias, running_mean, running_var, training, momentum, eps);
 }
+inline std::tuple<Tensor,Tensor,Tensor> dispatch_native_layer_norm(const Tensor & input, const Tensor & weight, const Tensor & bias, int64_t M, int64_t N, double eps) {
+
+  AutoNoGIL no_gil;
+  return at::native_layer_norm(input, weight, bias, M, N, eps);
+}
 inline Tensor dispatch_native_norm(const Tensor & self, Scalar p) {
 
   AutoNoGIL no_gil;
@@ -2468,16 +2562,6 @@ inline Tensor dispatch_neg_(Tensor self) {
 
   AutoNoGIL no_gil;
   return self.neg_();
-}
-inline Tensor dispatch_nonzero(const Tensor & self, Tensor out) {
-
-  AutoNoGIL no_gil;
-  return at::nonzero_out(out, self);
-}
-inline Tensor dispatch_nonzero(const Tensor & self) {
-
-  AutoNoGIL no_gil;
-  return self.nonzero();
 }
 inline Tensor dispatch_norm(const Tensor & self, Scalar p) {
 
@@ -2543,6 +2627,16 @@ inline Tensor dispatch_normal(double mean, const Tensor & std, Generator * gener
 
   AutoNoGIL no_gil;
   return at::normal(mean, std, generator);
+}
+inline Tensor dispatch_nuclear_norm(const Tensor & self, IntArrayRef dim, bool keepdim, Tensor out) {
+
+  AutoNoGIL no_gil;
+  return at::nuclear_norm_out(out, self, dim, keepdim);
+}
+inline Tensor dispatch_nuclear_norm(const Tensor & self, IntArrayRef dim, bool keepdim) {
+
+  AutoNoGIL no_gil;
+  return at::nuclear_norm(self, dim, keepdim);
 }
 inline Tensor dispatch_nuclear_norm(const Tensor & self, bool keepdim, Tensor out) {
 
@@ -2628,6 +2722,11 @@ inline Tensor dispatch_poisson(const Tensor & self, Generator * generator) {
 
   AutoNoGIL no_gil;
   return at::poisson(self, generator);
+}
+inline Tensor dispatch_poisson_nll_loss(const Tensor & input, const Tensor & target, bool log_input, bool full, double eps, int64_t reduction) {
+
+  AutoNoGIL no_gil;
+  return at::poisson_nll_loss(input, target, log_input, full, eps, reduction);
 }
 inline Tensor dispatch_polygamma(int64_t n, const Tensor & self, Tensor out) {
 
@@ -2734,20 +2833,25 @@ inline Scalar dispatch_q_zero_point(const Tensor & self) {
   AutoNoGIL no_gil;
   return self.q_zero_point();
 }
-inline std::tuple<Tensor,Tensor> dispatch_qr(const Tensor & self, Tensor & Q, Tensor & R) {
+inline std::tuple<Tensor,Tensor> dispatch_qr(const Tensor & self, bool some, Tensor & Q, Tensor & R) {
 
   AutoNoGIL no_gil;
-  return at::qr_out(Q, R, self);
+  return at::qr_out(Q, R, self, some);
 }
-inline std::tuple<Tensor,Tensor> dispatch_qr(const Tensor & self) {
+inline std::tuple<Tensor,Tensor> dispatch_qr(const Tensor & self, bool some) {
 
   AutoNoGIL no_gil;
-  return self.qr();
+  return self.qr(some);
 }
-inline Tensor dispatch_quantize_linear(const Tensor & self, double scale, int64_t zero_point) {
+inline Tensor dispatch_quantize_linear(const Tensor & self, double scale, int64_t zero_point, ScalarType dtype) {
 
   AutoNoGIL no_gil;
-  return self.quantize_linear(scale, zero_point);
+  return at::quantize_linear(self, scale, zero_point, dtype);
+}
+inline Tensor dispatch_quantize_linear_per_channel(const Tensor & self, const Tensor & scales, const Tensor & zero_points, IntArrayRef axis, ScalarType dtype) {
+
+  AutoNoGIL no_gil;
+  return at::quantize_linear_per_channel(self, scales, zero_points, axis, dtype);
 }
 inline Tensor dispatch_quantized_gru_cell(const Tensor & input, const Tensor & hx, const Tensor & w_ih, const Tensor & w_hh, const Tensor & b_ih, const Tensor & b_hh, const Tensor & packed_ih, const Tensor & packed_hh, const Tensor & col_offsets_ih, const Tensor & col_offsets_hh, Scalar scale_ih, Scalar scale_hh, Scalar zero_point_ih, Scalar zero_point_hh) {
 
@@ -3049,11 +3153,6 @@ inline Tensor dispatch_rsub(const Tensor & self, Scalar other, Scalar alpha) {
   AutoNoGIL no_gil;
   return at::rsub(self, other, alpha);
 }
-inline Tensor dispatch_s_copy_(Tensor self, const Tensor & src, bool non_blocking) {
-
-  AutoNoGIL no_gil;
-  return at::s_copy_(self, src, non_blocking);
-}
 inline Tensor dispatch_s_native_addmm(const Tensor & self, const Tensor & mat1, const Tensor & mat2, Scalar beta, Scalar alpha, Tensor out) {
 
   AutoNoGIL no_gil;
@@ -3278,6 +3377,16 @@ inline Tensor dispatch_std(const Tensor & self, bool unbiased) {
 
   AutoNoGIL no_gil;
   return self.std(unbiased);
+}
+inline std::tuple<Tensor,Tensor> dispatch_std_mean(const Tensor & self, IntArrayRef dim, bool unbiased, bool keepdim) {
+
+  AutoNoGIL no_gil;
+  return at::std_mean(self, dim, unbiased, keepdim);
+}
+inline std::tuple<Tensor,Tensor> dispatch_std_mean(const Tensor & self, bool unbiased) {
+
+  AutoNoGIL no_gil;
+  return at::std_mean(self, unbiased);
 }
 inline Tensor dispatch_stft(const Tensor & self, int64_t n_fft, c10::optional<int64_t> hop_length, c10::optional<int64_t> win_length, const Tensor & window, bool normalized, bool onesided) {
 
@@ -3543,6 +3652,16 @@ inline Tensor dispatch_var(const Tensor & self, bool unbiased) {
 
   AutoNoGIL no_gil;
   return self.var(unbiased);
+}
+inline std::tuple<Tensor,Tensor> dispatch_var_mean(const Tensor & self, IntArrayRef dim, bool unbiased, bool keepdim) {
+
+  AutoNoGIL no_gil;
+  return at::var_mean(self, dim, unbiased, keepdim);
+}
+inline std::tuple<Tensor,Tensor> dispatch_var_mean(const Tensor & self, bool unbiased) {
+
+  AutoNoGIL no_gil;
+  return at::var_mean(self, unbiased);
 }
 inline Tensor dispatch_where(const Tensor & condition, const Tensor & self, const Tensor & other) {
 

@@ -119,6 +119,11 @@ inline std::tuple<Tensor,Tensor> dispatch_fractional_max_pool3d(const Tensor & s
   AutoNoGIL no_gil;
   return at::fractional_max_pool3d(self, kernel_size, output_size, random_samples);
 }
+inline Tensor dispatch_gelu(const Tensor & self) {
+
+  AutoNoGIL no_gil;
+  return at::gelu(self);
+}
 inline Tensor dispatch_glu(const Tensor & self, int64_t dim, Tensor out) {
 
   AutoNoGIL no_gil;
@@ -184,20 +189,20 @@ inline Tensor dispatch_log_sigmoid(const Tensor & self) {
   AutoNoGIL no_gil;
   return at::log_sigmoid(self);
 }
-inline std::tuple<Tensor,Tensor> dispatch_max_pool2d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, Tensor & output, Tensor & indices) {
+inline std::tuple<Tensor,Tensor> dispatch_max_pool2d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, Tensor & out, Tensor & indices) {
 
   AutoNoGIL no_gil;
-  return at::max_pool2d_with_indices_out(output, indices, self, kernel_size, stride, padding, dilation, ceil_mode);
+  return at::max_pool2d_with_indices_out(out, indices, self, kernel_size, stride, padding, dilation, ceil_mode);
 }
 inline std::tuple<Tensor,Tensor> dispatch_max_pool2d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) {
 
   AutoNoGIL no_gil;
   return at::max_pool2d_with_indices(self, kernel_size, stride, padding, dilation, ceil_mode);
 }
-inline std::tuple<Tensor,Tensor> dispatch_max_pool3d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, Tensor & output, Tensor & indices) {
+inline std::tuple<Tensor,Tensor> dispatch_max_pool3d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode, Tensor & out, Tensor & indices) {
 
   AutoNoGIL no_gil;
-  return at::max_pool3d_with_indices_out(output, indices, self, kernel_size, stride, padding, dilation, ceil_mode);
+  return at::max_pool3d_with_indices_out(out, indices, self, kernel_size, stride, padding, dilation, ceil_mode);
 }
 inline std::tuple<Tensor,Tensor> dispatch_max_pool3d_with_indices(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) {
 
