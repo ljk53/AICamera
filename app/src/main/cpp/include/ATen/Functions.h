@@ -102,8 +102,8 @@ static inline Tensor bernoulli(const Tensor & self, Generator * generator=nullpt
 static inline Tensor & bernoulli_out(Tensor & out, const Tensor & self, Generator * generator=nullptr);
 static inline Tensor bernoulli(const Tensor & self, double p, Generator * generator=nullptr);
 static inline Tensor bilinear(const Tensor & input1, const Tensor & input2, const Tensor & weight, const Tensor & bias);
-static inline Tensor binary_cross_entropy_with_logits(const Tensor & self, const Tensor & target, const Tensor & weight, const Tensor & pos_weight, int64_t reduction);
-static inline Tensor binary_cross_entropy_with_logits_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, const Tensor & weight, const Tensor & pos_weight, int64_t reduction);
+static inline Tensor binary_cross_entropy_with_logits(const Tensor & self, const Tensor & target, const Tensor & weight={}, const Tensor & pos_weight={}, int64_t reduction=Reduction::Mean);
+static inline Tensor binary_cross_entropy_with_logits_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, const Tensor & weight={}, const Tensor & pos_weight={}, int64_t reduction=Reduction::Mean);
 static inline Tensor bincount(const Tensor & self, const Tensor & weights={}, int64_t minlength=0);
 static inline Tensor blackman_window(int64_t window_length, const TensorOptions & options={});
 static inline Tensor blackman_window(int64_t window_length, bool periodic, const TensorOptions & options={});
@@ -261,6 +261,7 @@ static inline Tensor index(const Tensor & self, TensorList indices);
 static inline Tensor index_copy(const Tensor & self, int64_t dim, const Tensor & index, const Tensor & source);
 static inline Tensor & index_put_(Tensor & self, TensorList indices, const Tensor & values, bool accumulate=false);
 static inline Tensor index_put(const Tensor & self, TensorList indices, const Tensor & values, bool accumulate=false);
+static inline Tensor & _index_put_impl_(Tensor & self, TensorList indices, const Tensor & values, bool accumulate=false, bool unsafe=false);
 static inline Tensor instance_norm(const Tensor & input, const Tensor & weight, const Tensor & bias, const Tensor & running_mean, const Tensor & running_var, bool use_input_stats, double momentum, double eps, bool cudnn_enabled);
 static inline Tensor inverse(const Tensor & self);
 static inline Tensor & inverse_out(Tensor & out, const Tensor & self);
@@ -278,6 +279,9 @@ static inline Tensor kl_div_backward(const Tensor & grad_output, const Tensor & 
 static inline std::tuple<Tensor,Tensor> kthvalue(const Tensor & self, int64_t k, int64_t dim=-1, bool keepdim=false);
 static inline std::tuple<Tensor &,Tensor &> kthvalue_out(Tensor & values, Tensor & indices, const Tensor & self, int64_t k, int64_t dim=-1, bool keepdim=false);
 static inline Tensor layer_norm(const Tensor & input, IntArrayRef normalized_shape, const Tensor & weight={}, const Tensor & bias={}, double eps=1e-05, bool cudnn_enable=true);
+static inline std::tuple<Tensor,Tensor,Tensor> native_layer_norm(const Tensor & input, const Tensor & weight, const Tensor & bias, int64_t M, int64_t N, double eps);
+static inline std::tuple<Tensor,Tensor,Tensor> native_layer_norm_backward(const Tensor & grad_out, const Tensor & input, const Tensor & mean, const Tensor & rstd, const Tensor & weight, int64_t M, int64_t N, std::array<bool,3> output_mask);
+static inline std::tuple<Tensor,Tensor,Tensor> native_layer_norm_double_backward(const Tensor & ggI, const Tensor & ggW, const Tensor & ggb, const Tensor & gO, const Tensor & input, const Tensor & mean, const Tensor & rstd, const Tensor & weight, int64_t M, int64_t N, std::array<bool,3> output_mask);
 static inline Tensor linear(const Tensor & input, const Tensor & weight, const Tensor & bias={});
 static inline Tensor mkldnn_linear(const Tensor & input, const Tensor & weight, const Tensor & bias={});
 static inline Tensor fbgemm_linear_int8_weight(const Tensor & input, const Tensor & weight, const Tensor & packed, const Tensor & col_offsets, Scalar weight_scale, Scalar weight_zero_point, const Tensor & bias);
@@ -445,6 +449,8 @@ static inline Tensor relu(const Tensor & self);
 static inline Tensor & relu_(Tensor & self);
 static inline Tensor prelu(const Tensor & self, const Tensor & weight);
 static inline std::tuple<Tensor,Tensor> prelu_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight);
+static inline Tensor gelu(const Tensor & self);
+static inline Tensor gelu_backward(const Tensor & grad, const Tensor & self);
 static inline Tensor hardshrink(const Tensor & self, Scalar lambd=0.5);
 static inline Tensor hardshrink_backward(const Tensor & grad_out, const Tensor & self, Scalar lambd);
 static inline Tensor rsqrt(const Tensor & self);
@@ -532,6 +538,8 @@ static inline Tensor one_hot(const Tensor & self, int64_t num_classes=-1);
 static inline Tensor flip(const Tensor & self, IntArrayRef dims);
 static inline Tensor roll(const Tensor & self, IntArrayRef shifts, IntArrayRef dims={});
 static inline Tensor rot90(const Tensor & self, int64_t k=1, IntArrayRef dims={0,1});
+static inline Tensor trapz(const Tensor & y, const Tensor & x, int64_t dim=-1);
+static inline Tensor trapz(const Tensor & y, double dx=1, int64_t dim=-1);
 static inline Tensor _trilinear(const Tensor & i1, const Tensor & i2, const Tensor & i3, IntArrayRef expand1, IntArrayRef expand2, IntArrayRef expand3, IntArrayRef sumdim, int64_t unroll_dim=1);
 static inline Tensor triplet_margin_loss(const Tensor & anchor, const Tensor & positive, const Tensor & negative, double margin=1.0, double p=2, double eps=1e-06, bool swap=false, int64_t reduction=Reduction::Mean);
 static inline Tensor trunc(const Tensor & self);
@@ -562,6 +570,7 @@ static inline Tensor zeros_like(const Tensor & self);
 static inline Tensor zeros_like(const Tensor & self, const TensorOptions & options);
 static inline Tensor _standard_gamma_grad(const Tensor & self, const Tensor & output);
 static inline Tensor _standard_gamma(const Tensor & self, Generator * generator=nullptr);
+static inline Tensor _dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total);
 static inline Tensor _sample_dirichlet(const Tensor & self, Generator * generator=nullptr);
 static inline Tensor poisson(const Tensor & self, Generator * generator=nullptr);
 static inline Tensor native_norm(const Tensor & self, Scalar p=2);
@@ -581,6 +590,8 @@ static inline Tensor frobenius_norm(const Tensor & self, IntArrayRef dim, bool k
 static inline Tensor & frobenius_norm_out(Tensor & out, const Tensor & self, IntArrayRef dim, bool keepdim=false);
 static inline Tensor nuclear_norm(const Tensor & self, bool keepdim=false);
 static inline Tensor & nuclear_norm_out(Tensor & out, const Tensor & self, bool keepdim=false);
+static inline Tensor nuclear_norm(const Tensor & self, IntArrayRef dim, bool keepdim=false);
+static inline Tensor & nuclear_norm_out(Tensor & out, const Tensor & self, IntArrayRef dim, bool keepdim=false);
 static inline Tensor clone(const Tensor & self);
 static inline Tensor & resize_as_(Tensor & self, const Tensor & the_template);
 static inline Tensor & pow_out(Tensor & out, const Tensor & self, Scalar exponent);
@@ -711,6 +722,7 @@ static inline Tensor & masked_select_out(Tensor & out, const Tensor & self, cons
 static inline Tensor masked_select(const Tensor & self, const Tensor & mask);
 static inline Tensor & nonzero_out(Tensor & out, const Tensor & self);
 static inline Tensor nonzero(const Tensor & self);
+static inline std::vector<Tensor> nonzero_numpy(const Tensor & self);
 static inline Tensor & gather_out(Tensor & out, const Tensor & self, int64_t dim, const Tensor & index, bool sparse_grad=false);
 static inline Tensor gather(const Tensor & self, int64_t dim, const Tensor & index, bool sparse_grad=false);
 static inline Tensor _gather_sparse_backward(const Tensor & self, int64_t dim, const Tensor & index, const Tensor & grad);
@@ -813,8 +825,6 @@ static inline Tensor normal(double mean, const Tensor & std, Generator * generat
 static inline Tensor & normal_out(Tensor & out, const Tensor & mean, const Tensor & std, Generator * generator=nullptr);
 static inline Tensor normal(const Tensor & mean, const Tensor & std, Generator * generator=nullptr);
 static inline Tensor alias(const Tensor & self);
-static inline Tensor & _dirichlet_grad_out(Tensor & out, const Tensor & x, const Tensor & alpha, const Tensor & total);
-static inline Tensor _dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total);
 static inline Tensor _addr(const Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta=1, Scalar alpha=1);
 static inline Tensor & _addr_(Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta=1, Scalar alpha=1);
 static inline Tensor & _addr_out(Tensor & out, const Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta=1, Scalar alpha=1);
@@ -1849,6 +1859,9 @@ static inline Tensor & index_put_(Tensor & self, TensorList indices, const Tenso
 static inline Tensor index_put(const Tensor & self, TensorList indices, const Tensor & values, bool accumulate) {
     return detail::infer_type(self).index_put(self, indices, values, accumulate);
 }
+static inline Tensor & _index_put_impl_(Tensor & self, TensorList indices, const Tensor & values, bool accumulate, bool unsafe) {
+    return detail::infer_type(self)._index_put_impl_(self, indices, values, accumulate, unsafe);
+}
 static inline Tensor instance_norm(const Tensor & input, const Tensor & weight, const Tensor & bias, const Tensor & running_mean, const Tensor & running_var, bool use_input_stats, double momentum, double eps, bool cudnn_enabled) {
     return detail::infer_type(input).instance_norm(input, weight, bias, running_mean, running_var, use_input_stats, momentum, eps, cudnn_enabled);
 }
@@ -1899,6 +1912,15 @@ static inline std::tuple<Tensor &,Tensor &> kthvalue_out(Tensor & values, Tensor
 }
 static inline Tensor layer_norm(const Tensor & input, IntArrayRef normalized_shape, const Tensor & weight, const Tensor & bias, double eps, bool cudnn_enable) {
     return detail::infer_type(input).layer_norm(input, normalized_shape, weight, bias, eps, cudnn_enable);
+}
+static inline std::tuple<Tensor,Tensor,Tensor> native_layer_norm(const Tensor & input, const Tensor & weight, const Tensor & bias, int64_t M, int64_t N, double eps) {
+    return detail::infer_type(input).native_layer_norm(input, weight, bias, M, N, eps);
+}
+static inline std::tuple<Tensor,Tensor,Tensor> native_layer_norm_backward(const Tensor & grad_out, const Tensor & input, const Tensor & mean, const Tensor & rstd, const Tensor & weight, int64_t M, int64_t N, std::array<bool,3> output_mask) {
+    return detail::infer_type(grad_out).native_layer_norm_backward(grad_out, input, mean, rstd, weight, M, N, output_mask);
+}
+static inline std::tuple<Tensor,Tensor,Tensor> native_layer_norm_double_backward(const Tensor & ggI, const Tensor & ggW, const Tensor & ggb, const Tensor & gO, const Tensor & input, const Tensor & mean, const Tensor & rstd, const Tensor & weight, int64_t M, int64_t N, std::array<bool,3> output_mask) {
+    return detail::infer_type(gO).native_layer_norm_double_backward(ggI, ggW, ggb, gO, input, mean, rstd, weight, M, N, output_mask);
 }
 static inline Tensor linear(const Tensor & input, const Tensor & weight, const Tensor & bias) {
     return detail::infer_type(input).linear(input, weight, bias);
@@ -2401,6 +2423,12 @@ static inline Tensor prelu(const Tensor & self, const Tensor & weight) {
 static inline std::tuple<Tensor,Tensor> prelu_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight) {
     return detail::infer_type(self).prelu_backward(grad_output, self, weight);
 }
+static inline Tensor gelu(const Tensor & self) {
+    return detail::infer_type(self).gelu(self);
+}
+static inline Tensor gelu_backward(const Tensor & grad, const Tensor & self) {
+    return detail::infer_type(self).gelu_backward(grad, self);
+}
 static inline Tensor hardshrink(const Tensor & self, Scalar lambd) {
     return detail::infer_type(self).hardshrink(self, lambd);
 }
@@ -2662,6 +2690,12 @@ static inline Tensor roll(const Tensor & self, IntArrayRef shifts, IntArrayRef d
 static inline Tensor rot90(const Tensor & self, int64_t k, IntArrayRef dims) {
     return detail::infer_type(self).rot90(self, k, dims);
 }
+static inline Tensor trapz(const Tensor & y, const Tensor & x, int64_t dim) {
+    return detail::infer_type(y).trapz(y, x, dim);
+}
+static inline Tensor trapz(const Tensor & y, double dx, int64_t dim) {
+    return detail::infer_type(y).trapz(y, dx, dim);
+}
 static inline Tensor _trilinear(const Tensor & i1, const Tensor & i2, const Tensor & i3, IntArrayRef expand1, IntArrayRef expand2, IntArrayRef expand3, IntArrayRef sumdim, int64_t unroll_dim) {
     return detail::infer_type(i1)._trilinear(i1, i2, i3, expand1, expand2, expand3, sumdim, unroll_dim);
 }
@@ -2752,6 +2786,9 @@ static inline Tensor _standard_gamma_grad(const Tensor & self, const Tensor & ou
 static inline Tensor _standard_gamma(const Tensor & self, Generator * generator) {
     return detail::infer_type(self)._standard_gamma(self, generator);
 }
+static inline Tensor _dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total) {
+    return detail::infer_type(x)._dirichlet_grad(x, alpha, total);
+}
 static inline Tensor _sample_dirichlet(const Tensor & self, Generator * generator) {
     return detail::infer_type(self)._sample_dirichlet(self, generator);
 }
@@ -2808,6 +2845,12 @@ static inline Tensor nuclear_norm(const Tensor & self, bool keepdim) {
 }
 static inline Tensor & nuclear_norm_out(Tensor & out, const Tensor & self, bool keepdim) {
     return detail::infer_type(self).nuclear_norm_out(out, self, keepdim);
+}
+static inline Tensor nuclear_norm(const Tensor & self, IntArrayRef dim, bool keepdim) {
+    return detail::infer_type(self).nuclear_norm(self, dim, keepdim);
+}
+static inline Tensor & nuclear_norm_out(Tensor & out, const Tensor & self, IntArrayRef dim, bool keepdim) {
+    return detail::infer_type(self).nuclear_norm_out(out, self, dim, keepdim);
 }
 static inline Tensor clone(const Tensor & self) {
     return detail::infer_type(self).clone(self);
@@ -3199,6 +3242,9 @@ static inline Tensor & nonzero_out(Tensor & out, const Tensor & self) {
 static inline Tensor nonzero(const Tensor & self) {
     return detail::infer_type(self).nonzero(self);
 }
+static inline std::vector<Tensor> nonzero_numpy(const Tensor & self) {
+    return detail::infer_type(self).nonzero_numpy(self);
+}
 static inline Tensor & gather_out(Tensor & out, const Tensor & self, int64_t dim, const Tensor & index, bool sparse_grad) {
     return detail::infer_type(self).gather_out(out, self, dim, index, sparse_grad);
 }
@@ -3504,12 +3550,6 @@ static inline Tensor normal(const Tensor & mean, const Tensor & std, Generator *
 }
 static inline Tensor alias(const Tensor & self) {
     return detail::infer_type(self).alias(self);
-}
-static inline Tensor & _dirichlet_grad_out(Tensor & out, const Tensor & x, const Tensor & alpha, const Tensor & total) {
-    return detail::infer_type(out)._dirichlet_grad_out(out, x, alpha, total);
-}
-static inline Tensor _dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total) {
-    return detail::infer_type(x)._dirichlet_grad(x, alpha, total);
 }
 static inline Tensor _addr(const Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta, Scalar alpha) {
     return detail::infer_type(self)._addr(self, vec1, vec2, beta, alpha);

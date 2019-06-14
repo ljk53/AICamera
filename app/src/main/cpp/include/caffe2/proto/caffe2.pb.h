@@ -46,7 +46,7 @@ struct CAFFE2_API TableStruct {
 };
 void CAFFE2_API AddDescriptors();
 }  // namespace protobuf_caffe2_2fproto_2fcaffe2_2eproto
-namespace caffe2 {
+namespace caffe2 { const ::std::string& GetEmptyStringAlreadyInited(); 
 class Argument;
 class ArgumentDefaultTypeInternal;
 CAFFE2_API extern ArgumentDefaultTypeInternal _Argument_default_instance_;
@@ -256,7 +256,7 @@ class CAFFE2_API ExternalDataProto : public ::google::protobuf::Message /* @@pro
     return reinterpret_cast<const ExternalDataProto*>(
                &_ExternalDataProto_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     0;
 
   void Swap(ExternalDataProto* other);
@@ -447,7 +447,7 @@ class CAFFE2_API TensorProto_Segment : public ::google::protobuf::Message /* @@p
     return reinterpret_cast<const TensorProto_Segment*>(
                &_TensorProto_Segment_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     1;
 
   void Swap(TensorProto_Segment* other);
@@ -574,7 +574,7 @@ class CAFFE2_API TensorProto : public ::google::protobuf::Message /* @@protoc_in
     return reinterpret_cast<const TensorProto*>(
                &_TensorProto_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     2;
 
   void Swap(TensorProto* other);
@@ -969,7 +969,7 @@ class CAFFE2_API QTensorProto : public ::google::protobuf::Message /* @@protoc_i
     return reinterpret_cast<const QTensorProto*>(
                &_QTensorProto_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     3;
 
   void Swap(QTensorProto* other);
@@ -1217,7 +1217,7 @@ class CAFFE2_API TensorProtos : public ::google::protobuf::Message /* @@protoc_i
     return reinterpret_cast<const TensorProtos*>(
                &_TensorProtos_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     4;
 
   void Swap(TensorProtos* other);
@@ -1334,7 +1334,7 @@ class CAFFE2_API TensorShape : public ::google::protobuf::Message /* @@protoc_in
     return reinterpret_cast<const TensorShape*>(
                &_TensorShape_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     5;
 
   void Swap(TensorShape* other);
@@ -1502,7 +1502,7 @@ class CAFFE2_API TensorShapes : public ::google::protobuf::Message /* @@protoc_i
     return reinterpret_cast<const TensorShapes*>(
                &_TensorShapes_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     6;
 
   void Swap(TensorShapes* other);
@@ -1619,7 +1619,7 @@ class CAFFE2_API Argument : public ::google::protobuf::Message /* @@protoc_inser
     return reinterpret_cast<const Argument*>(
                &_Argument_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     7;
 
   void Swap(Argument* other);
@@ -1897,7 +1897,7 @@ class CAFFE2_API DeviceOption : public ::google::protobuf::Message /* @@protoc_i
     return reinterpret_cast<const DeviceOption*>(
                &_DeviceOption_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     8;
 
   void Swap(DeviceOption* other);
@@ -2082,7 +2082,7 @@ class CAFFE2_API OperatorDef : public ::google::protobuf::Message /* @@protoc_in
     return reinterpret_cast<const OperatorDef*>(
                &_OperatorDef_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     9;
 
   void Swap(OperatorDef* other);
@@ -2393,7 +2393,7 @@ class CAFFE2_API NetDef : public ::google::protobuf::Message /* @@protoc_inserti
     return reinterpret_cast<const NetDef*>(
                &_NetDef_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     10;
 
   void Swap(NetDef* other);
@@ -2630,7 +2630,7 @@ class CAFFE2_API ExecutionStep : public ::google::protobuf::Message /* @@protoc_
     return reinterpret_cast<const ExecutionStep*>(
                &_ExecutionStep_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     11;
 
   void Swap(ExecutionStep* other);
@@ -2912,7 +2912,7 @@ class CAFFE2_API PlanDef : public ::google::protobuf::Message /* @@protoc_insert
     return reinterpret_cast<const PlanDef*>(
                &_PlanDef_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     12;
 
   void Swap(PlanDef* other);
@@ -3060,7 +3060,7 @@ class CAFFE2_API BlobProto : public ::google::protobuf::Message /* @@protoc_inse
     return reinterpret_cast<const BlobProto*>(
                &_BlobProto_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     13;
 
   void Swap(BlobProto* other);
@@ -3268,7 +3268,7 @@ class CAFFE2_API DBReaderProto : public ::google::protobuf::Message /* @@protoc_
     return reinterpret_cast<const DBReaderProto*>(
                &_DBReaderProto_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     14;
 
   void Swap(DBReaderProto* other);
@@ -3448,7 +3448,7 @@ inline void ExternalDataProto::clear_has_record_id() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void ExternalDataProto::clear_record_id() {
-  record_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  record_id_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_record_id();
 }
 inline const ::std::string& ExternalDataProto::record_id() const {
@@ -3457,33 +3457,33 @@ inline const ::std::string& ExternalDataProto::record_id() const {
 }
 inline void ExternalDataProto::set_record_id(const ::std::string& value) {
   set_has_record_id();
-  record_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  record_id_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.ExternalDataProto.record_id)
 }
 #if LANG_CXX11
 inline void ExternalDataProto::set_record_id(::std::string&& value) {
   set_has_record_id();
   record_id_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.ExternalDataProto.record_id)
 }
 #endif
 inline void ExternalDataProto::set_record_id(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_record_id();
-  record_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  record_id_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.ExternalDataProto.record_id)
 }
 inline void ExternalDataProto::set_record_id(const char* value, size_t size) {
   set_has_record_id();
-  record_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  record_id_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.ExternalDataProto.record_id)
 }
 inline ::std::string* ExternalDataProto::mutable_record_id() {
   set_has_record_id();
   // @@protoc_insertion_point(field_mutable:caffe2.ExternalDataProto.record_id)
-  return record_id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return record_id_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* ExternalDataProto::release_record_id() {
   // @@protoc_insertion_point(field_release:caffe2.ExternalDataProto.record_id)
@@ -3491,7 +3491,7 @@ inline ::std::string* ExternalDataProto::release_record_id() {
     return NULL;
   }
   clear_has_record_id();
-  return record_id_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return record_id_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void ExternalDataProto::set_allocated_record_id(::std::string* record_id) {
   if (record_id != NULL) {
@@ -3499,7 +3499,7 @@ inline void ExternalDataProto::set_allocated_record_id(::std::string* record_id)
   } else {
     clear_has_record_id();
   }
-  record_id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), record_id);
+  record_id_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), record_id);
   // @@protoc_insertion_point(field_set_allocated:caffe2.ExternalDataProto.record_id)
 }
 
@@ -3788,7 +3788,7 @@ inline void TensorProto::clear_has_byte_data() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void TensorProto::clear_byte_data() {
-  byte_data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  byte_data_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_byte_data();
 }
 inline const ::std::string& TensorProto::byte_data() const {
@@ -3797,33 +3797,33 @@ inline const ::std::string& TensorProto::byte_data() const {
 }
 inline void TensorProto::set_byte_data(const ::std::string& value) {
   set_has_byte_data();
-  byte_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  byte_data_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.TensorProto.byte_data)
 }
 #if LANG_CXX11
 inline void TensorProto::set_byte_data(::std::string&& value) {
   set_has_byte_data();
   byte_data_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.TensorProto.byte_data)
 }
 #endif
 inline void TensorProto::set_byte_data(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_byte_data();
-  byte_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  byte_data_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.TensorProto.byte_data)
 }
 inline void TensorProto::set_byte_data(const void* value, size_t size) {
   set_has_byte_data();
-  byte_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  byte_data_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.TensorProto.byte_data)
 }
 inline ::std::string* TensorProto::mutable_byte_data() {
   set_has_byte_data();
   // @@protoc_insertion_point(field_mutable:caffe2.TensorProto.byte_data)
-  return byte_data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return byte_data_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* TensorProto::release_byte_data() {
   // @@protoc_insertion_point(field_release:caffe2.TensorProto.byte_data)
@@ -3831,7 +3831,7 @@ inline ::std::string* TensorProto::release_byte_data() {
     return NULL;
   }
   clear_has_byte_data();
-  return byte_data_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return byte_data_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void TensorProto::set_allocated_byte_data(::std::string* byte_data) {
   if (byte_data != NULL) {
@@ -3839,7 +3839,7 @@ inline void TensorProto::set_allocated_byte_data(::std::string* byte_data) {
   } else {
     clear_has_byte_data();
   }
-  byte_data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), byte_data);
+  byte_data_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), byte_data);
   // @@protoc_insertion_point(field_set_allocated:caffe2.TensorProto.byte_data)
 }
 
@@ -3983,7 +3983,7 @@ inline void TensorProto::clear_has_raw_data() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline void TensorProto::clear_raw_data() {
-  raw_data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  raw_data_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_raw_data();
 }
 inline const ::std::string& TensorProto::raw_data() const {
@@ -3992,33 +3992,33 @@ inline const ::std::string& TensorProto::raw_data() const {
 }
 inline void TensorProto::set_raw_data(const ::std::string& value) {
   set_has_raw_data();
-  raw_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  raw_data_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.TensorProto.raw_data)
 }
 #if LANG_CXX11
 inline void TensorProto::set_raw_data(::std::string&& value) {
   set_has_raw_data();
   raw_data_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.TensorProto.raw_data)
 }
 #endif
 inline void TensorProto::set_raw_data(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_raw_data();
-  raw_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  raw_data_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.TensorProto.raw_data)
 }
 inline void TensorProto::set_raw_data(const void* value, size_t size) {
   set_has_raw_data();
-  raw_data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  raw_data_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.TensorProto.raw_data)
 }
 inline ::std::string* TensorProto::mutable_raw_data() {
   set_has_raw_data();
   // @@protoc_insertion_point(field_mutable:caffe2.TensorProto.raw_data)
-  return raw_data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return raw_data_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* TensorProto::release_raw_data() {
   // @@protoc_insertion_point(field_release:caffe2.TensorProto.raw_data)
@@ -4026,7 +4026,7 @@ inline ::std::string* TensorProto::release_raw_data() {
     return NULL;
   }
   clear_has_raw_data();
-  return raw_data_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return raw_data_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void TensorProto::set_allocated_raw_data(::std::string* raw_data) {
   if (raw_data != NULL) {
@@ -4034,7 +4034,7 @@ inline void TensorProto::set_allocated_raw_data(::std::string* raw_data) {
   } else {
     clear_has_raw_data();
   }
-  raw_data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), raw_data);
+  raw_data_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), raw_data);
   // @@protoc_insertion_point(field_set_allocated:caffe2.TensorProto.raw_data)
 }
 
@@ -4107,7 +4107,7 @@ inline void TensorProto::clear_has_name() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void TensorProto::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_name();
 }
 inline const ::std::string& TensorProto::name() const {
@@ -4116,33 +4116,33 @@ inline const ::std::string& TensorProto::name() const {
 }
 inline void TensorProto::set_name(const ::std::string& value) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.TensorProto.name)
 }
 #if LANG_CXX11
 inline void TensorProto::set_name(::std::string&& value) {
   set_has_name();
   name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.TensorProto.name)
 }
 #endif
 inline void TensorProto::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.TensorProto.name)
 }
 inline void TensorProto::set_name(const char* value, size_t size) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.TensorProto.name)
 }
 inline ::std::string* TensorProto::mutable_name() {
   set_has_name();
   // @@protoc_insertion_point(field_mutable:caffe2.TensorProto.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* TensorProto::release_name() {
   // @@protoc_insertion_point(field_release:caffe2.TensorProto.name)
@@ -4150,7 +4150,7 @@ inline ::std::string* TensorProto::release_name() {
     return NULL;
   }
   clear_has_name();
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void TensorProto::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -4158,7 +4158,7 @@ inline void TensorProto::set_allocated_name(::std::string* name) {
   } else {
     clear_has_name();
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:caffe2.TensorProto.name)
 }
 
@@ -4449,7 +4449,7 @@ inline void QTensorProto::clear_has_name() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void QTensorProto::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_name();
 }
 inline const ::std::string& QTensorProto::name() const {
@@ -4458,33 +4458,33 @@ inline const ::std::string& QTensorProto::name() const {
 }
 inline void QTensorProto::set_name(const ::std::string& value) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.QTensorProto.name)
 }
 #if LANG_CXX11
 inline void QTensorProto::set_name(::std::string&& value) {
   set_has_name();
   name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.QTensorProto.name)
 }
 #endif
 inline void QTensorProto::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.QTensorProto.name)
 }
 inline void QTensorProto::set_name(const char* value, size_t size) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.QTensorProto.name)
 }
 inline ::std::string* QTensorProto::mutable_name() {
   set_has_name();
   // @@protoc_insertion_point(field_mutable:caffe2.QTensorProto.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* QTensorProto::release_name() {
   // @@protoc_insertion_point(field_release:caffe2.QTensorProto.name)
@@ -4492,7 +4492,7 @@ inline ::std::string* QTensorProto::release_name() {
     return NULL;
   }
   clear_has_name();
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void QTensorProto::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -4500,7 +4500,7 @@ inline void QTensorProto::set_allocated_name(::std::string* name) {
   } else {
     clear_has_name();
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:caffe2.QTensorProto.name)
 }
 
@@ -4795,7 +4795,7 @@ inline void TensorShape::clear_has_name() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void TensorShape::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_name();
 }
 inline const ::std::string& TensorShape::name() const {
@@ -4804,33 +4804,33 @@ inline const ::std::string& TensorShape::name() const {
 }
 inline void TensorShape::set_name(const ::std::string& value) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.TensorShape.name)
 }
 #if LANG_CXX11
 inline void TensorShape::set_name(::std::string&& value) {
   set_has_name();
   name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.TensorShape.name)
 }
 #endif
 inline void TensorShape::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.TensorShape.name)
 }
 inline void TensorShape::set_name(const char* value, size_t size) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.TensorShape.name)
 }
 inline ::std::string* TensorShape::mutable_name() {
   set_has_name();
   // @@protoc_insertion_point(field_mutable:caffe2.TensorShape.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* TensorShape::release_name() {
   // @@protoc_insertion_point(field_release:caffe2.TensorShape.name)
@@ -4838,7 +4838,7 @@ inline ::std::string* TensorShape::release_name() {
     return NULL;
   }
   clear_has_name();
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void TensorShape::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -4846,7 +4846,7 @@ inline void TensorShape::set_allocated_name(::std::string* name) {
   } else {
     clear_has_name();
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:caffe2.TensorShape.name)
 }
 
@@ -4899,7 +4899,7 @@ inline void Argument::clear_has_name() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void Argument::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_name();
 }
 inline const ::std::string& Argument::name() const {
@@ -4908,33 +4908,33 @@ inline const ::std::string& Argument::name() const {
 }
 inline void Argument::set_name(const ::std::string& value) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.Argument.name)
 }
 #if LANG_CXX11
 inline void Argument::set_name(::std::string&& value) {
   set_has_name();
   name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.Argument.name)
 }
 #endif
 inline void Argument::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.Argument.name)
 }
 inline void Argument::set_name(const char* value, size_t size) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.Argument.name)
 }
 inline ::std::string* Argument::mutable_name() {
   set_has_name();
   // @@protoc_insertion_point(field_mutable:caffe2.Argument.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Argument::release_name() {
   // @@protoc_insertion_point(field_release:caffe2.Argument.name)
@@ -4942,7 +4942,7 @@ inline ::std::string* Argument::release_name() {
     return NULL;
   }
   clear_has_name();
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void Argument::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -4950,7 +4950,7 @@ inline void Argument::set_allocated_name(::std::string* name) {
   } else {
     clear_has_name();
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:caffe2.Argument.name)
 }
 
@@ -5013,7 +5013,7 @@ inline void Argument::clear_has_s() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void Argument::clear_s() {
-  s_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  s_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_s();
 }
 inline const ::std::string& Argument::s() const {
@@ -5022,33 +5022,33 @@ inline const ::std::string& Argument::s() const {
 }
 inline void Argument::set_s(const ::std::string& value) {
   set_has_s();
-  s_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  s_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.Argument.s)
 }
 #if LANG_CXX11
 inline void Argument::set_s(::std::string&& value) {
   set_has_s();
   s_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.Argument.s)
 }
 #endif
 inline void Argument::set_s(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_s();
-  s_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  s_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.Argument.s)
 }
 inline void Argument::set_s(const void* value, size_t size) {
   set_has_s();
-  s_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  s_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.Argument.s)
 }
 inline ::std::string* Argument::mutable_s() {
   set_has_s();
   // @@protoc_insertion_point(field_mutable:caffe2.Argument.s)
-  return s_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return s_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Argument::release_s() {
   // @@protoc_insertion_point(field_release:caffe2.Argument.s)
@@ -5056,7 +5056,7 @@ inline ::std::string* Argument::release_s() {
     return NULL;
   }
   clear_has_s();
-  return s_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return s_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void Argument::set_allocated_s(::std::string* s) {
   if (s != NULL) {
@@ -5064,7 +5064,7 @@ inline void Argument::set_allocated_s(::std::string* s) {
   } else {
     clear_has_s();
   }
-  s_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), s);
+  s_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), s);
   // @@protoc_insertion_point(field_set_allocated:caffe2.Argument.s)
 }
 
@@ -5490,7 +5490,7 @@ inline void DeviceOption::clear_has_node_name() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void DeviceOption::clear_node_name() {
-  node_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  node_name_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_node_name();
 }
 inline const ::std::string& DeviceOption::node_name() const {
@@ -5499,33 +5499,33 @@ inline const ::std::string& DeviceOption::node_name() const {
 }
 inline void DeviceOption::set_node_name(const ::std::string& value) {
   set_has_node_name();
-  node_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  node_name_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.DeviceOption.node_name)
 }
 #if LANG_CXX11
 inline void DeviceOption::set_node_name(::std::string&& value) {
   set_has_node_name();
   node_name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.DeviceOption.node_name)
 }
 #endif
 inline void DeviceOption::set_node_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_node_name();
-  node_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  node_name_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.DeviceOption.node_name)
 }
 inline void DeviceOption::set_node_name(const char* value, size_t size) {
   set_has_node_name();
-  node_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  node_name_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.DeviceOption.node_name)
 }
 inline ::std::string* DeviceOption::mutable_node_name() {
   set_has_node_name();
   // @@protoc_insertion_point(field_mutable:caffe2.DeviceOption.node_name)
-  return node_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return node_name_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* DeviceOption::release_node_name() {
   // @@protoc_insertion_point(field_release:caffe2.DeviceOption.node_name)
@@ -5533,7 +5533,7 @@ inline ::std::string* DeviceOption::release_node_name() {
     return NULL;
   }
   clear_has_node_name();
-  return node_name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return node_name_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void DeviceOption::set_allocated_node_name(::std::string* node_name) {
   if (node_name != NULL) {
@@ -5541,7 +5541,7 @@ inline void DeviceOption::set_allocated_node_name(::std::string* node_name) {
   } else {
     clear_has_node_name();
   }
-  node_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), node_name);
+  node_name_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), node_name);
   // @@protoc_insertion_point(field_set_allocated:caffe2.DeviceOption.node_name)
 }
 
@@ -5791,7 +5791,7 @@ inline void OperatorDef::clear_has_name() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void OperatorDef::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_name();
 }
 inline const ::std::string& OperatorDef::name() const {
@@ -5800,33 +5800,33 @@ inline const ::std::string& OperatorDef::name() const {
 }
 inline void OperatorDef::set_name(const ::std::string& value) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.OperatorDef.name)
 }
 #if LANG_CXX11
 inline void OperatorDef::set_name(::std::string&& value) {
   set_has_name();
   name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.OperatorDef.name)
 }
 #endif
 inline void OperatorDef::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.OperatorDef.name)
 }
 inline void OperatorDef::set_name(const char* value, size_t size) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.OperatorDef.name)
 }
 inline ::std::string* OperatorDef::mutable_name() {
   set_has_name();
   // @@protoc_insertion_point(field_mutable:caffe2.OperatorDef.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* OperatorDef::release_name() {
   // @@protoc_insertion_point(field_release:caffe2.OperatorDef.name)
@@ -5834,7 +5834,7 @@ inline ::std::string* OperatorDef::release_name() {
     return NULL;
   }
   clear_has_name();
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void OperatorDef::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -5842,7 +5842,7 @@ inline void OperatorDef::set_allocated_name(::std::string* name) {
   } else {
     clear_has_name();
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:caffe2.OperatorDef.name)
 }
 
@@ -5857,7 +5857,7 @@ inline void OperatorDef::clear_has_type() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void OperatorDef::clear_type() {
-  type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  type_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_type();
 }
 inline const ::std::string& OperatorDef::type() const {
@@ -5866,33 +5866,33 @@ inline const ::std::string& OperatorDef::type() const {
 }
 inline void OperatorDef::set_type(const ::std::string& value) {
   set_has_type();
-  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  type_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.OperatorDef.type)
 }
 #if LANG_CXX11
 inline void OperatorDef::set_type(::std::string&& value) {
   set_has_type();
   type_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.OperatorDef.type)
 }
 #endif
 inline void OperatorDef::set_type(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_type();
-  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  type_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.OperatorDef.type)
 }
 inline void OperatorDef::set_type(const char* value, size_t size) {
   set_has_type();
-  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  type_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.OperatorDef.type)
 }
 inline ::std::string* OperatorDef::mutable_type() {
   set_has_type();
   // @@protoc_insertion_point(field_mutable:caffe2.OperatorDef.type)
-  return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return type_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* OperatorDef::release_type() {
   // @@protoc_insertion_point(field_release:caffe2.OperatorDef.type)
@@ -5900,7 +5900,7 @@ inline ::std::string* OperatorDef::release_type() {
     return NULL;
   }
   clear_has_type();
-  return type_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return type_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void OperatorDef::set_allocated_type(::std::string* type) {
   if (type != NULL) {
@@ -5908,7 +5908,7 @@ inline void OperatorDef::set_allocated_type(::std::string* type) {
   } else {
     clear_has_type();
   }
-  type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type);
+  type_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), type);
   // @@protoc_insertion_point(field_set_allocated:caffe2.OperatorDef.type)
 }
 
@@ -6011,7 +6011,7 @@ inline void OperatorDef::clear_has_engine() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline void OperatorDef::clear_engine() {
-  engine_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  engine_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_engine();
 }
 inline const ::std::string& OperatorDef::engine() const {
@@ -6020,33 +6020,33 @@ inline const ::std::string& OperatorDef::engine() const {
 }
 inline void OperatorDef::set_engine(const ::std::string& value) {
   set_has_engine();
-  engine_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  engine_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.OperatorDef.engine)
 }
 #if LANG_CXX11
 inline void OperatorDef::set_engine(::std::string&& value) {
   set_has_engine();
   engine_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.OperatorDef.engine)
 }
 #endif
 inline void OperatorDef::set_engine(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_engine();
-  engine_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  engine_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.OperatorDef.engine)
 }
 inline void OperatorDef::set_engine(const char* value, size_t size) {
   set_has_engine();
-  engine_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  engine_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.OperatorDef.engine)
 }
 inline ::std::string* OperatorDef::mutable_engine() {
   set_has_engine();
   // @@protoc_insertion_point(field_mutable:caffe2.OperatorDef.engine)
-  return engine_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return engine_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* OperatorDef::release_engine() {
   // @@protoc_insertion_point(field_release:caffe2.OperatorDef.engine)
@@ -6054,7 +6054,7 @@ inline ::std::string* OperatorDef::release_engine() {
     return NULL;
   }
   clear_has_engine();
-  return engine_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return engine_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void OperatorDef::set_allocated_engine(::std::string* engine) {
   if (engine != NULL) {
@@ -6062,7 +6062,7 @@ inline void OperatorDef::set_allocated_engine(::std::string* engine) {
   } else {
     clear_has_engine();
   }
-  engine_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), engine);
+  engine_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), engine);
   // @@protoc_insertion_point(field_set_allocated:caffe2.OperatorDef.engine)
 }
 
@@ -6170,7 +6170,7 @@ inline void OperatorDef::clear_has_debug_info() {
   _has_bits_[0] &= ~0x00000008u;
 }
 inline void OperatorDef::clear_debug_info() {
-  debug_info_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  debug_info_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_debug_info();
 }
 inline const ::std::string& OperatorDef::debug_info() const {
@@ -6179,33 +6179,33 @@ inline const ::std::string& OperatorDef::debug_info() const {
 }
 inline void OperatorDef::set_debug_info(const ::std::string& value) {
   set_has_debug_info();
-  debug_info_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  debug_info_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.OperatorDef.debug_info)
 }
 #if LANG_CXX11
 inline void OperatorDef::set_debug_info(::std::string&& value) {
   set_has_debug_info();
   debug_info_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.OperatorDef.debug_info)
 }
 #endif
 inline void OperatorDef::set_debug_info(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_debug_info();
-  debug_info_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  debug_info_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.OperatorDef.debug_info)
 }
 inline void OperatorDef::set_debug_info(const char* value, size_t size) {
   set_has_debug_info();
-  debug_info_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  debug_info_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.OperatorDef.debug_info)
 }
 inline ::std::string* OperatorDef::mutable_debug_info() {
   set_has_debug_info();
   // @@protoc_insertion_point(field_mutable:caffe2.OperatorDef.debug_info)
-  return debug_info_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return debug_info_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* OperatorDef::release_debug_info() {
   // @@protoc_insertion_point(field_release:caffe2.OperatorDef.debug_info)
@@ -6213,7 +6213,7 @@ inline ::std::string* OperatorDef::release_debug_info() {
     return NULL;
   }
   clear_has_debug_info();
-  return debug_info_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return debug_info_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void OperatorDef::set_allocated_debug_info(::std::string* debug_info) {
   if (debug_info != NULL) {
@@ -6221,7 +6221,7 @@ inline void OperatorDef::set_allocated_debug_info(::std::string* debug_info) {
   } else {
     clear_has_debug_info();
   }
-  debug_info_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), debug_info);
+  debug_info_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), debug_info);
   // @@protoc_insertion_point(field_set_allocated:caffe2.OperatorDef.debug_info)
 }
 
@@ -6236,7 +6236,7 @@ inline void OperatorDef::clear_has_domain() {
   _has_bits_[0] &= ~0x00000010u;
 }
 inline void OperatorDef::clear_domain() {
-  domain_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  domain_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_domain();
 }
 inline const ::std::string& OperatorDef::domain() const {
@@ -6245,33 +6245,33 @@ inline const ::std::string& OperatorDef::domain() const {
 }
 inline void OperatorDef::set_domain(const ::std::string& value) {
   set_has_domain();
-  domain_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  domain_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.OperatorDef.domain)
 }
 #if LANG_CXX11
 inline void OperatorDef::set_domain(::std::string&& value) {
   set_has_domain();
   domain_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.OperatorDef.domain)
 }
 #endif
 inline void OperatorDef::set_domain(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_domain();
-  domain_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  domain_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.OperatorDef.domain)
 }
 inline void OperatorDef::set_domain(const char* value, size_t size) {
   set_has_domain();
-  domain_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  domain_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.OperatorDef.domain)
 }
 inline ::std::string* OperatorDef::mutable_domain() {
   set_has_domain();
   // @@protoc_insertion_point(field_mutable:caffe2.OperatorDef.domain)
-  return domain_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return domain_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* OperatorDef::release_domain() {
   // @@protoc_insertion_point(field_release:caffe2.OperatorDef.domain)
@@ -6279,7 +6279,7 @@ inline ::std::string* OperatorDef::release_domain() {
     return NULL;
   }
   clear_has_domain();
-  return domain_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return domain_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void OperatorDef::set_allocated_domain(::std::string* domain) {
   if (domain != NULL) {
@@ -6287,7 +6287,7 @@ inline void OperatorDef::set_allocated_domain(::std::string* domain) {
   } else {
     clear_has_domain();
   }
-  domain_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), domain);
+  domain_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), domain);
   // @@protoc_insertion_point(field_set_allocated:caffe2.OperatorDef.domain)
 }
 
@@ -6330,7 +6330,7 @@ inline void NetDef::clear_has_name() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void NetDef::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_name();
 }
 inline const ::std::string& NetDef::name() const {
@@ -6339,33 +6339,33 @@ inline const ::std::string& NetDef::name() const {
 }
 inline void NetDef::set_name(const ::std::string& value) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.NetDef.name)
 }
 #if LANG_CXX11
 inline void NetDef::set_name(::std::string&& value) {
   set_has_name();
   name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.NetDef.name)
 }
 #endif
 inline void NetDef::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.NetDef.name)
 }
 inline void NetDef::set_name(const char* value, size_t size) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.NetDef.name)
 }
 inline ::std::string* NetDef::mutable_name() {
   set_has_name();
   // @@protoc_insertion_point(field_mutable:caffe2.NetDef.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* NetDef::release_name() {
   // @@protoc_insertion_point(field_release:caffe2.NetDef.name)
@@ -6373,7 +6373,7 @@ inline ::std::string* NetDef::release_name() {
     return NULL;
   }
   clear_has_name();
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void NetDef::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -6381,7 +6381,7 @@ inline void NetDef::set_allocated_name(::std::string* name) {
   } else {
     clear_has_name();
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:caffe2.NetDef.name)
 }
 
@@ -6426,7 +6426,7 @@ inline void NetDef::clear_has_type() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void NetDef::clear_type() {
-  type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  type_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_type();
 }
 inline const ::std::string& NetDef::type() const {
@@ -6435,33 +6435,33 @@ inline const ::std::string& NetDef::type() const {
 }
 inline void NetDef::set_type(const ::std::string& value) {
   set_has_type();
-  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  type_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.NetDef.type)
 }
 #if LANG_CXX11
 inline void NetDef::set_type(::std::string&& value) {
   set_has_type();
   type_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.NetDef.type)
 }
 #endif
 inline void NetDef::set_type(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_type();
-  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  type_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.NetDef.type)
 }
 inline void NetDef::set_type(const char* value, size_t size) {
   set_has_type();
-  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  type_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.NetDef.type)
 }
 inline ::std::string* NetDef::mutable_type() {
   set_has_type();
   // @@protoc_insertion_point(field_mutable:caffe2.NetDef.type)
-  return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return type_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* NetDef::release_type() {
   // @@protoc_insertion_point(field_release:caffe2.NetDef.type)
@@ -6469,7 +6469,7 @@ inline ::std::string* NetDef::release_type() {
     return NULL;
   }
   clear_has_type();
-  return type_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return type_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void NetDef::set_allocated_type(::std::string* type) {
   if (type != NULL) {
@@ -6477,7 +6477,7 @@ inline void NetDef::set_allocated_type(::std::string* type) {
   } else {
     clear_has_type();
   }
-  type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type);
+  type_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), type);
   // @@protoc_insertion_point(field_set_allocated:caffe2.NetDef.type)
 }
 
@@ -6746,7 +6746,7 @@ inline void ExecutionStep::clear_has_name() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void ExecutionStep::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_name();
 }
 inline const ::std::string& ExecutionStep::name() const {
@@ -6755,33 +6755,33 @@ inline const ::std::string& ExecutionStep::name() const {
 }
 inline void ExecutionStep::set_name(const ::std::string& value) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.ExecutionStep.name)
 }
 #if LANG_CXX11
 inline void ExecutionStep::set_name(::std::string&& value) {
   set_has_name();
   name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.ExecutionStep.name)
 }
 #endif
 inline void ExecutionStep::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.ExecutionStep.name)
 }
 inline void ExecutionStep::set_name(const char* value, size_t size) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.ExecutionStep.name)
 }
 inline ::std::string* ExecutionStep::mutable_name() {
   set_has_name();
   // @@protoc_insertion_point(field_mutable:caffe2.ExecutionStep.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* ExecutionStep::release_name() {
   // @@protoc_insertion_point(field_release:caffe2.ExecutionStep.name)
@@ -6789,7 +6789,7 @@ inline ::std::string* ExecutionStep::release_name() {
     return NULL;
   }
   clear_has_name();
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void ExecutionStep::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -6797,7 +6797,7 @@ inline void ExecutionStep::set_allocated_name(::std::string* name) {
   } else {
     clear_has_name();
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:caffe2.ExecutionStep.name)
 }
 
@@ -6935,7 +6935,7 @@ inline void ExecutionStep::clear_has_criteria_network() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void ExecutionStep::clear_criteria_network() {
-  criteria_network_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  criteria_network_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_criteria_network();
 }
 inline const ::std::string& ExecutionStep::criteria_network() const {
@@ -6944,33 +6944,33 @@ inline const ::std::string& ExecutionStep::criteria_network() const {
 }
 inline void ExecutionStep::set_criteria_network(const ::std::string& value) {
   set_has_criteria_network();
-  criteria_network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  criteria_network_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.ExecutionStep.criteria_network)
 }
 #if LANG_CXX11
 inline void ExecutionStep::set_criteria_network(::std::string&& value) {
   set_has_criteria_network();
   criteria_network_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.ExecutionStep.criteria_network)
 }
 #endif
 inline void ExecutionStep::set_criteria_network(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_criteria_network();
-  criteria_network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  criteria_network_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.ExecutionStep.criteria_network)
 }
 inline void ExecutionStep::set_criteria_network(const char* value, size_t size) {
   set_has_criteria_network();
-  criteria_network_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  criteria_network_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.ExecutionStep.criteria_network)
 }
 inline ::std::string* ExecutionStep::mutable_criteria_network() {
   set_has_criteria_network();
   // @@protoc_insertion_point(field_mutable:caffe2.ExecutionStep.criteria_network)
-  return criteria_network_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return criteria_network_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* ExecutionStep::release_criteria_network() {
   // @@protoc_insertion_point(field_release:caffe2.ExecutionStep.criteria_network)
@@ -6978,7 +6978,7 @@ inline ::std::string* ExecutionStep::release_criteria_network() {
     return NULL;
   }
   clear_has_criteria_network();
-  return criteria_network_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return criteria_network_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void ExecutionStep::set_allocated_criteria_network(::std::string* criteria_network) {
   if (criteria_network != NULL) {
@@ -6986,7 +6986,7 @@ inline void ExecutionStep::set_allocated_criteria_network(::std::string* criteri
   } else {
     clear_has_criteria_network();
   }
-  criteria_network_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), criteria_network);
+  criteria_network_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), criteria_network);
   // @@protoc_insertion_point(field_set_allocated:caffe2.ExecutionStep.criteria_network)
 }
 
@@ -7001,7 +7001,7 @@ inline void ExecutionStep::clear_has_report_net() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline void ExecutionStep::clear_report_net() {
-  report_net_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  report_net_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_report_net();
 }
 inline const ::std::string& ExecutionStep::report_net() const {
@@ -7010,33 +7010,33 @@ inline const ::std::string& ExecutionStep::report_net() const {
 }
 inline void ExecutionStep::set_report_net(const ::std::string& value) {
   set_has_report_net();
-  report_net_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  report_net_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.ExecutionStep.report_net)
 }
 #if LANG_CXX11
 inline void ExecutionStep::set_report_net(::std::string&& value) {
   set_has_report_net();
   report_net_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.ExecutionStep.report_net)
 }
 #endif
 inline void ExecutionStep::set_report_net(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_report_net();
-  report_net_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  report_net_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.ExecutionStep.report_net)
 }
 inline void ExecutionStep::set_report_net(const char* value, size_t size) {
   set_has_report_net();
-  report_net_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  report_net_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.ExecutionStep.report_net)
 }
 inline ::std::string* ExecutionStep::mutable_report_net() {
   set_has_report_net();
   // @@protoc_insertion_point(field_mutable:caffe2.ExecutionStep.report_net)
-  return report_net_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return report_net_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* ExecutionStep::release_report_net() {
   // @@protoc_insertion_point(field_release:caffe2.ExecutionStep.report_net)
@@ -7044,7 +7044,7 @@ inline ::std::string* ExecutionStep::release_report_net() {
     return NULL;
   }
   clear_has_report_net();
-  return report_net_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return report_net_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void ExecutionStep::set_allocated_report_net(::std::string* report_net) {
   if (report_net != NULL) {
@@ -7052,7 +7052,7 @@ inline void ExecutionStep::set_allocated_report_net(::std::string* report_net) {
   } else {
     clear_has_report_net();
   }
-  report_net_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), report_net);
+  report_net_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), report_net);
   // @@protoc_insertion_point(field_set_allocated:caffe2.ExecutionStep.report_net)
 }
 
@@ -7139,7 +7139,7 @@ inline void ExecutionStep::clear_has_should_stop_blob() {
   _has_bits_[0] &= ~0x00000008u;
 }
 inline void ExecutionStep::clear_should_stop_blob() {
-  should_stop_blob_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  should_stop_blob_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_should_stop_blob();
 }
 inline const ::std::string& ExecutionStep::should_stop_blob() const {
@@ -7148,33 +7148,33 @@ inline const ::std::string& ExecutionStep::should_stop_blob() const {
 }
 inline void ExecutionStep::set_should_stop_blob(const ::std::string& value) {
   set_has_should_stop_blob();
-  should_stop_blob_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  should_stop_blob_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.ExecutionStep.should_stop_blob)
 }
 #if LANG_CXX11
 inline void ExecutionStep::set_should_stop_blob(::std::string&& value) {
   set_has_should_stop_blob();
   should_stop_blob_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.ExecutionStep.should_stop_blob)
 }
 #endif
 inline void ExecutionStep::set_should_stop_blob(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_should_stop_blob();
-  should_stop_blob_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  should_stop_blob_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.ExecutionStep.should_stop_blob)
 }
 inline void ExecutionStep::set_should_stop_blob(const char* value, size_t size) {
   set_has_should_stop_blob();
-  should_stop_blob_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  should_stop_blob_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.ExecutionStep.should_stop_blob)
 }
 inline ::std::string* ExecutionStep::mutable_should_stop_blob() {
   set_has_should_stop_blob();
   // @@protoc_insertion_point(field_mutable:caffe2.ExecutionStep.should_stop_blob)
-  return should_stop_blob_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return should_stop_blob_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* ExecutionStep::release_should_stop_blob() {
   // @@protoc_insertion_point(field_release:caffe2.ExecutionStep.should_stop_blob)
@@ -7182,7 +7182,7 @@ inline ::std::string* ExecutionStep::release_should_stop_blob() {
     return NULL;
   }
   clear_has_should_stop_blob();
-  return should_stop_blob_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return should_stop_blob_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void ExecutionStep::set_allocated_should_stop_blob(::std::string* should_stop_blob) {
   if (should_stop_blob != NULL) {
@@ -7190,7 +7190,7 @@ inline void ExecutionStep::set_allocated_should_stop_blob(::std::string* should_
   } else {
     clear_has_should_stop_blob();
   }
-  should_stop_blob_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), should_stop_blob);
+  should_stop_blob_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), should_stop_blob);
   // @@protoc_insertion_point(field_set_allocated:caffe2.ExecutionStep.should_stop_blob)
 }
 
@@ -7281,7 +7281,7 @@ inline void PlanDef::clear_has_name() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void PlanDef::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_name();
 }
 inline const ::std::string& PlanDef::name() const {
@@ -7290,33 +7290,33 @@ inline const ::std::string& PlanDef::name() const {
 }
 inline void PlanDef::set_name(const ::std::string& value) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.PlanDef.name)
 }
 #if LANG_CXX11
 inline void PlanDef::set_name(::std::string&& value) {
   set_has_name();
   name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.PlanDef.name)
 }
 #endif
 inline void PlanDef::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.PlanDef.name)
 }
 inline void PlanDef::set_name(const char* value, size_t size) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.PlanDef.name)
 }
 inline ::std::string* PlanDef::mutable_name() {
   set_has_name();
   // @@protoc_insertion_point(field_mutable:caffe2.PlanDef.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* PlanDef::release_name() {
   // @@protoc_insertion_point(field_release:caffe2.PlanDef.name)
@@ -7324,7 +7324,7 @@ inline ::std::string* PlanDef::release_name() {
     return NULL;
   }
   clear_has_name();
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void PlanDef::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -7332,7 +7332,7 @@ inline void PlanDef::set_allocated_name(::std::string* name) {
   } else {
     clear_has_name();
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:caffe2.PlanDef.name)
 }
 
@@ -7411,7 +7411,7 @@ inline void BlobProto::clear_has_name() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void BlobProto::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_name();
 }
 inline const ::std::string& BlobProto::name() const {
@@ -7420,33 +7420,33 @@ inline const ::std::string& BlobProto::name() const {
 }
 inline void BlobProto::set_name(const ::std::string& value) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.BlobProto.name)
 }
 #if LANG_CXX11
 inline void BlobProto::set_name(::std::string&& value) {
   set_has_name();
   name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.BlobProto.name)
 }
 #endif
 inline void BlobProto::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.BlobProto.name)
 }
 inline void BlobProto::set_name(const char* value, size_t size) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.BlobProto.name)
 }
 inline ::std::string* BlobProto::mutable_name() {
   set_has_name();
   // @@protoc_insertion_point(field_mutable:caffe2.BlobProto.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* BlobProto::release_name() {
   // @@protoc_insertion_point(field_release:caffe2.BlobProto.name)
@@ -7454,7 +7454,7 @@ inline ::std::string* BlobProto::release_name() {
     return NULL;
   }
   clear_has_name();
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void BlobProto::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -7462,7 +7462,7 @@ inline void BlobProto::set_allocated_name(::std::string* name) {
   } else {
     clear_has_name();
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:caffe2.BlobProto.name)
 }
 
@@ -7477,7 +7477,7 @@ inline void BlobProto::clear_has_type() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void BlobProto::clear_type() {
-  type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  type_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_type();
 }
 inline const ::std::string& BlobProto::type() const {
@@ -7486,33 +7486,33 @@ inline const ::std::string& BlobProto::type() const {
 }
 inline void BlobProto::set_type(const ::std::string& value) {
   set_has_type();
-  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  type_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.BlobProto.type)
 }
 #if LANG_CXX11
 inline void BlobProto::set_type(::std::string&& value) {
   set_has_type();
   type_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.BlobProto.type)
 }
 #endif
 inline void BlobProto::set_type(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_type();
-  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  type_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.BlobProto.type)
 }
 inline void BlobProto::set_type(const char* value, size_t size) {
   set_has_type();
-  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  type_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.BlobProto.type)
 }
 inline ::std::string* BlobProto::mutable_type() {
   set_has_type();
   // @@protoc_insertion_point(field_mutable:caffe2.BlobProto.type)
-  return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return type_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* BlobProto::release_type() {
   // @@protoc_insertion_point(field_release:caffe2.BlobProto.type)
@@ -7520,7 +7520,7 @@ inline ::std::string* BlobProto::release_type() {
     return NULL;
   }
   clear_has_type();
-  return type_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return type_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void BlobProto::set_allocated_type(::std::string* type) {
   if (type != NULL) {
@@ -7528,7 +7528,7 @@ inline void BlobProto::set_allocated_type(::std::string* type) {
   } else {
     clear_has_type();
   }
-  type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type);
+  type_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), type);
   // @@protoc_insertion_point(field_set_allocated:caffe2.BlobProto.type)
 }
 
@@ -7601,7 +7601,7 @@ inline void BlobProto::clear_has_content() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline void BlobProto::clear_content() {
-  content_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  content_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_content();
 }
 inline const ::std::string& BlobProto::content() const {
@@ -7610,33 +7610,33 @@ inline const ::std::string& BlobProto::content() const {
 }
 inline void BlobProto::set_content(const ::std::string& value) {
   set_has_content();
-  content_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  content_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.BlobProto.content)
 }
 #if LANG_CXX11
 inline void BlobProto::set_content(::std::string&& value) {
   set_has_content();
   content_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.BlobProto.content)
 }
 #endif
 inline void BlobProto::set_content(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_content();
-  content_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  content_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.BlobProto.content)
 }
 inline void BlobProto::set_content(const void* value, size_t size) {
   set_has_content();
-  content_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  content_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.BlobProto.content)
 }
 inline ::std::string* BlobProto::mutable_content() {
   set_has_content();
   // @@protoc_insertion_point(field_mutable:caffe2.BlobProto.content)
-  return content_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return content_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* BlobProto::release_content() {
   // @@protoc_insertion_point(field_release:caffe2.BlobProto.content)
@@ -7644,7 +7644,7 @@ inline ::std::string* BlobProto::release_content() {
     return NULL;
   }
   clear_has_content();
-  return content_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return content_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void BlobProto::set_allocated_content(::std::string* content) {
   if (content != NULL) {
@@ -7652,7 +7652,7 @@ inline void BlobProto::set_allocated_content(::std::string* content) {
   } else {
     clear_has_content();
   }
-  content_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), content);
+  content_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), content);
   // @@protoc_insertion_point(field_set_allocated:caffe2.BlobProto.content)
 }
 
@@ -7777,7 +7777,7 @@ inline void DBReaderProto::clear_has_name() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void DBReaderProto::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_name();
 }
 inline const ::std::string& DBReaderProto::name() const {
@@ -7786,33 +7786,33 @@ inline const ::std::string& DBReaderProto::name() const {
 }
 inline void DBReaderProto::set_name(const ::std::string& value) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.DBReaderProto.name)
 }
 #if LANG_CXX11
 inline void DBReaderProto::set_name(::std::string&& value) {
   set_has_name();
   name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.DBReaderProto.name)
 }
 #endif
 inline void DBReaderProto::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.DBReaderProto.name)
 }
 inline void DBReaderProto::set_name(const char* value, size_t size) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.DBReaderProto.name)
 }
 inline ::std::string* DBReaderProto::mutable_name() {
   set_has_name();
   // @@protoc_insertion_point(field_mutable:caffe2.DBReaderProto.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* DBReaderProto::release_name() {
   // @@protoc_insertion_point(field_release:caffe2.DBReaderProto.name)
@@ -7820,7 +7820,7 @@ inline ::std::string* DBReaderProto::release_name() {
     return NULL;
   }
   clear_has_name();
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void DBReaderProto::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -7828,7 +7828,7 @@ inline void DBReaderProto::set_allocated_name(::std::string* name) {
   } else {
     clear_has_name();
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:caffe2.DBReaderProto.name)
 }
 
@@ -7843,7 +7843,7 @@ inline void DBReaderProto::clear_has_source() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void DBReaderProto::clear_source() {
-  source_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  source_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_source();
 }
 inline const ::std::string& DBReaderProto::source() const {
@@ -7852,33 +7852,33 @@ inline const ::std::string& DBReaderProto::source() const {
 }
 inline void DBReaderProto::set_source(const ::std::string& value) {
   set_has_source();
-  source_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  source_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.DBReaderProto.source)
 }
 #if LANG_CXX11
 inline void DBReaderProto::set_source(::std::string&& value) {
   set_has_source();
   source_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.DBReaderProto.source)
 }
 #endif
 inline void DBReaderProto::set_source(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_source();
-  source_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  source_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.DBReaderProto.source)
 }
 inline void DBReaderProto::set_source(const char* value, size_t size) {
   set_has_source();
-  source_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  source_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.DBReaderProto.source)
 }
 inline ::std::string* DBReaderProto::mutable_source() {
   set_has_source();
   // @@protoc_insertion_point(field_mutable:caffe2.DBReaderProto.source)
-  return source_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return source_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* DBReaderProto::release_source() {
   // @@protoc_insertion_point(field_release:caffe2.DBReaderProto.source)
@@ -7886,7 +7886,7 @@ inline ::std::string* DBReaderProto::release_source() {
     return NULL;
   }
   clear_has_source();
-  return source_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return source_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void DBReaderProto::set_allocated_source(::std::string* source) {
   if (source != NULL) {
@@ -7894,7 +7894,7 @@ inline void DBReaderProto::set_allocated_source(::std::string* source) {
   } else {
     clear_has_source();
   }
-  source_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), source);
+  source_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), source);
   // @@protoc_insertion_point(field_set_allocated:caffe2.DBReaderProto.source)
 }
 
@@ -7909,7 +7909,7 @@ inline void DBReaderProto::clear_has_db_type() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline void DBReaderProto::clear_db_type() {
-  db_type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  db_type_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_db_type();
 }
 inline const ::std::string& DBReaderProto::db_type() const {
@@ -7918,33 +7918,33 @@ inline const ::std::string& DBReaderProto::db_type() const {
 }
 inline void DBReaderProto::set_db_type(const ::std::string& value) {
   set_has_db_type();
-  db_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  db_type_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.DBReaderProto.db_type)
 }
 #if LANG_CXX11
 inline void DBReaderProto::set_db_type(::std::string&& value) {
   set_has_db_type();
   db_type_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.DBReaderProto.db_type)
 }
 #endif
 inline void DBReaderProto::set_db_type(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_db_type();
-  db_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  db_type_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.DBReaderProto.db_type)
 }
 inline void DBReaderProto::set_db_type(const char* value, size_t size) {
   set_has_db_type();
-  db_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  db_type_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.DBReaderProto.db_type)
 }
 inline ::std::string* DBReaderProto::mutable_db_type() {
   set_has_db_type();
   // @@protoc_insertion_point(field_mutable:caffe2.DBReaderProto.db_type)
-  return db_type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return db_type_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* DBReaderProto::release_db_type() {
   // @@protoc_insertion_point(field_release:caffe2.DBReaderProto.db_type)
@@ -7952,7 +7952,7 @@ inline ::std::string* DBReaderProto::release_db_type() {
     return NULL;
   }
   clear_has_db_type();
-  return db_type_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return db_type_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void DBReaderProto::set_allocated_db_type(::std::string* db_type) {
   if (db_type != NULL) {
@@ -7960,7 +7960,7 @@ inline void DBReaderProto::set_allocated_db_type(::std::string* db_type) {
   } else {
     clear_has_db_type();
   }
-  db_type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), db_type);
+  db_type_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), db_type);
   // @@protoc_insertion_point(field_set_allocated:caffe2.DBReaderProto.db_type)
 }
 
@@ -7975,7 +7975,7 @@ inline void DBReaderProto::clear_has_key() {
   _has_bits_[0] &= ~0x00000008u;
 }
 inline void DBReaderProto::clear_key() {
-  key_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  key_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_key();
 }
 inline const ::std::string& DBReaderProto::key() const {
@@ -7984,33 +7984,33 @@ inline const ::std::string& DBReaderProto::key() const {
 }
 inline void DBReaderProto::set_key(const ::std::string& value) {
   set_has_key();
-  key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  key_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.DBReaderProto.key)
 }
 #if LANG_CXX11
 inline void DBReaderProto::set_key(::std::string&& value) {
   set_has_key();
   key_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.DBReaderProto.key)
 }
 #endif
 inline void DBReaderProto::set_key(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_key();
-  key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  key_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.DBReaderProto.key)
 }
 inline void DBReaderProto::set_key(const char* value, size_t size) {
   set_has_key();
-  key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  key_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.DBReaderProto.key)
 }
 inline ::std::string* DBReaderProto::mutable_key() {
   set_has_key();
   // @@protoc_insertion_point(field_mutable:caffe2.DBReaderProto.key)
-  return key_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return key_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* DBReaderProto::release_key() {
   // @@protoc_insertion_point(field_release:caffe2.DBReaderProto.key)
@@ -8018,7 +8018,7 @@ inline ::std::string* DBReaderProto::release_key() {
     return NULL;
   }
   clear_has_key();
-  return key_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return key_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void DBReaderProto::set_allocated_key(::std::string* key) {
   if (key != NULL) {
@@ -8026,7 +8026,7 @@ inline void DBReaderProto::set_allocated_key(::std::string* key) {
   } else {
     clear_has_key();
   }
-  key_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), key);
+  key_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), key);
   // @@protoc_insertion_point(field_set_allocated:caffe2.DBReaderProto.key)
 }
 

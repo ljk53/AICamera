@@ -11,21 +11,26 @@ namespace at {
 class Context;
 struct CUDAGenerator : public Generator {
   CAFFE2_API CUDAGenerator(Context * context);
-  CAFFE2_API virtual ~CUDAGenerator();
+  CAFFE2_API ~CUDAGenerator();
 
-  CAFFE2_API virtual CUDAGenerator& copy(const Generator& from) override;
-  CAFFE2_API virtual CUDAGenerator& free() override;
+  CAFFE2_API CUDAGenerator& copy(const Generator& from);
+  CAFFE2_API CUDAGenerator& free();
 
-  CAFFE2_API virtual uint64_t seed() override;
-  CAFFE2_API virtual uint64_t initialSeed() override;
-  CAFFE2_API virtual CUDAGenerator& manualSeed(uint64_t seed) override;
-  CAFFE2_API virtual CUDAGenerator& manualSeedAll(uint64_t seed) override;
-  CAFFE2_API virtual void * unsafeGetTH() override;
+  CAFFE2_API std::shared_ptr<CUDAGenerator> clone() const;
+  CAFFE2_API uint64_t seed();
+  CAFFE2_API uint64_t current_seed() const override;
+  CAFFE2_API void set_current_seed(uint64_t seed) override;
+  CAFFE2_API static DeviceType device_type();
+  CAFFE2_API CUDAGenerator& manualSeedAll(uint64_t seed) override;
+  CAFFE2_API void * unsafeGetTH();
 
 //TODO(zach): figure out friends later
 public:
   Context * context;
 
+
+private:
+  CUDAGenerator* clone_impl() const override;
 };
 
 }

@@ -34,7 +34,6 @@ struct CAFFE2_API MSNPUType : public TypeDefault {
 
   Allocator* allocator() const override;
   Device getDeviceFromPtr(void * data) const override;
-  std::unique_ptr<Generator> generator() const override;
   virtual Backend backend() const override;
   virtual const char * toString() const override;
   virtual TypeID ID() const override;
@@ -294,6 +293,7 @@ struct CAFFE2_API MSNPUType : public TypeDefault {
   Tensor index_copy(const Tensor & self, int64_t dim, const Tensor & index, const Tensor & source) const override;
   Tensor & index_put_(Tensor & self, TensorList indices, const Tensor & values, bool accumulate) const override;
   Tensor index_put(const Tensor & self, TensorList indices, const Tensor & values, bool accumulate) const override;
+  Tensor & _index_put_impl_(Tensor & self, TensorList indices, const Tensor & values, bool accumulate, bool unsafe) const override;
   Tensor instance_norm(const Tensor & input, const Tensor & weight, const Tensor & bias, const Tensor & running_mean, const Tensor & running_var, bool use_input_stats, double momentum, double eps, bool cudnn_enabled) const override;
   Tensor inverse(const Tensor & self) const override;
   Tensor & inverse_out(Tensor & out, const Tensor & self) const override;
@@ -311,6 +311,9 @@ struct CAFFE2_API MSNPUType : public TypeDefault {
   std::tuple<Tensor,Tensor> kthvalue(const Tensor & self, int64_t k, int64_t dim, bool keepdim) const override;
   std::tuple<Tensor &,Tensor &> kthvalue_out(Tensor & values, Tensor & indices, const Tensor & self, int64_t k, int64_t dim, bool keepdim) const override;
   Tensor layer_norm(const Tensor & input, IntArrayRef normalized_shape, const Tensor & weight, const Tensor & bias, double eps, bool cudnn_enable) const override;
+  std::tuple<Tensor,Tensor,Tensor> native_layer_norm(const Tensor & input, const Tensor & weight, const Tensor & bias, int64_t M, int64_t N, double eps) const override;
+  std::tuple<Tensor,Tensor,Tensor> native_layer_norm_backward(const Tensor & grad_out, const Tensor & input, const Tensor & mean, const Tensor & rstd, const Tensor & weight, int64_t M, int64_t N, std::array<bool,3> output_mask) const override;
+  std::tuple<Tensor,Tensor,Tensor> native_layer_norm_double_backward(const Tensor & ggI, const Tensor & ggW, const Tensor & ggb, const Tensor & gO, const Tensor & input, const Tensor & mean, const Tensor & rstd, const Tensor & weight, int64_t M, int64_t N, std::array<bool,3> output_mask) const override;
   Tensor linear(const Tensor & input, const Tensor & weight, const Tensor & bias) const override;
   Tensor mkldnn_linear(const Tensor & input, const Tensor & weight, const Tensor & bias) const override;
   Tensor fbgemm_linear_int8_weight(const Tensor & input, const Tensor & weight, const Tensor & packed, const Tensor & col_offsets, Scalar weight_scale, Scalar weight_zero_point, const Tensor & bias) const override;
@@ -427,6 +430,7 @@ struct CAFFE2_API MSNPUType : public TypeDefault {
   Tensor _pdist_backward(const Tensor & grad, const Tensor & self, double p, const Tensor & pdist) const override;
   Tensor cosine_similarity(const Tensor & x1, const Tensor & x2, int64_t dim, double eps) const override;
   Tensor permute(const Tensor & self, IntArrayRef dims) const override;
+  Tensor numpy_T(const Tensor & self) const override;
   Tensor pixel_shuffle(const Tensor & self, int64_t upscale_factor) const override;
   Tensor pin_memory(const Tensor & self) const override;
   Tensor pinverse(const Tensor & self, double rcond) const override;
@@ -485,6 +489,8 @@ struct CAFFE2_API MSNPUType : public TypeDefault {
   Tensor & relu_(Tensor & self) const override;
   Tensor prelu(const Tensor & self, const Tensor & weight) const override;
   std::tuple<Tensor,Tensor> prelu_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight) const override;
+  Tensor gelu(const Tensor & self) const override;
+  Tensor gelu_backward(const Tensor & grad, const Tensor & self) const override;
   Tensor hardshrink(const Tensor & self, Scalar lambd) const override;
   Tensor hardshrink_backward(const Tensor & grad_out, const Tensor & self, Scalar lambd) const override;
   Tensor rsqrt(const Tensor & self) const override;
@@ -577,6 +583,8 @@ struct CAFFE2_API MSNPUType : public TypeDefault {
   Tensor flip(const Tensor & self, IntArrayRef dims) const override;
   Tensor roll(const Tensor & self, IntArrayRef shifts, IntArrayRef dims) const override;
   Tensor rot90(const Tensor & self, int64_t k, IntArrayRef dims) const override;
+  Tensor trapz(const Tensor & y, const Tensor & x, int64_t dim) const override;
+  Tensor trapz(const Tensor & y, double dx, int64_t dim) const override;
   Tensor _trilinear(const Tensor & i1, const Tensor & i2, const Tensor & i3, IntArrayRef expand1, IntArrayRef expand2, IntArrayRef expand3, IntArrayRef sumdim, int64_t unroll_dim) const override;
   Tensor triplet_margin_loss(const Tensor & anchor, const Tensor & positive, const Tensor & negative, double margin, double p, double eps, bool swap, int64_t reduction) const override;
   Tensor trunc(const Tensor & self) const override;
@@ -610,6 +618,7 @@ struct CAFFE2_API MSNPUType : public TypeDefault {
   Tensor zeros_like(const Tensor & self, const TensorOptions & options) const override;
   Tensor _standard_gamma_grad(const Tensor & self, const Tensor & output) const override;
   Tensor _standard_gamma(const Tensor & self, Generator * generator) const override;
+  Tensor _dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total) const override;
   Tensor _sample_dirichlet(const Tensor & self, Generator * generator) const override;
   Tensor poisson(const Tensor & self, Generator * generator) const override;
   Tensor native_norm(const Tensor & self, Scalar p) const override;
@@ -629,6 +638,8 @@ struct CAFFE2_API MSNPUType : public TypeDefault {
   Tensor & frobenius_norm_out(Tensor & out, const Tensor & self, IntArrayRef dim, bool keepdim) const override;
   Tensor nuclear_norm(const Tensor & self, bool keepdim) const override;
   Tensor & nuclear_norm_out(Tensor & out, const Tensor & self, bool keepdim) const override;
+  Tensor nuclear_norm(const Tensor & self, IntArrayRef dim, bool keepdim) const override;
+  Tensor & nuclear_norm_out(Tensor & out, const Tensor & self, IntArrayRef dim, bool keepdim) const override;
   Tensor clone(const Tensor & self) const override;
   Tensor & resize_as_(Tensor & self, const Tensor & the_template) const override;
   Tensor & pow_out(Tensor & out, const Tensor & self, Scalar exponent) const override;
@@ -853,6 +864,7 @@ struct CAFFE2_API MSNPUType : public TypeDefault {
   Tensor masked_select(const Tensor & self, const Tensor & mask) const override;
   Tensor & nonzero_out(Tensor & out, const Tensor & self) const override;
   Tensor nonzero(const Tensor & self) const override;
+  std::vector<Tensor> nonzero_numpy(const Tensor & self) const override;
   Tensor & gather_out(Tensor & out, const Tensor & self, int64_t dim, const Tensor & index, bool sparse_grad) const override;
   Tensor gather(const Tensor & self, int64_t dim, const Tensor & index, bool sparse_grad) const override;
   Tensor _gather_sparse_backward(const Tensor & self, int64_t dim, const Tensor & index, const Tensor & grad) const override;
@@ -956,8 +968,6 @@ struct CAFFE2_API MSNPUType : public TypeDefault {
   Tensor & normal_out(Tensor & out, const Tensor & mean, const Tensor & std, Generator * generator) const override;
   Tensor normal(const Tensor & mean, const Tensor & std, Generator * generator) const override;
   Tensor alias(const Tensor & self) const override;
-  Tensor & _dirichlet_grad_out(Tensor & out, const Tensor & x, const Tensor & alpha, const Tensor & total) const override;
-  Tensor _dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total) const override;
   Tensor _addr(const Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta, Scalar alpha) const override;
   Tensor & _addr_(Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta, Scalar alpha) const override;
   Tensor & _addr_out(Tensor & out, const Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta, Scalar alpha) const override;

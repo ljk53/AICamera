@@ -36,7 +36,6 @@ struct TORCH_API VariableType final : public at::TypeDefault {
   at::Backend backend() const override;
   at::Allocator* allocator() const override;
   at::Device getDeviceFromPtr(void * data) const override;
-  std::unique_ptr<at::Generator> generator() const override;
   const char * toString() const override;
   at::TypeID ID() const override;
   at::Type & toBackend(at::Backend b) const override;
@@ -126,7 +125,6 @@ struct TORCH_API VariableType final : public at::TypeDefault {
   int64_t _dimV(const Tensor & self) const override;
   Tensor _dim_arange(const Tensor & like, int64_t dim) const override;
   Tensor _dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total) const override;
-  Tensor & _dirichlet_grad_out(Tensor & out, const Tensor & x, const Tensor & alpha, const Tensor & total) const override;
   std::tuple<Tensor,Tensor,Tensor,Tensor> _embedding_bag(const Tensor & weight, const Tensor & indices, const Tensor & offsets, bool scale_grad_by_freq, int64_t mode, bool sparse, const Tensor & per_sample_weights) const override;
   Tensor _embedding_bag_backward(const Tensor & grad, const Tensor & indices, const Tensor & offsets, const Tensor & offset2bag, const Tensor & bag_size, const Tensor & maximum_indices, int64_t num_weights, bool scale_grad_by_freq, int64_t mode, bool sparse, const Tensor & per_sample_weights) const override;
   Tensor _embedding_bag_dense_backward(const Tensor & grad, const Tensor & indices, const Tensor & offsets, const Tensor & offset2bag, const Tensor & bag_size, const Tensor & maximum_indices, int64_t num_weights, bool scale_grad_by_freq, int64_t mode, const Tensor & per_sample_weights) const override;
@@ -137,6 +135,7 @@ struct TORCH_API VariableType final : public at::TypeDefault {
   std::tuple<Tensor,Tensor> _fused_dropout(const Tensor & self, double p, Generator * generator) const override;
   Tensor _gather_sparse_backward(const Tensor & self, int64_t dim, const Tensor & index, const Tensor & grad) const override;
   Tensor & _index_copy_(Tensor & self, int64_t dim, const Tensor & index, const Tensor & source) const override;
+  Tensor & _index_put_impl_(Tensor & self, TensorList indices, const Tensor & values, bool accumulate, bool unsafe) const override;
   Tensor _indices(const Tensor & self) const override;
   Tensor _inverse_helper(const Tensor & self) const override;
   Scalar _local_scalar_dense(const Tensor & self) const override;
@@ -528,6 +527,8 @@ struct TORCH_API VariableType final : public at::TypeDefault {
   Tensor & ge_out(Tensor & out, const Tensor & self, const Tensor & other) const override;
   std::tuple<Tensor,Tensor> gels(const Tensor & self, const Tensor & A) const override;
   std::tuple<Tensor &,Tensor &> gels_out(Tensor & X, Tensor & qr, const Tensor & self, const Tensor & A) const override;
+  Tensor gelu(const Tensor & self) const override;
+  Tensor gelu_backward(const Tensor & grad, const Tensor & self) const override;
   Tensor & geometric_(Tensor & self, double p, Generator * generator) const override;
   std::tuple<Tensor,Tensor> geqrf(const Tensor & self) const override;
   std::tuple<Tensor &,Tensor &> geqrf_out(Tensor & a, Tensor & tau, const Tensor & self) const override;
@@ -785,6 +786,9 @@ struct TORCH_API VariableType final : public at::TypeDefault {
   Tensor narrow_copy(const Tensor & self, int64_t dim, int64_t start, int64_t length) const override;
   std::tuple<Tensor,Tensor,Tensor> native_batch_norm(const Tensor & input, const Tensor & weight, const Tensor & bias, const Tensor & running_mean, const Tensor & running_var, bool training, double momentum, double eps) const override;
   std::tuple<Tensor,Tensor,Tensor> native_batch_norm_backward(const Tensor & grad_out, const Tensor & input, const Tensor & weight, const Tensor & running_mean, const Tensor & running_var, const Tensor & save_mean, const Tensor & save_invstd, bool train, double eps, std::array<bool,3> output_mask) const override;
+  std::tuple<Tensor,Tensor,Tensor> native_layer_norm(const Tensor & input, const Tensor & weight, const Tensor & bias, int64_t M, int64_t N, double eps) const override;
+  std::tuple<Tensor,Tensor,Tensor> native_layer_norm_backward(const Tensor & grad_out, const Tensor & input, const Tensor & mean, const Tensor & rstd, const Tensor & weight, int64_t M, int64_t N, std::array<bool,3> output_mask) const override;
+  std::tuple<Tensor,Tensor,Tensor> native_layer_norm_double_backward(const Tensor & ggI, const Tensor & ggW, const Tensor & ggb, const Tensor & gO, const Tensor & input, const Tensor & mean, const Tensor & rstd, const Tensor & weight, int64_t M, int64_t N, std::array<bool,3> output_mask) const override;
   Tensor native_norm(const Tensor & self, Scalar p) const override;
   Tensor ne(const Tensor & self, Scalar other) const override;
   Tensor ne(const Tensor & self, const Tensor & other) const override;
@@ -808,6 +812,7 @@ struct TORCH_API VariableType final : public at::TypeDefault {
   std::tuple<Tensor &,Tensor &> nll_loss_forward_out(Tensor & output, Tensor & total_weight, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction, int64_t ignore_index) const override;
   Tensor & nll_loss_out(Tensor & out, const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction, int64_t ignore_index) const override;
   Tensor nonzero(const Tensor & self) const override;
+  std::vector<Tensor> nonzero_numpy(const Tensor & self) const override;
   Tensor & nonzero_out(Tensor & out, const Tensor & self) const override;
   Tensor norm(const Tensor & self, c10::optional<Scalar> p, ScalarType dtype) const override;
   Tensor norm(const Tensor & self, Scalar p) const override;
@@ -824,8 +829,11 @@ struct TORCH_API VariableType final : public at::TypeDefault {
   Tensor & normal_out(Tensor & out, double mean, const Tensor & std, Generator * generator) const override;
   Tensor & normal_out(Tensor & out, const Tensor & mean, const Tensor & std, Generator * generator) const override;
   Tensor nuclear_norm(const Tensor & self, bool keepdim) const override;
+  Tensor nuclear_norm(const Tensor & self, IntArrayRef dim, bool keepdim) const override;
   Tensor & nuclear_norm_out(Tensor & out, const Tensor & self, bool keepdim) const override;
+  Tensor & nuclear_norm_out(Tensor & out, const Tensor & self, IntArrayRef dim, bool keepdim) const override;
   int64_t numel(const Tensor & self) const override;
+  Tensor numpy_T(const Tensor & self) const override;
   Tensor one_hot(const Tensor & self, int64_t num_classes) const override;
   Tensor ones(IntArrayRef size, const TensorOptions & options) const override;
   Tensor ones_like(const Tensor & self) const override;
@@ -1158,6 +1166,8 @@ struct TORCH_API VariableType final : public at::TypeDefault {
   Tensor trace(const Tensor & self) const override;
   Tensor transpose(const Tensor & self, int64_t dim0, int64_t dim1) const override;
   Tensor & transpose_(Tensor & self, int64_t dim0, int64_t dim1) const override;
+  Tensor trapz(const Tensor & y, const Tensor & x, int64_t dim) const override;
+  Tensor trapz(const Tensor & y, double dx, int64_t dim) const override;
   std::tuple<Tensor,Tensor> triangular_solve(const Tensor & self, const Tensor & A, bool upper, bool transpose, bool unitriangular) const override;
   std::tuple<Tensor &,Tensor &> triangular_solve_out(Tensor & X, Tensor & M, const Tensor & self, const Tensor & A, bool upper, bool transpose, bool unitriangular) const override;
   Tensor tril(const Tensor & self, int64_t diagonal) const override;

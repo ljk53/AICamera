@@ -4,7 +4,7 @@
 
 #include <ATen/CPUTypeDefault.h>
 #include <ATen/Context.h>
-#include <ATen/CheckGenerator.h>
+#include <ATen/Utils.h>
 
 
 
@@ -27,14 +27,19 @@ struct MkldnnCPUType final : public CPUTypeDefault {
   Tensor add(const Tensor & self, const Tensor & other, Scalar alpha) const override;
   Tensor & add_(Tensor & self, const Tensor & other, Scalar alpha) const override;
   Tensor & add_out(Tensor & out, const Tensor & self, const Tensor & other, Scalar alpha) const override;
+  Tensor empty(IntArrayRef size, const TensorOptions & options) const override;
   Tensor mkldnn_linear(const Tensor & input, const Tensor & weight, const Tensor & bias) const override;
   Tensor mkldnn_max_pool2d(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, bool ceil_mode) const override;
+  Tensor mul(const Tensor & self, const Tensor & other) const override;
+  Tensor & mul_(Tensor & self, const Tensor & other) const override;
+  Tensor & mul_out(Tensor & out, const Tensor & self, const Tensor & other) const override;
   std::tuple<Tensor,Tensor,Tensor> native_batch_norm(const Tensor & input, const Tensor & weight, const Tensor & bias, const Tensor & running_mean, const Tensor & running_var, bool training, double momentum, double eps) const override;
   Tensor mkldnn_reshape(const Tensor & self, IntArrayRef shape) const override;
   Tensor relu(const Tensor & self) const override;
   Tensor & relu_(Tensor & self) const override;
   Tensor sigmoid(const Tensor & self) const override;
   Tensor & sigmoid_(Tensor & self) const override;
+  Tensor _softmax(const Tensor & self, int64_t dim, bool half_to_float) const override;
   Tensor clone(const Tensor & self) const override;
   Tensor to_dense(const Tensor & self) const override;
   Tensor mkldnn_reorder_conv2d_weight(const Tensor & self, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups) const override;

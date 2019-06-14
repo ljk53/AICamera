@@ -4,7 +4,7 @@
 
 #include <ATen/CPUTypeDefault.h>
 #include <ATen/Context.h>
-#include <ATen/CheckGenerator.h>
+#include <ATen/Utils.h>
 
 
 
@@ -96,6 +96,9 @@ struct CPUType final : public CPUTypeDefault {
   Tensor _inverse_helper(const Tensor & self) const override;
   Tensor kl_div_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction) const override;
   std::tuple<Tensor &,Tensor &> kthvalue_out(Tensor & values, Tensor & indices, const Tensor & self, int64_t k, int64_t dim, bool keepdim) const override;
+  std::tuple<Tensor,Tensor,Tensor> native_layer_norm(const Tensor & input, const Tensor & weight, const Tensor & bias, int64_t M, int64_t N, double eps) const override;
+  std::tuple<Tensor,Tensor,Tensor> native_layer_norm_backward(const Tensor & grad_out, const Tensor & input, const Tensor & mean, const Tensor & rstd, const Tensor & weight, int64_t M, int64_t N, std::array<bool,3> output_mask) const override;
+  std::tuple<Tensor,Tensor,Tensor> native_layer_norm_double_backward(const Tensor & ggI, const Tensor & ggW, const Tensor & ggb, const Tensor & gO, const Tensor & input, const Tensor & mean, const Tensor & rstd, const Tensor & weight, int64_t M, int64_t N, std::array<bool,3> output_mask) const override;
   Tensor & linspace_out(Tensor & out, Scalar start, Scalar end, int64_t steps) const override;
   Tensor & log_(Tensor & self) const override;
   Tensor & log_out(Tensor & out, const Tensor & self) const override;
@@ -110,6 +113,9 @@ struct CPUType final : public CPUTypeDefault {
   Tensor _log_softmax_backward_data(const Tensor & grad_output, const Tensor & output, int64_t dim, const Tensor & self) const override;
   Tensor mm(const Tensor & self, const Tensor & mat2) const override;
   Tensor & mm_out(Tensor & out, const Tensor & self, const Tensor & mat2) const override;
+  Tensor mul(const Tensor & self, const Tensor & other) const override;
+  Tensor & mul_(Tensor & self, const Tensor & other) const override;
+  Tensor & mul_out(Tensor & out, const Tensor & self, const Tensor & other) const override;
   Tensor mv(const Tensor & self, const Tensor & vec) const override;
   Tensor & mv_out(Tensor & out, const Tensor & self, const Tensor & vec) const override;
   Tensor narrow_copy(const Tensor & self, int64_t dim, int64_t start, int64_t length) const override;
@@ -129,6 +135,8 @@ struct CPUType final : public CPUTypeDefault {
   Tensor & relu_(Tensor & self) const override;
   Tensor prelu(const Tensor & self, const Tensor & weight) const override;
   std::tuple<Tensor,Tensor> prelu_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight) const override;
+  Tensor gelu(const Tensor & self) const override;
+  Tensor gelu_backward(const Tensor & grad, const Tensor & self) const override;
   Tensor hardshrink(const Tensor & self, Scalar lambd) const override;
   Tensor hardshrink_backward(const Tensor & grad_out, const Tensor & self, Scalar lambd) const override;
   Tensor & rsqrt_(Tensor & self) const override;
@@ -162,6 +170,7 @@ struct CPUType final : public CPUTypeDefault {
   Tensor _s_where(const Tensor & condition, const Tensor & self, const Tensor & other) const override;
   Tensor _standard_gamma_grad(const Tensor & self, const Tensor & output) const override;
   Tensor _standard_gamma(const Tensor & self, Generator * generator) const override;
+  Tensor _dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total) const override;
   Tensor _sample_dirichlet(const Tensor & self, Generator * generator) const override;
   Tensor poisson(const Tensor & self, Generator * generator) const override;
   Tensor clone(const Tensor & self) const override;
@@ -388,8 +397,6 @@ struct CPUType final : public CPUTypeDefault {
   Tensor & normal_out(Tensor & out, const Tensor & mean, const Tensor & std, Generator * generator) const override;
   Tensor normal(const Tensor & mean, const Tensor & std, Generator * generator) const override;
   Tensor alias(const Tensor & self) const override;
-  Tensor & _dirichlet_grad_out(Tensor & out, const Tensor & x, const Tensor & alpha, const Tensor & total) const override;
-  Tensor _dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total) const override;
   Tensor _addr(const Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta, Scalar alpha) const override;
   Tensor & _addr_(Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta, Scalar alpha) const override;
   Tensor & _addr_out(Tensor & out, const Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta, Scalar alpha) const override;

@@ -258,11 +258,6 @@ inline Tensor dispatch__dim_arange(const Tensor & like, int64_t dim) {
   AutoNoGIL no_gil;
   return at::_dim_arange(like, dim);
 }
-inline Tensor dispatch__dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total, Tensor out) {
-
-  AutoNoGIL no_gil;
-  return at::_dirichlet_grad_out(out, x, alpha, total);
-}
 inline Tensor dispatch__dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total) {
 
   AutoNoGIL no_gil;
@@ -292,6 +287,11 @@ inline Tensor dispatch__index_copy_(Tensor self, int64_t dim, const Tensor & ind
 
   AutoNoGIL no_gil;
   return at::_index_copy_(self, dim, index, source);
+}
+inline Tensor dispatch__index_put_impl_(Tensor self, TensorList indices, const Tensor & values, bool accumulate, bool unsafe) {
+
+  AutoNoGIL no_gil;
+  return at::_index_put_impl_(self, indices, values, accumulate, unsafe);
 }
 inline Tensor dispatch__log_softmax(const Tensor & self, int64_t dim, bool half_to_float) {
 
@@ -2518,6 +2518,11 @@ inline std::tuple<Tensor,Tensor,Tensor> dispatch_native_batch_norm(const Tensor 
   AutoNoGIL no_gil;
   return at::native_batch_norm(input, weight, bias, running_mean, running_var, training, momentum, eps);
 }
+inline std::tuple<Tensor,Tensor,Tensor> dispatch_native_layer_norm(const Tensor & input, const Tensor & weight, const Tensor & bias, int64_t M, int64_t N, double eps) {
+
+  AutoNoGIL no_gil;
+  return at::native_layer_norm(input, weight, bias, M, N, eps);
+}
 inline Tensor dispatch_native_norm(const Tensor & self, Scalar p) {
 
   AutoNoGIL no_gil;
@@ -2557,16 +2562,6 @@ inline Tensor dispatch_neg_(Tensor self) {
 
   AutoNoGIL no_gil;
   return self.neg_();
-}
-inline Tensor dispatch_nonzero(const Tensor & self, Tensor out) {
-
-  AutoNoGIL no_gil;
-  return at::nonzero_out(out, self);
-}
-inline Tensor dispatch_nonzero(const Tensor & self) {
-
-  AutoNoGIL no_gil;
-  return self.nonzero();
 }
 inline Tensor dispatch_norm(const Tensor & self, Scalar p) {
 
@@ -2632,6 +2627,16 @@ inline Tensor dispatch_normal(double mean, const Tensor & std, Generator * gener
 
   AutoNoGIL no_gil;
   return at::normal(mean, std, generator);
+}
+inline Tensor dispatch_nuclear_norm(const Tensor & self, IntArrayRef dim, bool keepdim, Tensor out) {
+
+  AutoNoGIL no_gil;
+  return at::nuclear_norm_out(out, self, dim, keepdim);
+}
+inline Tensor dispatch_nuclear_norm(const Tensor & self, IntArrayRef dim, bool keepdim) {
+
+  AutoNoGIL no_gil;
+  return at::nuclear_norm(self, dim, keepdim);
 }
 inline Tensor dispatch_nuclear_norm(const Tensor & self, bool keepdim, Tensor out) {
 
@@ -3552,6 +3557,16 @@ inline Tensor dispatch_transpose(const Tensor & self, int64_t dim0, int64_t dim1
 
   AutoNoGIL no_gil;
   return self.transpose(dim0, dim1);
+}
+inline Tensor dispatch_trapz(const Tensor & y, double dx, int64_t dim) {
+
+  AutoNoGIL no_gil;
+  return at::trapz(y, dx, dim);
+}
+inline Tensor dispatch_trapz(const Tensor & y, const Tensor & x, int64_t dim) {
+
+  AutoNoGIL no_gil;
+  return at::trapz(y, x, dim);
 }
 inline std::tuple<Tensor,Tensor> dispatch_triangular_solve(const Tensor & self, const Tensor & A, bool upper, bool transpose, bool unitriangular, Tensor & X, Tensor & M) {
 

@@ -47,7 +47,7 @@ struct ONNX_API TableStruct {
 };
 void ONNX_API AddDescriptors();
 }  // namespace protobuf_onnx_2fonnx_2doperators_5fonnx_5fc2_2eproto
-namespace onnx_c2 {
+namespace onnx_c2 { const ::std::string& GetEmptyStringAlreadyInited(); 
 class FunctionProto;
 class FunctionProtoDefaultTypeInternal;
 ONNX_API extern FunctionProtoDefaultTypeInternal _FunctionProto_default_instance_;
@@ -100,10 +100,7 @@ class ONNX_API FunctionProto : public ::google::protobuf::Message /* @@protoc_in
     return *this;
   }
   #if LANG_CXX11
-  FunctionProto(FunctionProto&& from) noexcept
-    : FunctionProto() {
-    *this = ::std::move(from);
-  }
+  FunctionProto(FunctionProto&& from) noexcept;
 
   inline FunctionProto& operator=(FunctionProto&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
@@ -129,7 +126,7 @@ class ONNX_API FunctionProto : public ::google::protobuf::Message /* @@protoc_in
     return reinterpret_cast<const FunctionProto*>(
                &_FunctionProto_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     0;
 
   void Swap(FunctionProto* other);
@@ -342,10 +339,7 @@ class ONNX_API OperatorProto : public ::google::protobuf::Message /* @@protoc_in
     return *this;
   }
   #if LANG_CXX11
-  OperatorProto(OperatorProto&& from) noexcept
-    : OperatorProto() {
-    *this = ::std::move(from);
-  }
+  OperatorProto(OperatorProto&& from) noexcept;
 
   inline OperatorProto& operator=(OperatorProto&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
@@ -371,7 +365,7 @@ class ONNX_API OperatorProto : public ::google::protobuf::Message /* @@protoc_in
     return reinterpret_cast<const OperatorProto*>(
                &_OperatorProto_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     1;
 
   void Swap(OperatorProto* other);
@@ -502,10 +496,7 @@ class ONNX_API OperatorSetProto : public ::google::protobuf::Message /* @@protoc
     return *this;
   }
   #if LANG_CXX11
-  OperatorSetProto(OperatorSetProto&& from) noexcept
-    : OperatorSetProto() {
-    *this = ::std::move(from);
-  }
+  OperatorSetProto(OperatorSetProto&& from) noexcept;
 
   inline OperatorSetProto& operator=(OperatorSetProto&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
@@ -531,7 +522,7 @@ class ONNX_API OperatorSetProto : public ::google::protobuf::Message /* @@protoc
     return reinterpret_cast<const OperatorSetProto*>(
                &_OperatorSetProto_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     2;
 
   void Swap(OperatorSetProto* other);
@@ -750,7 +741,7 @@ inline void FunctionProto::clear_has_name() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void FunctionProto::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_name();
 }
 inline const ::std::string& FunctionProto::name() const {
@@ -759,33 +750,33 @@ inline const ::std::string& FunctionProto::name() const {
 }
 inline void FunctionProto::set_name(const ::std::string& value) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:onnx_c2.FunctionProto.name)
 }
 #if LANG_CXX11
 inline void FunctionProto::set_name(::std::string&& value) {
   set_has_name();
   name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:onnx_c2.FunctionProto.name)
 }
 #endif
 inline void FunctionProto::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:onnx_c2.FunctionProto.name)
 }
 inline void FunctionProto::set_name(const char* value, size_t size) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:onnx_c2.FunctionProto.name)
 }
 inline ::std::string* FunctionProto::mutable_name() {
   set_has_name();
   // @@protoc_insertion_point(field_mutable:onnx_c2.FunctionProto.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* FunctionProto::release_name() {
   // @@protoc_insertion_point(field_release:onnx_c2.FunctionProto.name)
@@ -793,7 +784,7 @@ inline ::std::string* FunctionProto::release_name() {
     return NULL;
   }
   clear_has_name();
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void FunctionProto::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -801,7 +792,7 @@ inline void FunctionProto::set_allocated_name(::std::string* name) {
   } else {
     clear_has_name();
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:onnx_c2.FunctionProto.name)
 }
 
@@ -1099,7 +1090,7 @@ inline void FunctionProto::clear_has_doc_string() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void FunctionProto::clear_doc_string() {
-  doc_string_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  doc_string_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_doc_string();
 }
 inline const ::std::string& FunctionProto::doc_string() const {
@@ -1108,33 +1099,33 @@ inline const ::std::string& FunctionProto::doc_string() const {
 }
 inline void FunctionProto::set_doc_string(const ::std::string& value) {
   set_has_doc_string();
-  doc_string_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  doc_string_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:onnx_c2.FunctionProto.doc_string)
 }
 #if LANG_CXX11
 inline void FunctionProto::set_doc_string(::std::string&& value) {
   set_has_doc_string();
   doc_string_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:onnx_c2.FunctionProto.doc_string)
 }
 #endif
 inline void FunctionProto::set_doc_string(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_doc_string();
-  doc_string_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  doc_string_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:onnx_c2.FunctionProto.doc_string)
 }
 inline void FunctionProto::set_doc_string(const char* value, size_t size) {
   set_has_doc_string();
-  doc_string_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  doc_string_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:onnx_c2.FunctionProto.doc_string)
 }
 inline ::std::string* FunctionProto::mutable_doc_string() {
   set_has_doc_string();
   // @@protoc_insertion_point(field_mutable:onnx_c2.FunctionProto.doc_string)
-  return doc_string_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return doc_string_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* FunctionProto::release_doc_string() {
   // @@protoc_insertion_point(field_release:onnx_c2.FunctionProto.doc_string)
@@ -1142,7 +1133,7 @@ inline ::std::string* FunctionProto::release_doc_string() {
     return NULL;
   }
   clear_has_doc_string();
-  return doc_string_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return doc_string_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void FunctionProto::set_allocated_doc_string(::std::string* doc_string) {
   if (doc_string != NULL) {
@@ -1150,7 +1141,7 @@ inline void FunctionProto::set_allocated_doc_string(::std::string* doc_string) {
   } else {
     clear_has_doc_string();
   }
-  doc_string_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), doc_string);
+  doc_string_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), doc_string);
   // @@protoc_insertion_point(field_set_allocated:onnx_c2.FunctionProto.doc_string)
 }
 
@@ -1169,7 +1160,7 @@ inline void OperatorProto::clear_has_op_type() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void OperatorProto::clear_op_type() {
-  op_type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  op_type_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_op_type();
 }
 inline const ::std::string& OperatorProto::op_type() const {
@@ -1178,33 +1169,33 @@ inline const ::std::string& OperatorProto::op_type() const {
 }
 inline void OperatorProto::set_op_type(const ::std::string& value) {
   set_has_op_type();
-  op_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  op_type_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:onnx_c2.OperatorProto.op_type)
 }
 #if LANG_CXX11
 inline void OperatorProto::set_op_type(::std::string&& value) {
   set_has_op_type();
   op_type_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:onnx_c2.OperatorProto.op_type)
 }
 #endif
 inline void OperatorProto::set_op_type(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_op_type();
-  op_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  op_type_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:onnx_c2.OperatorProto.op_type)
 }
 inline void OperatorProto::set_op_type(const char* value, size_t size) {
   set_has_op_type();
-  op_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  op_type_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:onnx_c2.OperatorProto.op_type)
 }
 inline ::std::string* OperatorProto::mutable_op_type() {
   set_has_op_type();
   // @@protoc_insertion_point(field_mutable:onnx_c2.OperatorProto.op_type)
-  return op_type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return op_type_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* OperatorProto::release_op_type() {
   // @@protoc_insertion_point(field_release:onnx_c2.OperatorProto.op_type)
@@ -1212,7 +1203,7 @@ inline ::std::string* OperatorProto::release_op_type() {
     return NULL;
   }
   clear_has_op_type();
-  return op_type_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return op_type_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void OperatorProto::set_allocated_op_type(::std::string* op_type) {
   if (op_type != NULL) {
@@ -1220,7 +1211,7 @@ inline void OperatorProto::set_allocated_op_type(::std::string* op_type) {
   } else {
     clear_has_op_type();
   }
-  op_type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), op_type);
+  op_type_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), op_type);
   // @@protoc_insertion_point(field_set_allocated:onnx_c2.OperatorProto.op_type)
 }
 
@@ -1284,7 +1275,7 @@ inline void OperatorProto::clear_has_doc_string() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void OperatorProto::clear_doc_string() {
-  doc_string_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  doc_string_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_doc_string();
 }
 inline const ::std::string& OperatorProto::doc_string() const {
@@ -1293,33 +1284,33 @@ inline const ::std::string& OperatorProto::doc_string() const {
 }
 inline void OperatorProto::set_doc_string(const ::std::string& value) {
   set_has_doc_string();
-  doc_string_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  doc_string_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:onnx_c2.OperatorProto.doc_string)
 }
 #if LANG_CXX11
 inline void OperatorProto::set_doc_string(::std::string&& value) {
   set_has_doc_string();
   doc_string_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:onnx_c2.OperatorProto.doc_string)
 }
 #endif
 inline void OperatorProto::set_doc_string(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_doc_string();
-  doc_string_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  doc_string_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:onnx_c2.OperatorProto.doc_string)
 }
 inline void OperatorProto::set_doc_string(const char* value, size_t size) {
   set_has_doc_string();
-  doc_string_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  doc_string_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:onnx_c2.OperatorProto.doc_string)
 }
 inline ::std::string* OperatorProto::mutable_doc_string() {
   set_has_doc_string();
   // @@protoc_insertion_point(field_mutable:onnx_c2.OperatorProto.doc_string)
-  return doc_string_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return doc_string_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* OperatorProto::release_doc_string() {
   // @@protoc_insertion_point(field_release:onnx_c2.OperatorProto.doc_string)
@@ -1327,7 +1318,7 @@ inline ::std::string* OperatorProto::release_doc_string() {
     return NULL;
   }
   clear_has_doc_string();
-  return doc_string_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return doc_string_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void OperatorProto::set_allocated_doc_string(::std::string* doc_string) {
   if (doc_string != NULL) {
@@ -1335,7 +1326,7 @@ inline void OperatorProto::set_allocated_doc_string(::std::string* doc_string) {
   } else {
     clear_has_doc_string();
   }
-  doc_string_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), doc_string);
+  doc_string_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), doc_string);
   // @@protoc_insertion_point(field_set_allocated:onnx_c2.OperatorProto.doc_string)
 }
 
@@ -1354,7 +1345,7 @@ inline void OperatorSetProto::clear_has_magic() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void OperatorSetProto::clear_magic() {
-  magic_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  magic_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_magic();
 }
 inline const ::std::string& OperatorSetProto::magic() const {
@@ -1363,33 +1354,33 @@ inline const ::std::string& OperatorSetProto::magic() const {
 }
 inline void OperatorSetProto::set_magic(const ::std::string& value) {
   set_has_magic();
-  magic_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  magic_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:onnx_c2.OperatorSetProto.magic)
 }
 #if LANG_CXX11
 inline void OperatorSetProto::set_magic(::std::string&& value) {
   set_has_magic();
   magic_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:onnx_c2.OperatorSetProto.magic)
 }
 #endif
 inline void OperatorSetProto::set_magic(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_magic();
-  magic_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  magic_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:onnx_c2.OperatorSetProto.magic)
 }
 inline void OperatorSetProto::set_magic(const char* value, size_t size) {
   set_has_magic();
-  magic_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  magic_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:onnx_c2.OperatorSetProto.magic)
 }
 inline ::std::string* OperatorSetProto::mutable_magic() {
   set_has_magic();
   // @@protoc_insertion_point(field_mutable:onnx_c2.OperatorSetProto.magic)
-  return magic_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return magic_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* OperatorSetProto::release_magic() {
   // @@protoc_insertion_point(field_release:onnx_c2.OperatorSetProto.magic)
@@ -1397,7 +1388,7 @@ inline ::std::string* OperatorSetProto::release_magic() {
     return NULL;
   }
   clear_has_magic();
-  return magic_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return magic_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void OperatorSetProto::set_allocated_magic(::std::string* magic) {
   if (magic != NULL) {
@@ -1405,7 +1396,7 @@ inline void OperatorSetProto::set_allocated_magic(::std::string* magic) {
   } else {
     clear_has_magic();
   }
-  magic_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), magic);
+  magic_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), magic);
   // @@protoc_insertion_point(field_set_allocated:onnx_c2.OperatorSetProto.magic)
 }
 
@@ -1444,7 +1435,7 @@ inline void OperatorSetProto::clear_has_ir_version_prerelease() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void OperatorSetProto::clear_ir_version_prerelease() {
-  ir_version_prerelease_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ir_version_prerelease_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_ir_version_prerelease();
 }
 inline const ::std::string& OperatorSetProto::ir_version_prerelease() const {
@@ -1453,33 +1444,33 @@ inline const ::std::string& OperatorSetProto::ir_version_prerelease() const {
 }
 inline void OperatorSetProto::set_ir_version_prerelease(const ::std::string& value) {
   set_has_ir_version_prerelease();
-  ir_version_prerelease_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  ir_version_prerelease_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:onnx_c2.OperatorSetProto.ir_version_prerelease)
 }
 #if LANG_CXX11
 inline void OperatorSetProto::set_ir_version_prerelease(::std::string&& value) {
   set_has_ir_version_prerelease();
   ir_version_prerelease_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:onnx_c2.OperatorSetProto.ir_version_prerelease)
 }
 #endif
 inline void OperatorSetProto::set_ir_version_prerelease(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_ir_version_prerelease();
-  ir_version_prerelease_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  ir_version_prerelease_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:onnx_c2.OperatorSetProto.ir_version_prerelease)
 }
 inline void OperatorSetProto::set_ir_version_prerelease(const char* value, size_t size) {
   set_has_ir_version_prerelease();
-  ir_version_prerelease_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  ir_version_prerelease_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:onnx_c2.OperatorSetProto.ir_version_prerelease)
 }
 inline ::std::string* OperatorSetProto::mutable_ir_version_prerelease() {
   set_has_ir_version_prerelease();
   // @@protoc_insertion_point(field_mutable:onnx_c2.OperatorSetProto.ir_version_prerelease)
-  return ir_version_prerelease_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return ir_version_prerelease_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* OperatorSetProto::release_ir_version_prerelease() {
   // @@protoc_insertion_point(field_release:onnx_c2.OperatorSetProto.ir_version_prerelease)
@@ -1487,7 +1478,7 @@ inline ::std::string* OperatorSetProto::release_ir_version_prerelease() {
     return NULL;
   }
   clear_has_ir_version_prerelease();
-  return ir_version_prerelease_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return ir_version_prerelease_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void OperatorSetProto::set_allocated_ir_version_prerelease(::std::string* ir_version_prerelease) {
   if (ir_version_prerelease != NULL) {
@@ -1495,7 +1486,7 @@ inline void OperatorSetProto::set_allocated_ir_version_prerelease(::std::string*
   } else {
     clear_has_ir_version_prerelease();
   }
-  ir_version_prerelease_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ir_version_prerelease);
+  ir_version_prerelease_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), ir_version_prerelease);
   // @@protoc_insertion_point(field_set_allocated:onnx_c2.OperatorSetProto.ir_version_prerelease)
 }
 
@@ -1510,7 +1501,7 @@ inline void OperatorSetProto::clear_has_ir_build_metadata() {
   _has_bits_[0] &= ~0x00000010u;
 }
 inline void OperatorSetProto::clear_ir_build_metadata() {
-  ir_build_metadata_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ir_build_metadata_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_ir_build_metadata();
 }
 inline const ::std::string& OperatorSetProto::ir_build_metadata() const {
@@ -1519,33 +1510,33 @@ inline const ::std::string& OperatorSetProto::ir_build_metadata() const {
 }
 inline void OperatorSetProto::set_ir_build_metadata(const ::std::string& value) {
   set_has_ir_build_metadata();
-  ir_build_metadata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  ir_build_metadata_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:onnx_c2.OperatorSetProto.ir_build_metadata)
 }
 #if LANG_CXX11
 inline void OperatorSetProto::set_ir_build_metadata(::std::string&& value) {
   set_has_ir_build_metadata();
   ir_build_metadata_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:onnx_c2.OperatorSetProto.ir_build_metadata)
 }
 #endif
 inline void OperatorSetProto::set_ir_build_metadata(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_ir_build_metadata();
-  ir_build_metadata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  ir_build_metadata_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:onnx_c2.OperatorSetProto.ir_build_metadata)
 }
 inline void OperatorSetProto::set_ir_build_metadata(const char* value, size_t size) {
   set_has_ir_build_metadata();
-  ir_build_metadata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  ir_build_metadata_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:onnx_c2.OperatorSetProto.ir_build_metadata)
 }
 inline ::std::string* OperatorSetProto::mutable_ir_build_metadata() {
   set_has_ir_build_metadata();
   // @@protoc_insertion_point(field_mutable:onnx_c2.OperatorSetProto.ir_build_metadata)
-  return ir_build_metadata_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return ir_build_metadata_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* OperatorSetProto::release_ir_build_metadata() {
   // @@protoc_insertion_point(field_release:onnx_c2.OperatorSetProto.ir_build_metadata)
@@ -1553,7 +1544,7 @@ inline ::std::string* OperatorSetProto::release_ir_build_metadata() {
     return NULL;
   }
   clear_has_ir_build_metadata();
-  return ir_build_metadata_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return ir_build_metadata_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void OperatorSetProto::set_allocated_ir_build_metadata(::std::string* ir_build_metadata) {
   if (ir_build_metadata != NULL) {
@@ -1561,7 +1552,7 @@ inline void OperatorSetProto::set_allocated_ir_build_metadata(::std::string* ir_
   } else {
     clear_has_ir_build_metadata();
   }
-  ir_build_metadata_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ir_build_metadata);
+  ir_build_metadata_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), ir_build_metadata);
   // @@protoc_insertion_point(field_set_allocated:onnx_c2.OperatorSetProto.ir_build_metadata)
 }
 
@@ -1576,7 +1567,7 @@ inline void OperatorSetProto::clear_has_domain() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline void OperatorSetProto::clear_domain() {
-  domain_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  domain_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_domain();
 }
 inline const ::std::string& OperatorSetProto::domain() const {
@@ -1585,33 +1576,33 @@ inline const ::std::string& OperatorSetProto::domain() const {
 }
 inline void OperatorSetProto::set_domain(const ::std::string& value) {
   set_has_domain();
-  domain_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  domain_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:onnx_c2.OperatorSetProto.domain)
 }
 #if LANG_CXX11
 inline void OperatorSetProto::set_domain(::std::string&& value) {
   set_has_domain();
   domain_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:onnx_c2.OperatorSetProto.domain)
 }
 #endif
 inline void OperatorSetProto::set_domain(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_domain();
-  domain_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  domain_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:onnx_c2.OperatorSetProto.domain)
 }
 inline void OperatorSetProto::set_domain(const char* value, size_t size) {
   set_has_domain();
-  domain_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  domain_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:onnx_c2.OperatorSetProto.domain)
 }
 inline ::std::string* OperatorSetProto::mutable_domain() {
   set_has_domain();
   // @@protoc_insertion_point(field_mutable:onnx_c2.OperatorSetProto.domain)
-  return domain_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return domain_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* OperatorSetProto::release_domain() {
   // @@protoc_insertion_point(field_release:onnx_c2.OperatorSetProto.domain)
@@ -1619,7 +1610,7 @@ inline ::std::string* OperatorSetProto::release_domain() {
     return NULL;
   }
   clear_has_domain();
-  return domain_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return domain_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void OperatorSetProto::set_allocated_domain(::std::string* domain) {
   if (domain != NULL) {
@@ -1627,7 +1618,7 @@ inline void OperatorSetProto::set_allocated_domain(::std::string* domain) {
   } else {
     clear_has_domain();
   }
-  domain_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), domain);
+  domain_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), domain);
   // @@protoc_insertion_point(field_set_allocated:onnx_c2.OperatorSetProto.domain)
 }
 
@@ -1666,7 +1657,7 @@ inline void OperatorSetProto::clear_has_doc_string() {
   _has_bits_[0] &= ~0x00000008u;
 }
 inline void OperatorSetProto::clear_doc_string() {
-  doc_string_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  doc_string_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_doc_string();
 }
 inline const ::std::string& OperatorSetProto::doc_string() const {
@@ -1675,33 +1666,33 @@ inline const ::std::string& OperatorSetProto::doc_string() const {
 }
 inline void OperatorSetProto::set_doc_string(const ::std::string& value) {
   set_has_doc_string();
-  doc_string_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  doc_string_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:onnx_c2.OperatorSetProto.doc_string)
 }
 #if LANG_CXX11
 inline void OperatorSetProto::set_doc_string(::std::string&& value) {
   set_has_doc_string();
   doc_string_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:onnx_c2.OperatorSetProto.doc_string)
 }
 #endif
 inline void OperatorSetProto::set_doc_string(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_doc_string();
-  doc_string_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  doc_string_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:onnx_c2.OperatorSetProto.doc_string)
 }
 inline void OperatorSetProto::set_doc_string(const char* value, size_t size) {
   set_has_doc_string();
-  doc_string_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  doc_string_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:onnx_c2.OperatorSetProto.doc_string)
 }
 inline ::std::string* OperatorSetProto::mutable_doc_string() {
   set_has_doc_string();
   // @@protoc_insertion_point(field_mutable:onnx_c2.OperatorSetProto.doc_string)
-  return doc_string_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return doc_string_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* OperatorSetProto::release_doc_string() {
   // @@protoc_insertion_point(field_release:onnx_c2.OperatorSetProto.doc_string)
@@ -1709,7 +1700,7 @@ inline ::std::string* OperatorSetProto::release_doc_string() {
     return NULL;
   }
   clear_has_doc_string();
-  return doc_string_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return doc_string_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void OperatorSetProto::set_allocated_doc_string(::std::string* doc_string) {
   if (doc_string != NULL) {
@@ -1717,7 +1708,7 @@ inline void OperatorSetProto::set_allocated_doc_string(::std::string* doc_string
   } else {
     clear_has_doc_string();
   }
-  doc_string_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), doc_string);
+  doc_string_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), doc_string);
   // @@protoc_insertion_point(field_set_allocated:onnx_c2.OperatorSetProto.doc_string)
 }
 

@@ -4,7 +4,7 @@
 
 #include <ATen/CPUTypeDefault.h>
 #include <ATen/Context.h>
-#include <ATen/CheckGenerator.h>
+#include <ATen/Utils.h>
 
 #include <ATen/DeviceGuard.h>
 #include <ATen/cuda/ATenCUDAGeneral.h>
@@ -151,6 +151,9 @@ struct CUDAType final : public CUDATypeDefault {
   Tensor miopen_depthwise_convolution_backward_weight(IntArrayRef weight_size, const Tensor & grad_output, const Tensor & self, IntArrayRef padding, IntArrayRef stride, IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic) const override;
   Tensor mm(const Tensor & self, const Tensor & mat2) const override;
   Tensor & mm_out(Tensor & out, const Tensor & self, const Tensor & mat2) const override;
+  Tensor mul(const Tensor & self, const Tensor & other) const override;
+  Tensor & mul_(Tensor & self, const Tensor & other) const override;
+  Tensor & mul_out(Tensor & out, const Tensor & self, const Tensor & other) const override;
   Tensor mv(const Tensor & self, const Tensor & vec) const override;
   Tensor & mv_out(Tensor & out, const Tensor & self, const Tensor & vec) const override;
   Tensor narrow_copy(const Tensor & self, int64_t dim, int64_t start, int64_t length) const override;
@@ -175,6 +178,8 @@ struct CUDAType final : public CUDATypeDefault {
   Tensor & relu_(Tensor & self) const override;
   Tensor prelu(const Tensor & self, const Tensor & weight) const override;
   std::tuple<Tensor,Tensor> prelu_backward(const Tensor & grad_output, const Tensor & self, const Tensor & weight) const override;
+  Tensor gelu(const Tensor & self) const override;
+  Tensor gelu_backward(const Tensor & grad, const Tensor & self) const override;
   Tensor hardshrink(const Tensor & self, Scalar lambd) const override;
   Tensor hardshrink_backward(const Tensor & grad_out, const Tensor & self, Scalar lambd) const override;
   Tensor & rsqrt_(Tensor & self) const override;
@@ -210,6 +215,7 @@ struct CUDAType final : public CUDATypeDefault {
   std::tuple<Tensor,Tensor> _weight_norm_cuda_interface_backward(const Tensor & grad_w, const Tensor & saved_v, const Tensor & saved_g, const Tensor & saved_norms, int64_t dim) const override;
   Tensor _standard_gamma_grad(const Tensor & self, const Tensor & output) const override;
   Tensor _standard_gamma(const Tensor & self, Generator * generator) const override;
+  Tensor _dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total) const override;
   Tensor _sample_dirichlet(const Tensor & self, Generator * generator) const override;
   Tensor poisson(const Tensor & self, Generator * generator) const override;
   Tensor clone(const Tensor & self) const override;

@@ -119,6 +119,11 @@ inline std::tuple<Tensor,Tensor> dispatch_fractional_max_pool3d(const Tensor & s
   AutoNoGIL no_gil;
   return at::fractional_max_pool3d(self, kernel_size, output_size, random_samples);
 }
+inline Tensor dispatch_gelu(const Tensor & self) {
+
+  AutoNoGIL no_gil;
+  return at::gelu(self);
+}
 inline Tensor dispatch_glu(const Tensor & self, int64_t dim, Tensor out) {
 
   AutoNoGIL no_gil;

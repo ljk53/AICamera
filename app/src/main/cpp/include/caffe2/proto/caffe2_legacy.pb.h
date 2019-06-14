@@ -46,7 +46,7 @@ struct CAFFE2_API TableStruct {
 };
 void CAFFE2_API AddDescriptors();
 }  // namespace protobuf_caffe2_2fproto_2fcaffe2_5flegacy_2eproto
-namespace caffe2 {
+namespace caffe2 { const ::std::string& GetEmptyStringAlreadyInited(); 
 class CaffeDatum;
 class CaffeDatumDefaultTypeInternal;
 CAFFE2_API extern CaffeDatumDefaultTypeInternal _CaffeDatum_default_instance_;
@@ -122,7 +122,7 @@ class CAFFE2_API CaffeDatum : public ::google::protobuf::Message /* @@protoc_ins
     return reinterpret_cast<const CaffeDatum*>(
                &_CaffeDatum_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     0;
 
   void Swap(CaffeDatum* other);
@@ -358,7 +358,7 @@ inline void CaffeDatum::clear_has_data() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void CaffeDatum::clear_data() {
-  data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  data_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_data();
 }
 inline const ::std::string& CaffeDatum::data() const {
@@ -367,33 +367,33 @@ inline const ::std::string& CaffeDatum::data() const {
 }
 inline void CaffeDatum::set_data(const ::std::string& value) {
   set_has_data();
-  data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  data_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.CaffeDatum.data)
 }
 #if LANG_CXX11
 inline void CaffeDatum::set_data(::std::string&& value) {
   set_has_data();
   data_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.CaffeDatum.data)
 }
 #endif
 inline void CaffeDatum::set_data(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_data();
-  data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  data_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.CaffeDatum.data)
 }
 inline void CaffeDatum::set_data(const void* value, size_t size) {
   set_has_data();
-  data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  data_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.CaffeDatum.data)
 }
 inline ::std::string* CaffeDatum::mutable_data() {
   set_has_data();
   // @@protoc_insertion_point(field_mutable:caffe2.CaffeDatum.data)
-  return data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return data_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* CaffeDatum::release_data() {
   // @@protoc_insertion_point(field_release:caffe2.CaffeDatum.data)
@@ -401,7 +401,7 @@ inline ::std::string* CaffeDatum::release_data() {
     return NULL;
   }
   clear_has_data();
-  return data_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return data_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void CaffeDatum::set_allocated_data(::std::string* data) {
   if (data != NULL) {
@@ -409,7 +409,7 @@ inline void CaffeDatum::set_allocated_data(::std::string* data) {
   } else {
     clear_has_data();
   }
-  data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), data);
+  data_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), data);
   // @@protoc_insertion_point(field_set_allocated:caffe2.CaffeDatum.data)
 }
 

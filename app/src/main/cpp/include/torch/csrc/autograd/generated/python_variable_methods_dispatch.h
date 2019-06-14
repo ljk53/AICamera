@@ -1378,11 +1378,6 @@ inline Tensor dispatch_neg_(Tensor & self) {
   AutoNoGIL no_gil;
   return self.neg_();
 }
-inline Tensor dispatch_nonzero(Tensor & self) {
-
-  AutoNoGIL no_gil;
-  return self.nonzero();
-}
 inline Tensor dispatch_norm(Tensor & self, Scalar p) {
 
   AutoNoGIL no_gil;

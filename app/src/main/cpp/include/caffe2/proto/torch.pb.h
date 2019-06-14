@@ -47,7 +47,7 @@ struct CAFFE2_API TableStruct {
 };
 void CAFFE2_API AddDescriptors();
 }  // namespace protobuf_caffe2_2fproto_2ftorch_2eproto
-namespace torch {
+namespace torch { const ::std::string& GetEmptyStringAlreadyInited(); 
 class AttributeDef;
 class AttributeDefDefaultTypeInternal;
 CAFFE2_API extern AttributeDefDefaultTypeInternal _AttributeDef_default_instance_;
@@ -144,7 +144,7 @@ class CAFFE2_API RecordRef : public ::google::protobuf::Message /* @@protoc_inse
     return reinterpret_cast<const RecordRef*>(
                &_RecordRef_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     0;
 
   void Swap(RecordRef* other);
@@ -266,7 +266,7 @@ class CAFFE2_API TensorDef : public ::google::protobuf::Message /* @@protoc_inse
     return reinterpret_cast<const TensorDef*>(
                &_TensorDef_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     1;
 
   void Swap(TensorDef* other);
@@ -459,7 +459,7 @@ class CAFFE2_API AttributeDef : public ::google::protobuf::Message /* @@protoc_i
     return reinterpret_cast<const AttributeDef*>(
                &_AttributeDef_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     2;
 
   void Swap(AttributeDef* other);
@@ -612,7 +612,7 @@ class CAFFE2_API ParameterDef : public ::google::protobuf::Message /* @@protoc_i
     return reinterpret_cast<const ParameterDef*>(
                &_ParameterDef_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     3;
 
   void Swap(ParameterDef* other);
@@ -754,7 +754,7 @@ class CAFFE2_API ModuleDef : public ::google::protobuf::Message /* @@protoc_inse
     return reinterpret_cast<const ModuleDef*>(
                &_ModuleDef_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     4;
 
   void Swap(ModuleDef* other);
@@ -993,7 +993,7 @@ class CAFFE2_API LibDef : public ::google::protobuf::Message /* @@protoc_inserti
     return reinterpret_cast<const LibDef*>(
                &_LibDef_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     5;
 
   void Swap(LibDef* other);
@@ -1112,7 +1112,7 @@ class CAFFE2_API ModelDef : public ::google::protobuf::Message /* @@protoc_inser
     return reinterpret_cast<const ModelDef*>(
                &_ModelDef_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     6;
 
   void Swap(ModelDef* other);
@@ -1269,7 +1269,7 @@ inline void RecordRef::clear_has_key() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void RecordRef::clear_key() {
-  key_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  key_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_key();
 }
 inline const ::std::string& RecordRef::key() const {
@@ -1278,33 +1278,33 @@ inline const ::std::string& RecordRef::key() const {
 }
 inline void RecordRef::set_key(const ::std::string& value) {
   set_has_key();
-  key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  key_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:torch.RecordRef.key)
 }
 #if LANG_CXX11
 inline void RecordRef::set_key(::std::string&& value) {
   set_has_key();
   key_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:torch.RecordRef.key)
 }
 #endif
 inline void RecordRef::set_key(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_key();
-  key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  key_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:torch.RecordRef.key)
 }
 inline void RecordRef::set_key(const char* value, size_t size) {
   set_has_key();
-  key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  key_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:torch.RecordRef.key)
 }
 inline ::std::string* RecordRef::mutable_key() {
   set_has_key();
   // @@protoc_insertion_point(field_mutable:torch.RecordRef.key)
-  return key_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return key_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RecordRef::release_key() {
   // @@protoc_insertion_point(field_release:torch.RecordRef.key)
@@ -1312,7 +1312,7 @@ inline ::std::string* RecordRef::release_key() {
     return NULL;
   }
   clear_has_key();
-  return key_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return key_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void RecordRef::set_allocated_key(::std::string* key) {
   if (key != NULL) {
@@ -1320,7 +1320,7 @@ inline void RecordRef::set_allocated_key(::std::string* key) {
   } else {
     clear_has_key();
   }
-  key_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), key);
+  key_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), key);
   // @@protoc_insertion_point(field_set_allocated:torch.RecordRef.key)
 }
 
@@ -1530,7 +1530,7 @@ inline void TensorDef::clear_has_device() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void TensorDef::clear_device() {
-  device_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  device_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_device();
 }
 inline const ::std::string& TensorDef::device() const {
@@ -1539,33 +1539,33 @@ inline const ::std::string& TensorDef::device() const {
 }
 inline void TensorDef::set_device(const ::std::string& value) {
   set_has_device();
-  device_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  device_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:torch.TensorDef.device)
 }
 #if LANG_CXX11
 inline void TensorDef::set_device(::std::string&& value) {
   set_has_device();
   device_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:torch.TensorDef.device)
 }
 #endif
 inline void TensorDef::set_device(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_device();
-  device_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  device_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:torch.TensorDef.device)
 }
 inline void TensorDef::set_device(const char* value, size_t size) {
   set_has_device();
-  device_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  device_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:torch.TensorDef.device)
 }
 inline ::std::string* TensorDef::mutable_device() {
   set_has_device();
   // @@protoc_insertion_point(field_mutable:torch.TensorDef.device)
-  return device_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return device_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* TensorDef::release_device() {
   // @@protoc_insertion_point(field_release:torch.TensorDef.device)
@@ -1573,7 +1573,7 @@ inline ::std::string* TensorDef::release_device() {
     return NULL;
   }
   clear_has_device();
-  return device_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return device_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void TensorDef::set_allocated_device(::std::string* device) {
   if (device != NULL) {
@@ -1581,7 +1581,7 @@ inline void TensorDef::set_allocated_device(::std::string* device) {
   } else {
     clear_has_device();
   }
-  device_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), device);
+  device_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), device);
   // @@protoc_insertion_point(field_set_allocated:torch.TensorDef.device)
 }
 
@@ -1600,7 +1600,7 @@ inline void AttributeDef::clear_has_type() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void AttributeDef::clear_type() {
-  type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  type_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_type();
 }
 inline const ::std::string& AttributeDef::type() const {
@@ -1609,33 +1609,33 @@ inline const ::std::string& AttributeDef::type() const {
 }
 inline void AttributeDef::set_type(const ::std::string& value) {
   set_has_type();
-  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  type_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:torch.AttributeDef.type)
 }
 #if LANG_CXX11
 inline void AttributeDef::set_type(::std::string&& value) {
   set_has_type();
   type_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:torch.AttributeDef.type)
 }
 #endif
 inline void AttributeDef::set_type(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_type();
-  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  type_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:torch.AttributeDef.type)
 }
 inline void AttributeDef::set_type(const char* value, size_t size) {
   set_has_type();
-  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  type_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:torch.AttributeDef.type)
 }
 inline ::std::string* AttributeDef::mutable_type() {
   set_has_type();
   // @@protoc_insertion_point(field_mutable:torch.AttributeDef.type)
-  return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return type_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* AttributeDef::release_type() {
   // @@protoc_insertion_point(field_release:torch.AttributeDef.type)
@@ -1643,7 +1643,7 @@ inline ::std::string* AttributeDef::release_type() {
     return NULL;
   }
   clear_has_type();
-  return type_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return type_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void AttributeDef::set_allocated_type(::std::string* type) {
   if (type != NULL) {
@@ -1651,7 +1651,7 @@ inline void AttributeDef::set_allocated_type(::std::string* type) {
   } else {
     clear_has_type();
   }
-  type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type);
+  type_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), type);
   // @@protoc_insertion_point(field_set_allocated:torch.AttributeDef.type)
 }
 
@@ -1666,7 +1666,7 @@ inline void AttributeDef::clear_has_name() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void AttributeDef::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_name();
 }
 inline const ::std::string& AttributeDef::name() const {
@@ -1675,33 +1675,33 @@ inline const ::std::string& AttributeDef::name() const {
 }
 inline void AttributeDef::set_name(const ::std::string& value) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:torch.AttributeDef.name)
 }
 #if LANG_CXX11
 inline void AttributeDef::set_name(::std::string&& value) {
   set_has_name();
   name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:torch.AttributeDef.name)
 }
 #endif
 inline void AttributeDef::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:torch.AttributeDef.name)
 }
 inline void AttributeDef::set_name(const char* value, size_t size) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:torch.AttributeDef.name)
 }
 inline ::std::string* AttributeDef::mutable_name() {
   set_has_name();
   // @@protoc_insertion_point(field_mutable:torch.AttributeDef.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* AttributeDef::release_name() {
   // @@protoc_insertion_point(field_release:torch.AttributeDef.name)
@@ -1709,7 +1709,7 @@ inline ::std::string* AttributeDef::release_name() {
     return NULL;
   }
   clear_has_name();
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void AttributeDef::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -1717,7 +1717,7 @@ inline void AttributeDef::set_allocated_name(::std::string* name) {
   } else {
     clear_has_name();
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:torch.AttributeDef.name)
 }
 
@@ -1808,7 +1808,7 @@ inline void ParameterDef::clear_has_name() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void ParameterDef::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_name();
 }
 inline const ::std::string& ParameterDef::name() const {
@@ -1817,33 +1817,33 @@ inline const ::std::string& ParameterDef::name() const {
 }
 inline void ParameterDef::set_name(const ::std::string& value) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:torch.ParameterDef.name)
 }
 #if LANG_CXX11
 inline void ParameterDef::set_name(::std::string&& value) {
   set_has_name();
   name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:torch.ParameterDef.name)
 }
 #endif
 inline void ParameterDef::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:torch.ParameterDef.name)
 }
 inline void ParameterDef::set_name(const char* value, size_t size) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:torch.ParameterDef.name)
 }
 inline ::std::string* ParameterDef::mutable_name() {
   set_has_name();
   // @@protoc_insertion_point(field_mutable:torch.ParameterDef.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* ParameterDef::release_name() {
   // @@protoc_insertion_point(field_release:torch.ParameterDef.name)
@@ -1851,7 +1851,7 @@ inline ::std::string* ParameterDef::release_name() {
     return NULL;
   }
   clear_has_name();
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void ParameterDef::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -1859,7 +1859,7 @@ inline void ParameterDef::set_allocated_name(::std::string* name) {
   } else {
     clear_has_name();
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:torch.ParameterDef.name)
 }
 
@@ -2139,7 +2139,7 @@ inline void ModuleDef::clear_has_name() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void ModuleDef::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_name();
 }
 inline const ::std::string& ModuleDef::name() const {
@@ -2148,33 +2148,33 @@ inline const ::std::string& ModuleDef::name() const {
 }
 inline void ModuleDef::set_name(const ::std::string& value) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:torch.ModuleDef.name)
 }
 #if LANG_CXX11
 inline void ModuleDef::set_name(::std::string&& value) {
   set_has_name();
   name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:torch.ModuleDef.name)
 }
 #endif
 inline void ModuleDef::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:torch.ModuleDef.name)
 }
 inline void ModuleDef::set_name(const char* value, size_t size) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:torch.ModuleDef.name)
 }
 inline ::std::string* ModuleDef::mutable_name() {
   set_has_name();
   // @@protoc_insertion_point(field_mutable:torch.ModuleDef.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* ModuleDef::release_name() {
   // @@protoc_insertion_point(field_release:torch.ModuleDef.name)
@@ -2182,7 +2182,7 @@ inline ::std::string* ModuleDef::release_name() {
     return NULL;
   }
   clear_has_name();
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void ModuleDef::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -2190,7 +2190,7 @@ inline void ModuleDef::set_allocated_name(::std::string* name) {
   } else {
     clear_has_name();
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:torch.ModuleDef.name)
 }
 
@@ -2431,7 +2431,7 @@ inline void ModelDef::clear_has_producer_name() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void ModelDef::clear_producer_name() {
-  producer_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  producer_name_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_producer_name();
 }
 inline const ::std::string& ModelDef::producer_name() const {
@@ -2440,33 +2440,33 @@ inline const ::std::string& ModelDef::producer_name() const {
 }
 inline void ModelDef::set_producer_name(const ::std::string& value) {
   set_has_producer_name();
-  producer_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  producer_name_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:torch.ModelDef.producer_name)
 }
 #if LANG_CXX11
 inline void ModelDef::set_producer_name(::std::string&& value) {
   set_has_producer_name();
   producer_name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:torch.ModelDef.producer_name)
 }
 #endif
 inline void ModelDef::set_producer_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_producer_name();
-  producer_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  producer_name_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:torch.ModelDef.producer_name)
 }
 inline void ModelDef::set_producer_name(const char* value, size_t size) {
   set_has_producer_name();
-  producer_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  producer_name_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:torch.ModelDef.producer_name)
 }
 inline ::std::string* ModelDef::mutable_producer_name() {
   set_has_producer_name();
   // @@protoc_insertion_point(field_mutable:torch.ModelDef.producer_name)
-  return producer_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return producer_name_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* ModelDef::release_producer_name() {
   // @@protoc_insertion_point(field_release:torch.ModelDef.producer_name)
@@ -2474,7 +2474,7 @@ inline ::std::string* ModelDef::release_producer_name() {
     return NULL;
   }
   clear_has_producer_name();
-  return producer_name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return producer_name_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void ModelDef::set_allocated_producer_name(::std::string* producer_name) {
   if (producer_name != NULL) {
@@ -2482,7 +2482,7 @@ inline void ModelDef::set_allocated_producer_name(::std::string* producer_name) 
   } else {
     clear_has_producer_name();
   }
-  producer_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), producer_name);
+  producer_name_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), producer_name);
   // @@protoc_insertion_point(field_set_allocated:torch.ModelDef.producer_name)
 }
 
@@ -2497,7 +2497,7 @@ inline void ModelDef::clear_has_producer_version() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void ModelDef::clear_producer_version() {
-  producer_version_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  producer_version_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_producer_version();
 }
 inline const ::std::string& ModelDef::producer_version() const {
@@ -2506,33 +2506,33 @@ inline const ::std::string& ModelDef::producer_version() const {
 }
 inline void ModelDef::set_producer_version(const ::std::string& value) {
   set_has_producer_version();
-  producer_version_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  producer_version_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:torch.ModelDef.producer_version)
 }
 #if LANG_CXX11
 inline void ModelDef::set_producer_version(::std::string&& value) {
   set_has_producer_version();
   producer_version_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:torch.ModelDef.producer_version)
 }
 #endif
 inline void ModelDef::set_producer_version(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_producer_version();
-  producer_version_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  producer_version_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:torch.ModelDef.producer_version)
 }
 inline void ModelDef::set_producer_version(const char* value, size_t size) {
   set_has_producer_version();
-  producer_version_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  producer_version_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:torch.ModelDef.producer_version)
 }
 inline ::std::string* ModelDef::mutable_producer_version() {
   set_has_producer_version();
   // @@protoc_insertion_point(field_mutable:torch.ModelDef.producer_version)
-  return producer_version_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return producer_version_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* ModelDef::release_producer_version() {
   // @@protoc_insertion_point(field_release:torch.ModelDef.producer_version)
@@ -2540,7 +2540,7 @@ inline ::std::string* ModelDef::release_producer_version() {
     return NULL;
   }
   clear_has_producer_version();
-  return producer_version_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return producer_version_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void ModelDef::set_allocated_producer_version(::std::string* producer_version) {
   if (producer_version != NULL) {
@@ -2548,7 +2548,7 @@ inline void ModelDef::set_allocated_producer_version(::std::string* producer_ver
   } else {
     clear_has_producer_version();
   }
-  producer_version_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), producer_version);
+  producer_version_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), producer_version);
   // @@protoc_insertion_point(field_set_allocated:torch.ModelDef.producer_version)
 }
 

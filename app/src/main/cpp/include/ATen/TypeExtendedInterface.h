@@ -174,6 +174,7 @@ struct CAFFE2_API TypeExtendedInterface : public Type {
   virtual int64_t _cufft_get_plan_cache_max_size(int64_t device_index) const = 0;
   virtual void _cufft_set_plan_cache_max_size(int64_t device_index, int64_t max_size) const = 0;
   virtual void _cufft_clear_plan_cache(int64_t device_index) const = 0;
+  virtual Tensor & _index_put_impl_(Tensor & self, TensorList indices, const Tensor & values, bool accumulate, bool unsafe) const = 0;
   virtual Tensor instance_norm(const Tensor & input, const Tensor & weight, const Tensor & bias, const Tensor & running_mean, const Tensor & running_var, bool use_input_stats, double momentum, double eps, bool cudnn_enabled) const = 0;
   virtual Tensor & inverse_out(Tensor & out, const Tensor & self) const = 0;
   virtual Tensor _inverse_helper(const Tensor & self) const = 0;
@@ -182,6 +183,9 @@ struct CAFFE2_API TypeExtendedInterface : public Type {
   virtual Tensor kl_div_backward(const Tensor & grad_output, const Tensor & self, const Tensor & target, int64_t reduction) const = 0;
   virtual std::tuple<Tensor &,Tensor &> kthvalue_out(Tensor & values, Tensor & indices, const Tensor & self, int64_t k, int64_t dim, bool keepdim) const = 0;
   virtual Tensor layer_norm(const Tensor & input, IntArrayRef normalized_shape, const Tensor & weight, const Tensor & bias, double eps, bool cudnn_enable) const = 0;
+  virtual std::tuple<Tensor,Tensor,Tensor> native_layer_norm(const Tensor & input, const Tensor & weight, const Tensor & bias, int64_t M, int64_t N, double eps) const = 0;
+  virtual std::tuple<Tensor,Tensor,Tensor> native_layer_norm_backward(const Tensor & grad_out, const Tensor & input, const Tensor & mean, const Tensor & rstd, const Tensor & weight, int64_t M, int64_t N, std::array<bool,3> output_mask) const = 0;
+  virtual std::tuple<Tensor,Tensor,Tensor> native_layer_norm_double_backward(const Tensor & ggI, const Tensor & ggW, const Tensor & ggb, const Tensor & gO, const Tensor & input, const Tensor & mean, const Tensor & rstd, const Tensor & weight, int64_t M, int64_t N, std::array<bool,3> output_mask) const = 0;
   virtual Tensor linear(const Tensor & input, const Tensor & weight, const Tensor & bias) const = 0;
   virtual Tensor mkldnn_linear(const Tensor & input, const Tensor & weight, const Tensor & bias) const = 0;
   virtual Tensor fbgemm_linear_int8_weight(const Tensor & input, const Tensor & weight, const Tensor & packed, const Tensor & col_offsets, Scalar weight_scale, Scalar weight_zero_point, const Tensor & bias) const = 0;
@@ -302,6 +306,8 @@ struct CAFFE2_API TypeExtendedInterface : public Type {
   virtual Tensor & round_out(Tensor & out, const Tensor & self) const = 0;
   virtual Tensor rrelu(const Tensor & self, Scalar lower, Scalar upper, bool training, Generator * generator) const = 0;
   virtual Tensor & rrelu_(Tensor & self, Scalar lower, Scalar upper, bool training, Generator * generator) const = 0;
+  virtual Tensor gelu(const Tensor & self) const = 0;
+  virtual Tensor gelu_backward(const Tensor & grad, const Tensor & self) const = 0;
   virtual Tensor & rsqrt_out(Tensor & out, const Tensor & self) const = 0;
   virtual Tensor selu(const Tensor & self) const = 0;
   virtual Tensor & selu_(Tensor & self) const = 0;
@@ -340,6 +346,8 @@ struct CAFFE2_API TypeExtendedInterface : public Type {
   virtual Tensor & threshold_out(Tensor & out, const Tensor & self, Scalar threshold, Scalar value) const = 0;
   virtual Tensor threshold_backward(const Tensor & grad_output, const Tensor & self, Scalar threshold) const = 0;
   virtual Tensor one_hot(const Tensor & self, int64_t num_classes) const = 0;
+  virtual Tensor trapz(const Tensor & y, const Tensor & x, int64_t dim) const = 0;
+  virtual Tensor trapz(const Tensor & y, double dx, int64_t dim) const = 0;
   virtual Tensor _trilinear(const Tensor & i1, const Tensor & i2, const Tensor & i3, IntArrayRef expand1, IntArrayRef expand2, IntArrayRef expand3, IntArrayRef sumdim, int64_t unroll_dim) const = 0;
   virtual Tensor triplet_margin_loss(const Tensor & anchor, const Tensor & positive, const Tensor & negative, double margin, double p, double eps, bool swap, int64_t reduction) const = 0;
   virtual Tensor & trunc_out(Tensor & out, const Tensor & self) const = 0;
@@ -364,6 +372,7 @@ struct CAFFE2_API TypeExtendedInterface : public Type {
   virtual Tensor zeros_like(const Tensor & self, const TensorOptions & options) const = 0;
   virtual Tensor _standard_gamma_grad(const Tensor & self, const Tensor & output) const = 0;
   virtual Tensor _standard_gamma(const Tensor & self, Generator * generator) const = 0;
+  virtual Tensor _dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total) const = 0;
   virtual Tensor _sample_dirichlet(const Tensor & self, Generator * generator) const = 0;
   virtual Tensor poisson(const Tensor & self, Generator * generator) const = 0;
   virtual Tensor native_norm(const Tensor & self, Scalar p) const = 0;
@@ -379,6 +388,8 @@ struct CAFFE2_API TypeExtendedInterface : public Type {
   virtual Tensor & frobenius_norm_out(Tensor & out, const Tensor & self, IntArrayRef dim, bool keepdim) const = 0;
   virtual Tensor nuclear_norm(const Tensor & self, bool keepdim) const = 0;
   virtual Tensor & nuclear_norm_out(Tensor & out, const Tensor & self, bool keepdim) const = 0;
+  virtual Tensor nuclear_norm(const Tensor & self, IntArrayRef dim, bool keepdim) const = 0;
+  virtual Tensor & nuclear_norm_out(Tensor & out, const Tensor & self, IntArrayRef dim, bool keepdim) const = 0;
   virtual Tensor & pow_out(Tensor & out, const Tensor & self, Scalar exponent) const = 0;
   virtual Tensor & sub_out(Tensor & out, const Tensor & self, const Tensor & other, Scalar alpha) const = 0;
   virtual Tensor rsub(const Tensor & self, const Tensor & other, Scalar alpha) const = 0;
@@ -509,8 +520,6 @@ struct CAFFE2_API TypeExtendedInterface : public Type {
   virtual Tensor normal(double mean, const Tensor & std, Generator * generator) const = 0;
   virtual Tensor & normal_out(Tensor & out, const Tensor & mean, const Tensor & std, Generator * generator) const = 0;
   virtual Tensor normal(const Tensor & mean, const Tensor & std, Generator * generator) const = 0;
-  virtual Tensor & _dirichlet_grad_out(Tensor & out, const Tensor & x, const Tensor & alpha, const Tensor & total) const = 0;
-  virtual Tensor _dirichlet_grad(const Tensor & x, const Tensor & alpha, const Tensor & total) const = 0;
   virtual Tensor _addr(const Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta, Scalar alpha) const = 0;
   virtual Tensor & _addr_(Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta, Scalar alpha) const = 0;
   virtual Tensor & _addr_out(Tensor & out, const Tensor & self, const Tensor & vec1, const Tensor & vec2, Scalar beta, Scalar alpha) const = 0;

@@ -4,7 +4,7 @@
 
 #include <ATen/CPUTypeDefault.h>
 #include <ATen/Context.h>
-#include <ATen/CheckGenerator.h>
+#include <ATen/Utils.h>
 
 #include <ATen/DeviceGuard.h>
 #include <ATen/cuda/ATenCUDAGeneral.h>
@@ -36,6 +36,9 @@ struct SparseCUDAType final : public CUDATypeDefault {
   Tensor & log1p_out(Tensor & out, const Tensor & self) const override;
   Tensor mm(const Tensor & self, const Tensor & mat2) const override;
   Tensor & mm_out(Tensor & out, const Tensor & self, const Tensor & mat2) const override;
+  Tensor mul(const Tensor & self, const Tensor & other) const override;
+  Tensor & mul_(Tensor & self, const Tensor & other) const override;
+  Tensor & mul_out(Tensor & out, const Tensor & self, const Tensor & other) const override;
   Tensor narrow_copy(const Tensor & self, int64_t dim, int64_t start, int64_t length) const override;
   Tensor & _sparse_add_out(Tensor & out, const Tensor & self, const Tensor & other, Scalar alpha) const override;
   Tensor & _sparse_div_zerodim_out(Tensor & out, const Tensor & self, const Tensor & other) const override;

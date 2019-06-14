@@ -45,7 +45,7 @@ struct CAFFE2_API TableStruct {
 };
 void CAFFE2_API AddDescriptors();
 }  // namespace protobuf_caffe2_2fproto_2fprof_5fdag_2eproto
-namespace caffe2 {
+namespace caffe2 { const ::std::string& GetEmptyStringAlreadyInited(); 
 class BlobProfile;
 class BlobProfileDefaultTypeInternal;
 CAFFE2_API extern BlobProfileDefaultTypeInternal _BlobProfile_default_instance_;
@@ -112,7 +112,7 @@ class CAFFE2_API TwoNumberStatsProto : public ::google::protobuf::Message /* @@p
     return reinterpret_cast<const TwoNumberStatsProto*>(
                &_TwoNumberStatsProto_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     0;
 
   void Swap(TwoNumberStatsProto* other);
@@ -246,7 +246,7 @@ class CAFFE2_API BlobProfile : public ::google::protobuf::Message /* @@protoc_in
     return reinterpret_cast<const BlobProfile*>(
                &_BlobProfile_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     1;
 
   void Swap(BlobProfile* other);
@@ -383,7 +383,7 @@ class CAFFE2_API ProfDAGProto : public ::google::protobuf::Message /* @@protoc_i
     return reinterpret_cast<const ProfDAGProto*>(
                &_ProfDAGProto_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     2;
 
   void Swap(ProfDAGProto* other);
@@ -579,7 +579,7 @@ class CAFFE2_API ProfDAGProtos : public ::google::protobuf::Message /* @@protoc_
     return reinterpret_cast<const ProfDAGProtos*>(
                &_ProfDAGProtos_default_instance_);
   }
-  static constexpr int kIndexInFileMessages =
+  static int const kIndexInFileMessages =
     3;
 
   void Swap(ProfDAGProtos* other);
@@ -769,7 +769,7 @@ inline void BlobProfile::clear_has_name() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void BlobProfile::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_name();
 }
 inline const ::std::string& BlobProfile::name() const {
@@ -778,33 +778,33 @@ inline const ::std::string& BlobProfile::name() const {
 }
 inline void BlobProfile::set_name(const ::std::string& value) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.BlobProfile.name)
 }
 #if LANG_CXX11
 inline void BlobProfile::set_name(::std::string&& value) {
   set_has_name();
   name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.BlobProfile.name)
 }
 #endif
 inline void BlobProfile::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.BlobProfile.name)
 }
 inline void BlobProfile::set_name(const char* value, size_t size) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.BlobProfile.name)
 }
 inline ::std::string* BlobProfile::mutable_name() {
   set_has_name();
   // @@protoc_insertion_point(field_mutable:caffe2.BlobProfile.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* BlobProfile::release_name() {
   // @@protoc_insertion_point(field_release:caffe2.BlobProfile.name)
@@ -812,7 +812,7 @@ inline ::std::string* BlobProfile::release_name() {
     return NULL;
   }
   clear_has_name();
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void BlobProfile::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -820,7 +820,7 @@ inline void BlobProfile::set_allocated_name(::std::string* name) {
   } else {
     clear_has_name();
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:caffe2.BlobProfile.name)
 }
 
@@ -897,7 +897,7 @@ inline void ProfDAGProto::clear_has_name() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void ProfDAGProto::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_name();
 }
 inline const ::std::string& ProfDAGProto::name() const {
@@ -906,33 +906,33 @@ inline const ::std::string& ProfDAGProto::name() const {
 }
 inline void ProfDAGProto::set_name(const ::std::string& value) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.ProfDAGProto.name)
 }
 #if LANG_CXX11
 inline void ProfDAGProto::set_name(::std::string&& value) {
   set_has_name();
   name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.ProfDAGProto.name)
 }
 #endif
 inline void ProfDAGProto::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.ProfDAGProto.name)
 }
 inline void ProfDAGProto::set_name(const char* value, size_t size) {
   set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.ProfDAGProto.name)
 }
 inline ::std::string* ProfDAGProto::mutable_name() {
   set_has_name();
   // @@protoc_insertion_point(field_mutable:caffe2.ProfDAGProto.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* ProfDAGProto::release_name() {
   // @@protoc_insertion_point(field_release:caffe2.ProfDAGProto.name)
@@ -940,7 +940,7 @@ inline ::std::string* ProfDAGProto::release_name() {
     return NULL;
   }
   clear_has_name();
-  return name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void ProfDAGProto::set_allocated_name(::std::string* name) {
   if (name != NULL) {
@@ -948,7 +948,7 @@ inline void ProfDAGProto::set_allocated_name(::std::string* name) {
   } else {
     clear_has_name();
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  name_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:caffe2.ProfDAGProto.name)
 }
 
@@ -1202,7 +1202,7 @@ inline void ProfDAGProtos::clear_has_net_name() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void ProfDAGProtos::clear_net_name() {
-  net_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  net_name_.ClearToEmptyNoArena(&GetEmptyStringAlreadyInited());
   clear_has_net_name();
 }
 inline const ::std::string& ProfDAGProtos::net_name() const {
@@ -1211,33 +1211,33 @@ inline const ::std::string& ProfDAGProtos::net_name() const {
 }
 inline void ProfDAGProtos::set_net_name(const ::std::string& value) {
   set_has_net_name();
-  net_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  net_name_.SetNoArena(&GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:caffe2.ProfDAGProtos.net_name)
 }
 #if LANG_CXX11
 inline void ProfDAGProtos::set_net_name(::std::string&& value) {
   set_has_net_name();
   net_name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+    &GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:caffe2.ProfDAGProtos.net_name)
 }
 #endif
 inline void ProfDAGProtos::set_net_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_net_name();
-  net_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  net_name_.SetNoArena(&GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:caffe2.ProfDAGProtos.net_name)
 }
 inline void ProfDAGProtos::set_net_name(const char* value, size_t size) {
   set_has_net_name();
-  net_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  net_name_.SetNoArena(&GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:caffe2.ProfDAGProtos.net_name)
 }
 inline ::std::string* ProfDAGProtos::mutable_net_name() {
   set_has_net_name();
   // @@protoc_insertion_point(field_mutable:caffe2.ProfDAGProtos.net_name)
-  return net_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return net_name_.MutableNoArena(&GetEmptyStringAlreadyInited());
 }
 inline ::std::string* ProfDAGProtos::release_net_name() {
   // @@protoc_insertion_point(field_release:caffe2.ProfDAGProtos.net_name)
@@ -1245,7 +1245,7 @@ inline ::std::string* ProfDAGProtos::release_net_name() {
     return NULL;
   }
   clear_has_net_name();
-  return net_name_.ReleaseNonDefaultNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return net_name_.ReleaseNonDefaultNoArena(&GetEmptyStringAlreadyInited());
 }
 inline void ProfDAGProtos::set_allocated_net_name(::std::string* net_name) {
   if (net_name != NULL) {
@@ -1253,7 +1253,7 @@ inline void ProfDAGProtos::set_allocated_net_name(::std::string* net_name) {
   } else {
     clear_has_net_name();
   }
-  net_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), net_name);
+  net_name_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), net_name);
   // @@protoc_insertion_point(field_set_allocated:caffe2.ProfDAGProtos.net_name)
 }
 
