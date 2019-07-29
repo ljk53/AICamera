@@ -29,7 +29,8 @@
 static std::string storage_dir;
 static std::string debug_file_prefix;
 static float input_data[MAX_DATA_SIZE];
-static std::shared_ptr<torch::jit::script::Module> module;
+static torch::jit::script::Module module;
+static bool is_loaded;
 //static at::Tensor input{torch::zeros({1, IMG_C, IMG_H, IMG_W})};
 static int debug_counter;
 
@@ -81,6 +82,7 @@ Java_facebook_f8demo_ClassifyCamera_initModel(
     std::ifstream input(p);
     alog("JKL %s", p.c_str());
     module = torch::jit::load(input);
+    is_loaded = true;
 }
 
 float avg_fps = 0.0;
@@ -95,7 +97,7 @@ Java_facebook_f8demo_ClassifyCamera_classification(
         jint h, jint w, jbyteArray Y, jbyteArray U, jbyteArray V,
         jint rowStride, jint pixelStride,
         jboolean infer_HWC) {
-    if (!module) {
+    if (!is_loaded) {
         return env->NewStringUTF("Loading...");
     }
     jbyte * Y_data = env->GetByteArrayElements(Y, 0);
@@ -149,7 +151,7 @@ Java_facebook_f8demo_ClassifyCamera_classification(
     inputs.push_back(input);
 
     auto start = std::chrono::system_clock::now();
-    at::Tensor output = module->forward(inputs).toTensor();
+    at::Tensor output = module.forward(inputs).toTensor();
     auto end = std::chrono::system_clock::now();
 
     float fps = 1000 / std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
@@ -177,7 +179,7 @@ Java_facebook_f8demo_ClassifyCamera_classification(
     }
 
     std::ostringstream stringStream;
-    stringStream << avg_fps << " FPS\n";
+    stringStream << avg_fps << " FPS!\n";
     //stringStream << output.slice(/*dim=*/1, /*start=*/0, /*end=*/5) << "\n";
 
     for (auto j = 0; j < k; ++j) {

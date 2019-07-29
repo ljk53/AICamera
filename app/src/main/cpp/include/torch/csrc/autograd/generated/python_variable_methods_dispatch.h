@@ -428,6 +428,11 @@ inline Tensor dispatch_atan_(Tensor & self) {
   AutoNoGIL no_gil;
   return self.atan_();
 }
+inline void dispatch_backward(Tensor & self, const Tensor & gradient, bool keep_graph, bool create_graph) {
+
+  AutoNoGIL no_gil;
+  return self.backward(gradient, keep_graph, create_graph);
+}
 inline Tensor dispatch_baddbmm(Scalar beta, Tensor & self, Scalar alpha, const Tensor & batch1, const Tensor & batch2) {
 
   AutoNoGIL no_gil;
@@ -482,6 +487,16 @@ inline Tensor dispatch_bincount(Tensor & self, const Tensor & weights, int64_t m
 
   AutoNoGIL no_gil;
   return self.bincount(weights, minlength);
+}
+inline Tensor dispatch_bitwise_not(Tensor & self) {
+
+  AutoNoGIL no_gil;
+  return self.bitwise_not();
+}
+inline Tensor dispatch_bitwise_not_(Tensor & self) {
+
+  AutoNoGIL no_gil;
+  return self.bitwise_not_();
 }
 inline Tensor dispatch_bmm(Tensor & self, const Tensor & mat2) {
 
@@ -588,22 +603,12 @@ inline Tensor dispatch_cross(Tensor & self, const Tensor & other, c10::optional<
   AutoNoGIL no_gil;
   return self.cross(other, dim);
 }
-inline Tensor dispatch_cumprod(Tensor & self, int64_t dim) {
-
-  AutoNoGIL no_gil;
-  return self.cumprod(dim);
-}
-inline Tensor dispatch_cumprod(Tensor & self, int64_t dim, ScalarType dtype) {
+inline Tensor dispatch_cumprod(Tensor & self, int64_t dim, c10::optional<ScalarType> dtype) {
 
   AutoNoGIL no_gil;
   return self.cumprod(dim, dtype);
 }
-inline Tensor dispatch_cumsum(Tensor & self, int64_t dim) {
-
-  AutoNoGIL no_gil;
-  return self.cumsum(dim);
-}
-inline Tensor dispatch_cumsum(Tensor & self, int64_t dim, ScalarType dtype) {
+inline Tensor dispatch_cumsum(Tensor & self, int64_t dim, c10::optional<ScalarType> dtype) {
 
   AutoNoGIL no_gil;
   return self.cumsum(dim, dtype);
@@ -792,6 +797,11 @@ inline Tensor dispatch_fill_(Tensor & self, Scalar value) {
 
   AutoNoGIL no_gil;
   return self.fill_(value);
+}
+inline Tensor dispatch_fill_diagonal_(Tensor & self, Scalar fill_value, bool wrap) {
+
+  AutoNoGIL no_gil;
+  return self.fill_diagonal_(fill_value, wrap);
 }
 inline Tensor dispatch_flatten(Tensor & self, int64_t start_dim, int64_t end_dim) {
 
@@ -1143,12 +1153,7 @@ inline Tensor dispatch_log_normal_(Tensor & self, double mean, double std, Gener
   AutoNoGIL no_gil;
   return self.log_normal_(mean, std, generator);
 }
-inline Tensor dispatch_log_softmax(Tensor & self, int64_t dim) {
-
-  AutoNoGIL no_gil;
-  return self.log_softmax(dim);
-}
-inline Tensor dispatch_log_softmax(Tensor & self, int64_t dim, ScalarType dtype) {
+inline Tensor dispatch_log_softmax(Tensor & self, int64_t dim, c10::optional<ScalarType> dtype) {
 
   AutoNoGIL no_gil;
   return self.log_softmax(dim, dtype);
@@ -1248,30 +1253,15 @@ inline std::tuple<Tensor,Tensor> dispatch_max(Tensor & self, int64_t dim, bool k
   AutoNoGIL no_gil;
   return self.max(dim, keepdim);
 }
-inline Tensor dispatch_mean(Tensor & self) {
-
-  AutoNoGIL no_gil;
-  return self.mean();
-}
-inline Tensor dispatch_mean(Tensor & self, ScalarType dtype) {
+inline Tensor dispatch_mean(Tensor & self, c10::optional<ScalarType> dtype) {
 
   AutoNoGIL no_gil;
   return self.mean(dtype);
 }
-inline Tensor dispatch_mean(Tensor & self, IntArrayRef dim, ScalarType dtype) {
-
-  AutoNoGIL no_gil;
-  return self.mean(dim, dtype);
-}
-inline Tensor dispatch_mean(Tensor & self, IntArrayRef dim, bool keepdim, ScalarType dtype) {
+inline Tensor dispatch_mean(Tensor & self, IntArrayRef dim, bool keepdim, c10::optional<ScalarType> dtype) {
 
   AutoNoGIL no_gil;
   return self.mean(dim, keepdim, dtype);
-}
-inline Tensor dispatch_mean(Tensor & self, IntArrayRef dim, bool keepdim) {
-
-  AutoNoGIL no_gil;
-  return self.mean(dim, keepdim);
 }
 inline Tensor dispatch_median(Tensor & self) {
 
@@ -1468,47 +1458,27 @@ inline Tensor dispatch_prelu(Tensor & self, const Tensor & weight) {
   AutoNoGIL no_gil;
   return self.prelu(weight);
 }
-inline Tensor dispatch_prod(Tensor & self) {
-
-  AutoNoGIL no_gil;
-  return self.prod();
-}
-inline Tensor dispatch_prod(Tensor & self, ScalarType dtype) {
+inline Tensor dispatch_prod(Tensor & self, c10::optional<ScalarType> dtype) {
 
   AutoNoGIL no_gil;
   return self.prod(dtype);
 }
-inline Tensor dispatch_prod(Tensor & self, int64_t dim, ScalarType dtype) {
-
-  AutoNoGIL no_gil;
-  return self.prod(dim, dtype);
-}
-inline Tensor dispatch_prod(Tensor & self, int64_t dim, bool keepdim, ScalarType dtype) {
+inline Tensor dispatch_prod(Tensor & self, int64_t dim, bool keepdim, c10::optional<ScalarType> dtype) {
 
   AutoNoGIL no_gil;
   return self.prod(dim, keepdim, dtype);
-}
-inline Tensor dispatch_prod(Tensor & self, int64_t dim, bool keepdim) {
-
-  AutoNoGIL no_gil;
-  return self.prod(dim, keepdim);
-}
-inline std::tuple<Tensor,Tensor> dispatch_pstrf(Tensor & self, bool upper, Scalar tol) {
-
-  AutoNoGIL no_gil;
-  return self.pstrf(upper, tol);
 }
 inline Tensor dispatch_put_(Tensor & self, const Tensor & index, const Tensor & source, bool accumulate) {
 
   AutoNoGIL no_gil;
   return self.put_(index, source, accumulate);
 }
-inline Scalar dispatch_q_scale(Tensor & self) {
+inline double dispatch_q_scale(Tensor & self) {
 
   AutoNoGIL no_gil;
   return self.q_scale();
 }
-inline Scalar dispatch_q_zero_point(Tensor & self) {
+inline int64_t dispatch_q_zero_point(Tensor & self) {
 
   AutoNoGIL no_gil;
   return self.q_zero_point();
@@ -1517,6 +1487,11 @@ inline std::tuple<Tensor,Tensor> dispatch_qr(Tensor & self, bool some) {
 
   AutoNoGIL no_gil;
   return self.qr(some);
+}
+inline QScheme dispatch_qscheme(Tensor & self) {
+
+  AutoNoGIL no_gil;
+  return self.qscheme();
 }
 inline Tensor dispatch_random_(Tensor & self, Generator * generator) {
 
@@ -1758,12 +1733,7 @@ inline Tensor dispatch_smm(Tensor & self, const Tensor & mat2) {
   AutoNoGIL no_gil;
   return self.smm(mat2);
 }
-inline Tensor dispatch_softmax(Tensor & self, int64_t dim) {
-
-  AutoNoGIL no_gil;
-  return self.softmax(dim);
-}
-inline Tensor dispatch_softmax(Tensor & self, int64_t dim, ScalarType dtype) {
+inline Tensor dispatch_softmax(Tensor & self, int64_t dim, c10::optional<ScalarType> dtype) {
 
   AutoNoGIL no_gil;
   return self.softmax(dim, dtype);
@@ -1888,30 +1858,15 @@ inline Tensor dispatch_sub_(Tensor & self, const Tensor & other, Scalar alpha) {
   AutoNoGIL no_gil;
   return self.sub_(other, alpha);
 }
-inline Tensor dispatch_sum(Tensor & self) {
-
-  AutoNoGIL no_gil;
-  return self.sum();
-}
-inline Tensor dispatch_sum(Tensor & self, ScalarType dtype) {
+inline Tensor dispatch_sum(Tensor & self, c10::optional<ScalarType> dtype) {
 
   AutoNoGIL no_gil;
   return self.sum(dtype);
 }
-inline Tensor dispatch_sum(Tensor & self, IntArrayRef dim, ScalarType dtype) {
-
-  AutoNoGIL no_gil;
-  return self.sum(dim, dtype);
-}
-inline Tensor dispatch_sum(Tensor & self, IntArrayRef dim, bool keepdim, ScalarType dtype) {
+inline Tensor dispatch_sum(Tensor & self, IntArrayRef dim, bool keepdim, c10::optional<ScalarType> dtype) {
 
   AutoNoGIL no_gil;
   return self.sum(dim, keepdim, dtype);
-}
-inline Tensor dispatch_sum(Tensor & self, IntArrayRef dim, bool keepdim) {
-
-  AutoNoGIL no_gil;
-  return self.sum(dim, keepdim);
 }
 inline Tensor dispatch_sum_to_size(Tensor & self, IntArrayRef size) {
 

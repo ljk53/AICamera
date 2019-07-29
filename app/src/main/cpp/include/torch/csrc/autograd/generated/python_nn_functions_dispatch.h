@@ -54,25 +54,25 @@ inline std::tuple<Tensor,Tensor> dispatch_adaptive_max_pool3d(const Tensor & sel
   AutoNoGIL no_gil;
   return at::adaptive_max_pool3d(self, output_size);
 }
-inline Tensor dispatch_avg_pool2d(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad, Tensor out) {
+inline Tensor dispatch_avg_pool2d(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad, c10::optional<int64_t> divisor_override, Tensor out) {
 
   AutoNoGIL no_gil;
-  return at::avg_pool2d_out(out, self, kernel_size, stride, padding, ceil_mode, count_include_pad);
+  return at::avg_pool2d_out(out, self, kernel_size, stride, padding, ceil_mode, count_include_pad, divisor_override);
 }
-inline Tensor dispatch_avg_pool2d(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad) {
+inline Tensor dispatch_avg_pool2d(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad, c10::optional<int64_t> divisor_override) {
 
   AutoNoGIL no_gil;
-  return at::avg_pool2d(self, kernel_size, stride, padding, ceil_mode, count_include_pad);
+  return at::avg_pool2d(self, kernel_size, stride, padding, ceil_mode, count_include_pad, divisor_override);
 }
-inline Tensor dispatch_avg_pool3d(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad, Tensor out) {
+inline Tensor dispatch_avg_pool3d(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad, c10::optional<int64_t> divisor_override, Tensor out) {
 
   AutoNoGIL no_gil;
-  return at::avg_pool3d_out(out, self, kernel_size, stride, padding, ceil_mode, count_include_pad);
+  return at::avg_pool3d_out(out, self, kernel_size, stride, padding, ceil_mode, count_include_pad, divisor_override);
 }
-inline Tensor dispatch_avg_pool3d(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad) {
+inline Tensor dispatch_avg_pool3d(const Tensor & self, IntArrayRef kernel_size, IntArrayRef stride, IntArrayRef padding, bool ceil_mode, bool count_include_pad, c10::optional<int64_t> divisor_override) {
 
   AutoNoGIL no_gil;
-  return at::avg_pool3d(self, kernel_size, stride, padding, ceil_mode, count_include_pad);
+  return at::avg_pool3d(self, kernel_size, stride, padding, ceil_mode, count_include_pad, divisor_override);
 }
 inline Tensor dispatch_binary_cross_entropy(const Tensor & self, const Tensor & target, const Tensor & weight, int64_t reduction, Tensor out) {
 
@@ -83,6 +83,46 @@ inline Tensor dispatch_binary_cross_entropy(const Tensor & self, const Tensor & 
 
   AutoNoGIL no_gil;
   return at::binary_cross_entropy(self, target, weight, reduction);
+}
+inline Tensor dispatch_col2im(const Tensor & self, IntArrayRef output_size, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride, Tensor out) {
+
+  AutoNoGIL no_gil;
+  return at::col2im_out(out, self, output_size, kernel_size, dilation, padding, stride);
+}
+inline Tensor dispatch_col2im(const Tensor & self, IntArrayRef output_size, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride) {
+
+  AutoNoGIL no_gil;
+  return at::col2im(self, output_size, kernel_size, dilation, padding, stride);
+}
+inline Tensor dispatch_conv_dilated2d(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation) {
+
+  AutoNoGIL no_gil;
+  return at::conv_dilated2d(self, weight, kernel_size, bias, stride, padding, dilation);
+}
+inline Tensor dispatch_conv_dilated3d(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation) {
+
+  AutoNoGIL no_gil;
+  return at::conv_dilated3d(self, weight, kernel_size, bias, stride, padding, dilation);
+}
+inline Tensor dispatch_conv_transpose2d(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation, Tensor out) {
+
+  AutoNoGIL no_gil;
+  return at::conv_transpose2d_out(out, self, weight, kernel_size, bias, stride, padding, output_padding, dilation);
+}
+inline Tensor dispatch_conv_transpose2d(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation) {
+
+  AutoNoGIL no_gil;
+  return at::conv_transpose2d(self, weight, kernel_size, bias, stride, padding, output_padding, dilation);
+}
+inline Tensor dispatch_conv_transpose3d(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation, Tensor out) {
+
+  AutoNoGIL no_gil;
+  return at::conv_transpose3d_out(out, self, weight, kernel_size, bias, stride, padding, output_padding, dilation);
+}
+inline Tensor dispatch_conv_transpose3d(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation) {
+
+  AutoNoGIL no_gil;
+  return at::conv_transpose3d(self, weight, kernel_size, bias, stride, padding, output_padding, dilation);
 }
 inline Tensor dispatch_elu(const Tensor & self, Scalar alpha, Scalar scale, Scalar input_scale, Tensor out) {
 
@@ -148,6 +188,16 @@ inline Tensor dispatch_hardtanh_(Tensor self, Scalar min_val, Scalar max_val) {
 
   AutoNoGIL no_gil;
   return at::hardtanh_(self, min_val, max_val);
+}
+inline Tensor dispatch_im2col(const Tensor & self, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride, Tensor out) {
+
+  AutoNoGIL no_gil;
+  return at::im2col_out(out, self, kernel_size, dilation, padding, stride);
+}
+inline Tensor dispatch_im2col(const Tensor & self, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride) {
+
+  AutoNoGIL no_gil;
+  return at::im2col(self, kernel_size, dilation, padding, stride);
 }
 inline Tensor dispatch_l1_loss(const Tensor & self, const Tensor & target, int64_t reduction, Tensor out) {
 
@@ -399,11 +449,6 @@ inline Tensor dispatch_softshrink(const Tensor & self, Scalar lambd) {
   AutoNoGIL no_gil;
   return at::softshrink(self, lambd);
 }
-inline Tensor dispatch_thnn_col2im(const Tensor & self, IntArrayRef output_size, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride) {
-
-  AutoNoGIL no_gil;
-  return at::thnn_col2im(self, output_size, kernel_size, dilation, padding, stride);
-}
 inline Tensor dispatch_thnn_conv2d(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, Tensor out) {
 
   AutoNoGIL no_gil;
@@ -433,51 +478,6 @@ inline Tensor dispatch_thnn_conv_depthwise2d(const Tensor & self, const Tensor &
 
   AutoNoGIL no_gil;
   return at::thnn_conv_depthwise2d(self, weight, kernel_size, bias, stride, padding, dilation);
-}
-inline Tensor dispatch_thnn_conv_dilated2d(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, Tensor out) {
-
-  AutoNoGIL no_gil;
-  return at::thnn_conv_dilated2d_out(out, self, weight, kernel_size, bias, stride, padding, dilation);
-}
-inline Tensor dispatch_thnn_conv_dilated2d(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation) {
-
-  AutoNoGIL no_gil;
-  return at::thnn_conv_dilated2d(self, weight, kernel_size, bias, stride, padding, dilation);
-}
-inline Tensor dispatch_thnn_conv_dilated3d(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation, Tensor out) {
-
-  AutoNoGIL no_gil;
-  return at::thnn_conv_dilated3d_out(out, self, weight, kernel_size, bias, stride, padding, dilation);
-}
-inline Tensor dispatch_thnn_conv_dilated3d(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef dilation) {
-
-  AutoNoGIL no_gil;
-  return at::thnn_conv_dilated3d(self, weight, kernel_size, bias, stride, padding, dilation);
-}
-inline Tensor dispatch_thnn_conv_transpose2d(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation, Tensor out) {
-
-  AutoNoGIL no_gil;
-  return at::thnn_conv_transpose2d_out(out, self, weight, kernel_size, bias, stride, padding, output_padding, dilation);
-}
-inline Tensor dispatch_thnn_conv_transpose2d(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation) {
-
-  AutoNoGIL no_gil;
-  return at::thnn_conv_transpose2d(self, weight, kernel_size, bias, stride, padding, output_padding, dilation);
-}
-inline Tensor dispatch_thnn_conv_transpose3d(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation, Tensor out) {
-
-  AutoNoGIL no_gil;
-  return at::thnn_conv_transpose3d_out(out, self, weight, kernel_size, bias, stride, padding, output_padding, dilation);
-}
-inline Tensor dispatch_thnn_conv_transpose3d(const Tensor & self, const Tensor & weight, IntArrayRef kernel_size, const Tensor & bias, IntArrayRef stride, IntArrayRef padding, IntArrayRef output_padding, IntArrayRef dilation) {
-
-  AutoNoGIL no_gil;
-  return at::thnn_conv_transpose3d(self, weight, kernel_size, bias, stride, padding, output_padding, dilation);
-}
-inline Tensor dispatch_thnn_im2col(const Tensor & self, IntArrayRef kernel_size, IntArrayRef dilation, IntArrayRef padding, IntArrayRef stride) {
-
-  AutoNoGIL no_gil;
-  return at::thnn_im2col(self, kernel_size, dilation, padding, stride);
 }
 inline Tensor dispatch_upsample_bicubic2d(const Tensor & self, IntArrayRef output_size, bool align_corners, Tensor out) {
 

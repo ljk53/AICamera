@@ -377,6 +377,13 @@ class CAFFE2_API TensorDef : public ::google::protobuf::Message /* @@protoc_inse
   ::google::protobuf::int64 offset() const;
   void set_offset(::google::protobuf::int64 value);
 
+  // optional .caffe2.TensorProto.DataType data_type = 5;
+  bool has_data_type() const;
+  void clear_data_type();
+  static const int kDataTypeFieldNumber = 5;
+  ::caffe2::TensorProto_DataType data_type() const;
+  void set_data_type(::caffe2::TensorProto_DataType value);
+
   // optional bool requires_grad = 4;
   bool has_requires_grad() const;
   void clear_requires_grad();
@@ -384,12 +391,26 @@ class CAFFE2_API TensorDef : public ::google::protobuf::Message /* @@protoc_inse
   bool requires_grad() const;
   void set_requires_grad(bool value);
 
-  // optional .caffe2.TensorProto.DataType data_type = 5;
-  bool has_data_type() const;
-  void clear_data_type();
-  static const int kDataTypeFieldNumber = 5;
-  ::caffe2::TensorProto_DataType data_type() const;
-  void set_data_type(::caffe2::TensorProto_DataType value);
+  // optional bool is_quantized = 8;
+  bool has_is_quantized() const;
+  void clear_is_quantized();
+  static const int kIsQuantizedFieldNumber = 8;
+  bool is_quantized() const;
+  void set_is_quantized(bool value);
+
+  // optional double scale = 9;
+  bool has_scale() const;
+  void clear_scale();
+  static const int kScaleFieldNumber = 9;
+  double scale() const;
+  void set_scale(double value);
+
+  // optional int64 zero_point = 10;
+  bool has_zero_point() const;
+  void clear_zero_point();
+  static const int kZeroPointFieldNumber = 10;
+  ::google::protobuf::int64 zero_point() const;
+  void set_zero_point(::google::protobuf::int64 value);
 
   // @@protoc_insertion_point(class_scope:torch.TensorDef)
  private:
@@ -403,6 +424,12 @@ class CAFFE2_API TensorDef : public ::google::protobuf::Message /* @@protoc_inse
   void clear_has_data();
   void set_has_device();
   void clear_has_device();
+  void set_has_is_quantized();
+  void clear_has_is_quantized();
+  void set_has_scale();
+  void clear_has_scale();
+  void set_has_zero_point();
+  void clear_has_zero_point();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
@@ -412,8 +439,11 @@ class CAFFE2_API TensorDef : public ::google::protobuf::Message /* @@protoc_inse
   ::google::protobuf::internal::ArenaStringPtr device_;
   ::torch::RecordRef* data_;
   ::google::protobuf::int64 offset_;
-  bool requires_grad_;
   int data_type_;
+  bool requires_grad_;
+  bool is_quantized_;
+  double scale_;
+  ::google::protobuf::int64 zero_point_;
   friend struct ::protobuf_caffe2_2fproto_2ftorch_2eproto::TableStruct;
 };
 // -------------------------------------------------------------------
@@ -906,6 +936,18 @@ class CAFFE2_API ModuleDef : public ::google::protobuf::Message /* @@protoc_inse
   ::torch::RecordRef* mutable_cpp_arena();
   void set_allocated_cpp_arena(::torch::RecordRef* cpp_arena);
 
+  // optional .torch.RecordRef torchscript_debug_arena = 11;
+  bool has_torchscript_debug_arena() const;
+  void clear_torchscript_debug_arena();
+  static const int kTorchscriptDebugArenaFieldNumber = 11;
+  private:
+  const ::torch::RecordRef& _internal_torchscript_debug_arena() const;
+  public:
+  const ::torch::RecordRef& torchscript_debug_arena() const;
+  ::torch::RecordRef* release_torchscript_debug_arena();
+  ::torch::RecordRef* mutable_torchscript_debug_arena();
+  void set_allocated_torchscript_debug_arena(::torch::RecordRef* torchscript_debug_arena);
+
   // optional int64 get_state_attribute_id = 10;
   bool has_get_state_attribute_id() const;
   void clear_get_state_attribute_id();
@@ -934,6 +976,8 @@ class CAFFE2_API ModuleDef : public ::google::protobuf::Message /* @@protoc_inse
   void clear_has_optimize();
   void set_has_get_state_attribute_id();
   void clear_has_get_state_attribute_id();
+  void set_has_torchscript_debug_arena();
+  void clear_has_torchscript_debug_arena();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
@@ -946,6 +990,7 @@ class CAFFE2_API ModuleDef : public ::google::protobuf::Message /* @@protoc_inse
   ::torch::RecordRef* torchscript_arena_;
   ::torch::RecordRef* pickle_arena_;
   ::torch::RecordRef* cpp_arena_;
+  ::torch::RecordRef* torchscript_debug_arena_;
   ::google::protobuf::int64 get_state_attribute_id_;
   bool optimize_;
   friend struct ::protobuf_caffe2_2fproto_2ftorch_2eproto::TableStruct;
@@ -1414,13 +1459,13 @@ TensorDef::mutable_strides() {
 
 // optional bool requires_grad = 4;
 inline bool TensorDef::has_requires_grad() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+  return (_has_bits_[0] & 0x00000010u) != 0;
 }
 inline void TensorDef::set_has_requires_grad() {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000010u;
 }
 inline void TensorDef::clear_has_requires_grad() {
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline void TensorDef::clear_requires_grad() {
   requires_grad_ = false;
@@ -1438,13 +1483,13 @@ inline void TensorDef::set_requires_grad(bool value) {
 
 // optional .caffe2.TensorProto.DataType data_type = 5;
 inline bool TensorDef::has_data_type() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
+  return (_has_bits_[0] & 0x00000008u) != 0;
 }
 inline void TensorDef::set_has_data_type() {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000008u;
 }
 inline void TensorDef::clear_has_data_type() {
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline void TensorDef::clear_data_type() {
   data_type_ = 0;
@@ -1583,6 +1628,78 @@ inline void TensorDef::set_allocated_device(::std::string* device) {
   }
   device_.SetAllocatedNoArena(&GetEmptyStringAlreadyInited(), device);
   // @@protoc_insertion_point(field_set_allocated:torch.TensorDef.device)
+}
+
+// optional bool is_quantized = 8;
+inline bool TensorDef::has_is_quantized() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void TensorDef::set_has_is_quantized() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void TensorDef::clear_has_is_quantized() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void TensorDef::clear_is_quantized() {
+  is_quantized_ = false;
+  clear_has_is_quantized();
+}
+inline bool TensorDef::is_quantized() const {
+  // @@protoc_insertion_point(field_get:torch.TensorDef.is_quantized)
+  return is_quantized_;
+}
+inline void TensorDef::set_is_quantized(bool value) {
+  set_has_is_quantized();
+  is_quantized_ = value;
+  // @@protoc_insertion_point(field_set:torch.TensorDef.is_quantized)
+}
+
+// optional double scale = 9;
+inline bool TensorDef::has_scale() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void TensorDef::set_has_scale() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void TensorDef::clear_has_scale() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void TensorDef::clear_scale() {
+  scale_ = 0;
+  clear_has_scale();
+}
+inline double TensorDef::scale() const {
+  // @@protoc_insertion_point(field_get:torch.TensorDef.scale)
+  return scale_;
+}
+inline void TensorDef::set_scale(double value) {
+  set_has_scale();
+  scale_ = value;
+  // @@protoc_insertion_point(field_set:torch.TensorDef.scale)
+}
+
+// optional int64 zero_point = 10;
+inline bool TensorDef::has_zero_point() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void TensorDef::set_has_zero_point() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void TensorDef::clear_has_zero_point() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void TensorDef::clear_zero_point() {
+  zero_point_ = GOOGLE_LONGLONG(0);
+  clear_has_zero_point();
+}
+inline ::google::protobuf::int64 TensorDef::zero_point() const {
+  // @@protoc_insertion_point(field_get:torch.TensorDef.zero_point)
+  return zero_point_;
+}
+inline void TensorDef::set_zero_point(::google::protobuf::int64 value) {
+  set_has_zero_point();
+  zero_point_ = value;
+  // @@protoc_insertion_point(field_set:torch.TensorDef.zero_point)
 }
 
 // -------------------------------------------------------------------
@@ -2196,13 +2313,13 @@ inline void ModuleDef::set_allocated_name(::std::string* name) {
 
 // optional bool optimize = 8;
 inline bool ModuleDef::has_optimize() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
+  return (_has_bits_[0] & 0x00000040u) != 0;
 }
 inline void ModuleDef::set_has_optimize() {
-  _has_bits_[0] |= 0x00000020u;
+  _has_bits_[0] |= 0x00000040u;
 }
 inline void ModuleDef::clear_has_optimize() {
-  _has_bits_[0] &= ~0x00000020u;
+  _has_bits_[0] &= ~0x00000040u;
 }
 inline void ModuleDef::clear_optimize() {
   optimize_ = false;
@@ -2250,13 +2367,13 @@ ModuleDef::attributes() const {
 
 // optional int64 get_state_attribute_id = 10;
 inline bool ModuleDef::has_get_state_attribute_id() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
+  return (_has_bits_[0] & 0x00000020u) != 0;
 }
 inline void ModuleDef::set_has_get_state_attribute_id() {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000020u;
 }
 inline void ModuleDef::clear_has_get_state_attribute_id() {
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline void ModuleDef::clear_get_state_attribute_id() {
   get_state_attribute_id_ = GOOGLE_LONGLONG(0);
@@ -2270,6 +2387,64 @@ inline void ModuleDef::set_get_state_attribute_id(::google::protobuf::int64 valu
   set_has_get_state_attribute_id();
   get_state_attribute_id_ = value;
   // @@protoc_insertion_point(field_set:torch.ModuleDef.get_state_attribute_id)
+}
+
+// optional .torch.RecordRef torchscript_debug_arena = 11;
+inline bool ModuleDef::has_torchscript_debug_arena() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void ModuleDef::set_has_torchscript_debug_arena() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void ModuleDef::clear_has_torchscript_debug_arena() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void ModuleDef::clear_torchscript_debug_arena() {
+  if (torchscript_debug_arena_ != NULL) torchscript_debug_arena_->Clear();
+  clear_has_torchscript_debug_arena();
+}
+inline const ::torch::RecordRef& ModuleDef::_internal_torchscript_debug_arena() const {
+  return *torchscript_debug_arena_;
+}
+inline const ::torch::RecordRef& ModuleDef::torchscript_debug_arena() const {
+  const ::torch::RecordRef* p = torchscript_debug_arena_;
+  // @@protoc_insertion_point(field_get:torch.ModuleDef.torchscript_debug_arena)
+  return p != NULL ? *p : *reinterpret_cast<const ::torch::RecordRef*>(
+      &::torch::_RecordRef_default_instance_);
+}
+inline ::torch::RecordRef* ModuleDef::release_torchscript_debug_arena() {
+  // @@protoc_insertion_point(field_release:torch.ModuleDef.torchscript_debug_arena)
+  clear_has_torchscript_debug_arena();
+  ::torch::RecordRef* temp = torchscript_debug_arena_;
+  torchscript_debug_arena_ = NULL;
+  return temp;
+}
+inline ::torch::RecordRef* ModuleDef::mutable_torchscript_debug_arena() {
+  set_has_torchscript_debug_arena();
+  if (torchscript_debug_arena_ == NULL) {
+    auto* p = CreateMaybeMessage<::torch::RecordRef>(GetArenaNoVirtual());
+    torchscript_debug_arena_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:torch.ModuleDef.torchscript_debug_arena)
+  return torchscript_debug_arena_;
+}
+inline void ModuleDef::set_allocated_torchscript_debug_arena(::torch::RecordRef* torchscript_debug_arena) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete torchscript_debug_arena_;
+  }
+  if (torchscript_debug_arena) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      torchscript_debug_arena = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, torchscript_debug_arena, submessage_arena);
+    }
+    set_has_torchscript_debug_arena();
+  } else {
+    clear_has_torchscript_debug_arena();
+  }
+  torchscript_debug_arena_ = torchscript_debug_arena;
+  // @@protoc_insertion_point(field_set_allocated:torch.ModuleDef.torchscript_debug_arena)
 }
 
 // -------------------------------------------------------------------
